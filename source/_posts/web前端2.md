@@ -36,36 +36,36 @@ font-size:30px|设定字体大小
 color:white|设定字体颜色
 
 ```html
-	<div style="color:lightslategray; margin:auto; width:500px;">
-			<p style="text-align:center;">
-				<span style="background-color:gray; color:white; font-size:24px">雪国</span>
-			</p>
-			<p>
-				<b>穿过县界长长的隧道，便是雪国</b>。<span style="color:#9F9F9F";>夜空下一片白茫茫。火车在信号所前停了下来。</span>
-			</p>
-			<p>
-				一位姑娘从对面座位上站起身子，把岛村座位前的玻璃窗打开。<b>一股冷空气卷袭进来。</b>姑娘将身子探出窗外，仿佛向远方呼唤似地喊道：“站长先生，站长先生！”
-			</p>
-			<p>
-				一个把围巾缠到鼻子上、帽耳聋拉在耳朵边的男子，<span style="color:rosybrown";>手拎提灯，踏着雪缓步走了过来。</span>
-			</p>
-	</div>
+<div style="color:lightslategray; margin:auto; width:500px;">
+	<p style="text-align:center;">
+		<span style="background-color:gray; color:white; font-size:24px">雪国</span>
+	</p>
+	<p>
+		<b>穿过县界长长的隧道，便是雪国</b>。<span style="color:#9F9F9F";>夜空下一片白茫茫。火车在信号所前停了下来。</span>
+	</p>
+	<p>
+		一位姑娘从对面座位上站起身子，把岛村座位前的玻璃窗打开。<b>一股冷空气卷袭进来。</b>姑娘将身子探出窗外，仿佛向远方呼唤似地喊道：“站长先生，站长先生！”
+	</p>
+	<p>
+		一个把围巾缠到鼻子上、帽耳聋拉在耳朵边的男子，<span style="color:rosybrown";>手拎提灯，踏着雪缓步走了过来。</span>
+	</p>
+</div>
 ```
 显示效果：
 <div style="color:lightslategray; margin:auto; width:500px;">
-			<p style="text-align:center;">
-				<span style="background-color:gray; color:white; font-size:24px">雪国</span>
-			</p>
-			<p>
-				<b>穿过县界长长的隧道，便是雪国</b>。<span style="color:#9F9F9F";>夜空下一片白茫茫。火车在信号所前停了下来。</span>
-			</p>
-			<p>
-				一位姑娘从对面座位上站起身子，把岛村座位前的玻璃窗打开。<b>一股冷空气卷袭进来。</b>姑娘将身子探出窗外，仿佛向远方呼唤似地喊道：“站长先生，站长先生！”
-			</p>
-			<p>
-				一个把围巾缠到鼻子上、帽耳聋拉在耳朵边的男子，<span style="color:rosybrown";>手拎提灯，踏着雪缓步走了过来。</span>
-			</p>
-		</div>
+	<p style="text-align:center;">
+		<span style="background-color:gray; color:white; font-size:24px">雪国</span>
+	</p>
+	<p>
+		<b>穿过县界长长的隧道，便是雪国</b>。<span style="color:#9F9F9F";>夜空下一片白茫茫。火车在信号所前停了下来。</span>
+	</p>
+	<p>
+		一位姑娘从对面座位上站起身子，把岛村座位前的玻璃窗打开。<b>一股冷空气卷袭进来。</b>姑娘将身子探出窗外，仿佛向远方呼唤似地喊道：“站长先生，站长先生！”
+	</p>
+	<p>
+		一个把围巾缠到鼻子上、帽耳聋拉在耳朵边的男子，<span style="color:rosybrown";>手拎提灯，踏着雪缓步走了过来。</span>
+	</p>
+</div>
 
 # 选择器
 ## 选择器类别
@@ -149,81 +149,6 @@ ID选择器|#box{...}|100
 选择器选择的范围越小越精确，优先级就越高。
 display属性可以改变元素的显示角色：inline，block
 
-## 例子
-```html
-<!DOCTYPE html>
-<html style="background-color: antiquewhite;">
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-	</head>
-	<body style="margin:0">
-		<div id="banner">
-			<img src="/image/1.jpg" style="width:100%; height:500px;">
-		</div>
-		<div id="navigation" style="height:80px; line-height:80px; text-align:center;">
-			<a href="#" style="margin:0 15px;">首页</a>
-			<a href="#" style="margin:0 15px;">归档</a>
-			<a href="#" style="margin:0 15px;">分类</a>
-			<a href="#" style="margin:0 15px;">标签</a>
-			<a href="#" style="margin:0 15px;">关于</a>
-			<a href="#" style="margin:0 15px;">友链</a>
-		</div>
-		<div id="bottom" style="height:40px; line-height:40px; text-align:center; background-color:#ddd; color:gray; font-size: 13px;">
-			版权所有：FEHEK的学习&nbsp;技术支持懒懒散散实验室
-		</div>
-	</body>
-</html>
-```
-改成用选择器：
-```html
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title></title>
-		<style>
-			html{
-				background-color: antiquewhite;
-			}
-			body{
-				margin:0;
-			}
-			#navigation{
-				height:80px; line-height:80px; text-align:center;
-			}
-			#bottom{
-				height:40px; line-height:40px; text-align:center; background-color:#ddd; color:gray; font-size: 13px;
-			}
-			.nav{
-				style="margin:0 15px;
-			}
-			#banner img{
-				width:100%; height:500px;
-			}
-		</style>
-	</head>
-	<body>
-		<div id="banner">
-			<img src="/image/1.jpg">
-		</div>
-		<div id="navigation">
-			<a href="#" class="nav">首页</a>
-			<a href="#" class="nav">归档</a>
-			<a href="#" class="nav">分类</a>
-			<a href="#" class="nav">标签</a>
-			<a href="#" class="nav">关于</a>
-			<a href="#" class="nav">友链</a>
-		</div>
-		<div id="bottom">
-			版权所有：FEHEK的学习&nbsp;技术支持懒懒散散实验室
-		</div>
-	</body>
-</html>
-
-```
-效果：<img src="/image/post/web前端2.jpg">
-
 # 盒模型
 content-box:
 <img src="/image/post/content_box.jpg">
@@ -239,6 +164,7 @@ cm|厘米
 mm|毫米
 pt|点，1/72 inch
 pc|12点活字（12pt），1/6 inch
+
 大部分时候不准，取决于分辨率及系统设置，用的较少。
 打印时比较准。
 
@@ -385,6 +311,7 @@ color: #FF9700|rgb转化成16进制
 [perspective](https://developer.mozilla.org/zh-CN/docs/Web/CSS/perspective)|景深
 [translate3d()](https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform-function/translate3d)|3d变换
 [transform-style](https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform-style)|preserve-3d/flat
+
 hover相关：
 hover之前的transform属性不会和hover时的transform同时起效。
 若hover之前的transform和之后的属性和顺序相同，会做指定变换。若不相同，会沿着最短距离直接到达hover状态。
@@ -397,12 +324,12 @@ hover之前的transform属性不会和hover时的transform同时起效。
 2. width、margin-left、margin-right可以取值为auto。其余属性必须设置为特定值，或者默认宽度为0。若这3个属性都设置为非auto的某个值，这时格式化属性过分受限（overconstrained），总会把margin-right强制为auto。
 3. margin可能为负。margin-left的计算结果不能为负，但可以声明为负值。
 4. 关于auto
- - 0个auto：margin-right 被重置为 auto
- - 1个auto：计算出它
- - 2个auto：
-	- 2个都在 margin 上，则两边 margin 相同
-	- 其中1个在 width 上，则 width 占据尽量多的空间，另一个 auto 为0。
- - 3个auto：width 占据尽量多的空间，margin-l/r 都为0
+- 0个auto：margin-right 被重置为 auto
+- 1个auto：计算出它
+- 2个auto：
+2个都在 margin 上，则两边 margin 相同。
+其中1个在 width 上，则 width 占据尽量多的空间，另一个 auto 为0。
+3个auto：width 占据尽量多的空间，margin-l/r 都为0
 5. 替换元素
 - 替换元素用`style="dispalay:block;`可将其变成块级元素。
 - 若width为auto，元素的宽度是内容的固有宽度。

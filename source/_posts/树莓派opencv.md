@@ -12,15 +12,15 @@ banner_img: /image/banner/raspberry.jpg
 
 # 下载相关工具及包
 + 安装OpenCV相关工具
-```
+```bash
 sudo apt install build-essential cmake git pkg-config libgtk-3-dev libcanberra-gtk*
 sudo apt install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev
 sudo apt install libjpeg-dev libpng-dev libtiff-dev gfortran openexr libatlas-base-dev opencl-headers
 sudo apt install python3-dev python3-numpy libtbb2 libtbb-dev libdc1394-22-dev
-````
+```
 
 + 创建一个新目录并从 Github 克隆 OpenCV 和 OpenCV contrib 存储库
-```
+```bash
 mkdir ~/opencv_build
 cd ~/opencv_build
 git clone https://github.com/opencv/opencv.git
@@ -28,14 +28,14 @@ git clone https://github.com/opencv/opencv_contrib.git
 ```
 
 + 创建一个临时构建目录，然后切换到该目录
-```
+```bash
 mkdir -p ~/opencv_build/opencv/build
 cd ~/opencv_build/opencv/build
 ```
 
 # 编译
 + 设置编译参数，"\\" 代表将代码延续到下一行
-```
+```bash
 cmake -D CMAKE_BUILD_TYPE=RELEASE \
     -D CMAKE_INSTALL_PREFIX=/usr/local \
     -D INSTALL_C_EXAMPLES=OFF \
@@ -50,7 +50,7 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
 ```
 
 + 输出结果
-```
+```bash
 ...
 -- Configuring done
 -- Generating done
@@ -58,7 +58,7 @@ cmake -D CMAKE_BUILD_TYPE=RELEASE \
 ```
 
 + 开始编译
-```
+```bash
 make -j4
 ```
 花费时间很长，请耐心等待
@@ -69,7 +69,7 @@ make -j4
 提示缺少boostdesc_bgm.i文件，将此[文件](https://pcs.baidu.com/rest/2.0/pcs/file?method=download&app_id=778750&filename=boostdesc_bgm.i%E7%AD%89.zip&path=%2Fshare%2Fboostdesc_bgm.i%E7%AD%89.zip&filename=boostdesc_bgm.i%E7%AD%89.zip)拷贝到opencv_contrib/modules/xfeatures2d/src/目录下
 
 + 结束后会出现
-```
+```bash
 ...
 [100%] Linking CXX shared module ../../lib/python3/cv2.cpython-35m-arm-linux-gnueabihf.so
 [100%] Built target opencv_python3
@@ -77,11 +77,11 @@ make -j4
 
 # 验证成功
 + C++ 库
-```
+```bash
 pkg-config --modversion opencv4
 ```
 + Python 库
-```
+```bash
 python3 -c "import cv2; print(cv2.__version__)"
 ```
 若成功安装，会输出版本号

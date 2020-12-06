@@ -15,4 +15,5 @@ Dec|Hex|char|功能
 48|30|0|0
 65|41|A|A
 97|61|a|a
+
 Windows采用CRLF(odoa)进行换行，UNIX/Linux采用LF(oa)换行，MAC OS采用CR(od)换行。

@@ -124,9 +124,9 @@ text
 ***为了方便，我一般用\&nbsp;，想空几行就在每个空行打一个\&nbsp;。***
 
 ## 列表
-有序列表：数字 + 点
-无序列表：文字前加 “-/+/\*”
-嵌套只需要在符号前加Tab
+有序列表：`数字 + 点`
+无序列表：`- / + / * + 文字`
+嵌套只需要在符号前加 `Tab`
 
 ## 表格
 ```markdown
@@ -179,15 +179,9 @@ text
 [blog](/https://Fehek.xyz "Fehek的博客")
 
 # 输出emoji
-几个比较常用的：
 ```markdown
-:laughing: :smirk: :flushed: :unamused: :sweat: :sob: :joy: :scream:
-:rage: :sunglasses: :smiling_imp: :broken_heart: :sparkles: :collision: :anger: :exclamation:
-:question: :wave: 
+:laughing: :smirk: :exclamation: :question: :octocat:
 ```
-:laughing: :smirk: :flushed: :unamused: :sweat: :sob: :joy: :scream:
-:rage: :sunglasses: :smiling_imp: :broken_heart: :sparkles: :collision: :anger: :exclamation:
-:question: :wave:
-找到了github图标:octocat:
+:laughing: :smirk: :exclamation: :question: :octocat:
 更多：https://www.webfx.com/tools/emoji-cheat-sheet/
 https://www.einsition.com/tools/emojicheatsheet

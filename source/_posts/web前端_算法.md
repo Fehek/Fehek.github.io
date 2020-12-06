@@ -483,3 +483,65 @@ banner_img:
     return left.concat(middle, right)
   }
 ```
+
+# 反转链表
+```js
+var reverseList = function(head) {
+    let prev = null
+    let curr = head
+    while (curr) {
+      let tmp = curr.next
+      curr.next = prev
+      prev = curr
+      curr = tmp
+    }
+    return prev
+};
+```
+
+# 反转位置 m 到 n 的链表
+```js
+var reverseBetween = function(head, m, n) {
+  let curr = head
+  let next = head
+  let prev = null
+  for (let i = 1; i < m; i++){
+    prev = curr
+    curr = curr.next
+  }
+
+  let prev2 = prev
+  let curr2 = curr
+  for(let i = m; i <= n; i++){
+    next = curr.next
+    curr.next = prev
+    prev = curr
+    curr = next
+  }
+  if(prev2 != null){
+    prev2.next = prev
+  }else{
+    head = prev
+  }
+  curr2.next = curr
+  return head
+};
+```
+
+# 两两交换链表中的节点
+```js
+var swapPairs = function(head) {
+  let dummy = new ListNode()
+  dummy.next = head
+  let p = dummy
+  while(p.next && p.next.next){
+    let n1 = p.next
+    let n2 = p.next.next
+    p.next = n2
+    n1.next = n2.next
+    n2.next = n1
+    p = n1
+  }
+  return dummy.next
+}
+```
