@@ -232,7 +232,7 @@ set.delete(val)|删除某个值，删除成功返回true，否则返回false
 set.clear()|清除所有成员
 const set = new Set([...a, ...b]);|a与b数组的交集
 
-# 替代for循环
+# 高阶函数
 ## map
 - 对数组中每一项运行给定函数，返回每次函数调用的结果组成的数组。
 
@@ -288,10 +288,71 @@ var arr = people.filter(function(item){return item.isChecked})
 var arr = people.filter(item => item.isChecked)
 ```
 
+## forEach
+- forEach()对数组中的每一项运行给定函数，没有返回值。本质上跟for没有区别，只是写法不一样。
+
+**for方式**
+```js
+// 给每个人都加上一个属性gender，设置为male
+
+for(var i = 0; i < people.length; i++){
+  people[i].gender = 'male'
+}
+```
+**forEach方式**
+```js
+var arr = people.forEach(function(item){item.gender = 'male'})
+
+// es6写法
+var arr = people.forEach(item => {item.gender = 'male'})
+```
+
+## reduce
+- [reduce()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce)：每个元素执行一个提供的reducer函数(升序执行)，将其结果汇总为单个返回值。一般用在累计累加上。
+**for方式**
+```js
+var sum = 0,arr = [1,2,3,4,5,6];
+for(var i=0; i<arr.length; i++){
+    sum += arr[i]
+}
+```
+**reduce方式**
+```js
+sum = arr.reduce(function (a,b) {return a + b})
+
+// es6写法
+sum = arr.reduce((a,b)=>{return a + b})
+```
+**reduce实现**
+```js
+function reduce(ary, reducer, result) {
+  var start = 0
+  if (result == undefined) {
+    result = ary[0]
+    start = 1
+  }
+  for (var i = start; i < ary.length; i++) {
+    result = reducer(result, ary[i], i, ary)
+  }
+  return result
+}
+```
+
 ## every 和 some
 - every()对数组中的每一项运行给定函数，如果该函数对每一项都返回true，则返回true。
 - some()对数组中的每一项运行给定函数，如果该函数对任一项返回true，则返回true。
 
+**every实现**
+```js
+function every(ary, test) {
+  for (var i = 0; i < ary.length; i++) {
+    if (!test(ary[i], i, ary)) {
+      return false
+    }
+  }
+  return true
+}
+```
 **for写法**
 ```js
 // 要求每个人都签到才能合格
@@ -312,7 +373,19 @@ var arr = people.every(function(item){return item.isChecked})
 // es6写法
 var arr = people.every(item => item.isChecked)
 ```
+<hr>
 
+**some实现**
+```js
+function some(ary, test) {
+  for (var i = 0; i < ary.length; i++) {
+    if (!test(ary[i], i, ary)) {
+      return true
+    }
+  }
+  return false
+}
+```
 **for写法**
 ```js
 // 要求任意一次都签到就能合格
@@ -334,25 +407,58 @@ var arr = people.some(function(item){return item.isChecked})
 var arr = people.some(item => item.isChecked)
 ```
 
-## forEach
-- forEach()对数组中的每一项运行给定函数，没有返回值。本质上跟for没有区别，只是写法不一样。
-
-**for方式**
+## find 和 findIndex
+- find：返回传入一个测试条件（函数）符合条件的数组第一个元素。
+- findIndex：返回传入一个测试条件（函数）符合条件的数组第一个元素位置。
+**find实现**
 ```js
-// 给每个人都加上一个属性gender，设置为male
-
-for(var i = 0; i < people.length; i++){
-  people[i].gender = 'male'
+function find(ary, predicate) {
+  for (var i = 0; i < ary.length; i++) {
+    if (predicate(ary[i], i, ary)) {
+      return i
+    }
+  }
 }
 ```
-**forEach方式**
+**findIndex实现**
 ```js
-var arr = people.forEach(function(item){item.gender = 'male'})
+function findIndex(ary, predicate) {
+  for (var i = 0; i < ary.length; i++) {
+    if (predicate(ary[i], i, ary)) {
+      return ary[i]
+    }
+  }
+}
+```
+**例子**
+```js
+// 找出第一个大于30的元素
+var getItem, arr = [11, 22, 33, 44, 55, 66]
+for (var i = 0; i < ary.length; i++) {
+  if (arr[i] > 30) {
+    getItem = arr[i]
+    break
+  }
+}
 
-//es6写法
-var arr = people.forEach(item => {item.gender = 'male'})
+// find写法
+arr.find(function (val) { return val > 30 })
+// es6写法
+arr.find(val => val > 30)
+```
+```js
+// 找出第一个大于30的元素的位置
+var getItemIndex, arr = [11, 22, 33, 44, 55, 66]
+for (var i = 0; i < ary.length; i++) {
+  if (arr[i] > 30) {
+    getItemIndex = i
+    break
+  }
+}
+
+// findIndex写法
+arr.findIndex(function (val) { return val > 30 })
+// es6写法
+arr.findIndex(val => val > 30)
 ```
 
-## reduce
-
-## find 和 findIndex
