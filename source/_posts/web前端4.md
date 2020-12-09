@@ -72,7 +72,7 @@ num << 1，相当于num乘以2。
 - 带符号右移 >>
 高位补符号位，即正数补0，负数补1。
 num >> 1，相当于num除以2，并向下取整Math.floor(num/2)
-- 无符号右移 >>> 
+- 无符号右移 >>>
 忽略符号位，高位补0。
 移完以后的数字永远当正数理解。
 
@@ -415,7 +415,7 @@ var arr = people.some(item => item.isChecked)
 function find(ary, predicate) {
   for (var i = 0; i < ary.length; i++) {
     if (predicate(ary[i], i, ary)) {
-      return i
+      return ary[i]
     }
   }
 }
@@ -425,7 +425,7 @@ function find(ary, predicate) {
 function findIndex(ary, predicate) {
   for (var i = 0; i < ary.length; i++) {
     if (predicate(ary[i], i, ary)) {
-      return ary[i]
+      return i
     }
   }
 }
@@ -462,3 +462,31 @@ arr.findIndex(function (val) { return val > 30 })
 arr.findIndex(val => val > 30)
 ```
 
+## bind
+```js
+function bind(f, ...fixedArgs) {
+  return function (...args) {
+    return f(...fixedArgs, ...args)
+  }
+}
+```
+
+# 二叉树
+## 特殊二叉树
+-|满二叉树(Full Binary Tree)|完全二叉树(Complete Binary Tree)
+:-:|:-|:-
+概念|是每一层上的节点数都是最大节点数|若除最后一层外的其余层都是满的，并且最后一层要么是满的，要么在右边缺少连续若干节点
+总结点k|2<sup>h</sup> - 1|2<sup>h-1</sup> <= k <= 2<sup>h</sup> - 1
+树高h|log<sub>2</sub>(k + 1)|log<sub>2</sub>k + 1
+其它|第 i 层有 2<sup>i-1</sup> 个结点|
+
+
+- 二叉查找树（Binary Search Tree）
+
+一棵空树 或者 具有下列性质的二叉树：
+1. 若任意节点的左子树不空，则左子树上所有节点的值均小于它的根节点的值；
+2. 若任意节点的右子树不空，则右子树上所有节点的值均大于或等于它的根节点的值；
+3. 任意节点的左、右子树也分别为二叉查找树。
+
+## 遍历二叉树
+前（先）序、中序、后序遍历
