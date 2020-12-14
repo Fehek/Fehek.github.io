@@ -482,11 +482,142 @@ function bind(f, ...fixedArgs) {
 
 
 - 二叉查找树（Binary Search Tree）
-
 一棵空树 或者 具有下列性质的二叉树：
 1. 若任意节点的左子树不空，则左子树上所有节点的值均小于它的根节点的值；
 2. 若任意节点的右子树不空，则右子树上所有节点的值均大于或等于它的根节点的值；
 3. 任意节点的左、右子树也分别为二叉查找树。
+BST 的中序遍历，节点值的打印顺序是递增的。
+
+- 平衡二叉树
+一棵空树 或者
+1. 保证左右子树的高度之差不大于 1
+2. 子树也必须是一颗平衡二叉树
+
 
 ## 遍历二叉树
-前（先）序、中序、后序遍历
+遍历左子树L、访问根结点D和遍历右子树R。
+先序遍历二叉树的顺序是DLR，中序遍历二叉树的顺序是LDR，后序遍历二叉树的顺序是LRD。
+
+## DFS和BFS
+**DFS(Deep First Search)**
+- 深度优先搜索
+- 实现方式：利用栈和递归来实现
+- 适用场景：快速发现底部节点
+```js
+// 递归实现
+function deepTraversal(node, nodeList) {
+  if (node) {
+    nodeList.push(node)
+    var children = node.children
+    for (var i = 0; i < children.length; i++)
+      deepTraversal(children[i], nodeList)
+  }
+  return nodeList
+}
+var root = document.getElementById('root')
+console.log(deepTraversal(root, nodeList = []))
+// 思路：
+// 1.创建一个数组存放最终结果
+// 2.当节点不为空时将节点push进去数组里面
+// 3.获取儿子 遍历儿子节点
+// 4.递归
+```
+```js
+// 非递归实现
+function deepTraversal(node) {
+  var nodeList = []
+  if (node) {
+    var stack = []
+    stack.push(node)
+    while (stack.length != 0) {
+      var childrenItem = stack.pop()
+      nodeList.push(childrenItem)
+      var childrenList = childrenItem.children
+      for (var i = childrenList.length - 1; i >= 0; i--)
+        stack.push(childrenList[i])
+    }
+  }
+  return nodeList
+}
+var root = document.getElementById('root')
+console.log(deepTraversal(root))
+```
+
+**BFS(Breath First Search)**
+- 广度优先搜索
+- 实现方式：利用队列和递归来实现
+- 适用场景：寻找最短路径的问题
+```js
+function wideTraversal(node) {
+  var nodeList = []
+  if (node != null) {
+    var queue = []
+    queue.unshift(node)
+    while (queue.length != 0) {
+      var item = queue.shift()
+      nodeList.push(item)
+      var children = item.children
+      for (var i = 0; i < children.length; i++)
+        queue.push(children[i])
+    }
+  }
+  return nodeList
+}
+var root = document.getElementById('root')
+console.log(wideTraversal(root))
+// 思路
+// 1.创建一个nodeList存放最终结果
+// 2.创建一个队列存放
+// 3.当队列不为空时，获取队列第一个元素 ，存进nodeList
+// 4.遍历所有的儿子节点，存进队列尾部
+// 5.队列为空时退出循环并结束
+```
+
+# Object
+- [Object.prototype.toString()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/toString)：返回一个表示该对象的字符串。
+  - toString() 是 Object 的原型方法，调用该方法，默认返回当前对象的 [[Class]] 。这是一个内部属性，其格式为 [object Xxx] ，其中 Xxx 就是对象的类型。
+  - 对于 Object 对象，直接调用 toString()  就能返回 [object Object] 。而对于其他对象，则需要通过 call / apply 来调用才能返回正确的类型信息。
+
+```js
+Object.prototype.toString.call('')            // [object String]
+Object.prototype.toString.call(1)             // [object Number]
+Object.prototype.toString.call(true)          // [object Boolean]
+Object.prototype.toString.call(Symbol())      // [object Symbol]
+Object.prototype.toString.call(undefined)     // [object Undefined]
+Object.prototype.toString.call(null)          // [object Null]
+Object.prototype.toString.call(newFunction()) // [object Function]
+Object.prototype.toString.call(newDate())     // [object Date]
+Object.prototype.toString.call([])            // [object Array]
+Object.prototype.toString.call(newRegExp())   // [object RegExp]
+Object.prototype.toString.call(newError())    // [object Error]
+Object.prototype.toString.call(document)      // [object HTMLDocument]
+Object.prototype.toString.call(window)        // [object global] window 是全局对象 global 的引用
+```
+
+- [Object.create()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/create)：创建一个新对象，使用现有的对象来提供新创建的对象的__proto__。
+
+
+- [Object.defineProperty()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty)：直接在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回此对象。
+
+```js
+Object.defineProperty(obj, 'baz', {
+  value: 11,            
+  enumerable: false,    // 是否可枚举（在for in中出现）
+  writable: true,       // 是否可修改（写入）
+  configurable: false,  // 是否可以重新定义（可配置）
+})
+```
+
+# call, apply, bind
+- [Function.prototype.call()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/call)
+  - 使用一个指定的 this 值和单独给出的一个或多个参数来调用一个函数。
+  - 语法：`function.call(thisArg, arg1, arg2, ...)`
+
+- [Function.prototype.apply()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/apply)
+  - 使用一个指定的 this 值和一个数组（或类数组对象）提供的参数。
+  - 语法：`function.apply(thisArg, [argsArray])`
+  - 区别：call() 方法的作用和 apply() 方法类似，区别就是 call() 方法接受的是参数列表，而 apply() 方法接受的是一个参数数组。
+
+- [Function.prototype.bind()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)
+  - 创建一个**新函数**，在 bind() 被调用时，这个新函数的 this 被指定为 bind() 的第一个参数，而其余参数将作为新函数的参数，供调用时使用。
+  - 语法：`function.bind(thisArg[, arg1[, arg2[, ...]]])`

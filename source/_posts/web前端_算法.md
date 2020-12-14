@@ -545,3 +545,75 @@ var swapPairs = function(head) {
   return dummy.next
 }
 ```
+
+# 二叉树的所有节点
+```js
+var binaryTreePaths = function(root) {
+  let res = []
+  let createPath = (root, path) =>{
+    if(root){
+      if(!root.left && !root.right){
+        path += root.val
+        res.push(path)
+      }else{
+        path += root.val + '->'
+        createPath(root.left, path)
+        createPath(root.right, path)
+      }
+    }
+  }
+  createPath(root, '')
+  return res 
+};
+```
+```js
+var binaryTreePaths = function (startNode, history = '', result = []) {
+  if (startNode) {
+    if (startNode.left == null && startNode.right == null) {
+      result.push(history + startNode.val)
+      return result
+    }
+    binaryTreePaths(startNode.left, history + startNode.val + '->', result)
+    binaryTreePaths(startNode.right, history + startNode.val + '->', result)
+  }
+  return result
+}
+```
+
+```js
+// 可以停止的遍历函数，action返回false的时候遍历过程停止
+function traverse(root, action) {
+    if (root) {
+        if (traverse(root.left, action) === false){
+            return false
+        }
+        if (action(root) === false) {
+            return false
+        }
+        if (traverse(root.right, action) === false) {
+            return false
+        }
+    }
+}
+```
+
+# 二叉树的层级遍历
+```js
+var levelOrder = function(root) {
+  if(!root) return []
+  let queue = [root]
+  let res = []
+  while(queue.length > 0){
+    let arr = []
+    let len = queue.length
+    while(len--){
+      let node = queue.shift()
+      arr.push(node.val)
+      if(node.left) queue.push(node.left)
+      if(node.right) queue.push(node.right)
+    }
+    res.push(arr)
+  }
+  return res
+};
+```
