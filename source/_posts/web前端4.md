@@ -194,6 +194,7 @@ String.fromCharCode(num)|ascii码转为字母
 a.toFixed()|指定小数位数
 a.toString()|转成几进制
 parseInt()|丢弃小数部分,保留整数部分
+parseFloat()|解析一个参数（必要时先转换为字符串）并返回一个浮点数
 
 ## Math
 代码|意义
@@ -585,11 +586,11 @@ Object.prototype.toString.call(true)          // [object Boolean]
 Object.prototype.toString.call(Symbol())      // [object Symbol]
 Object.prototype.toString.call(undefined)     // [object Undefined]
 Object.prototype.toString.call(null)          // [object Null]
-Object.prototype.toString.call(newFunction()) // [object Function]
-Object.prototype.toString.call(newDate())     // [object Date]
+Object.prototype.toString.call(new Function()) // [object Function]
+Object.prototype.toString.call(new Date())     // [object Date]
 Object.prototype.toString.call([])            // [object Array]
-Object.prototype.toString.call(newRegExp())   // [object RegExp]
-Object.prototype.toString.call(newError())    // [object Error]
+Object.prototype.toString.call(new RegExp())   // [object RegExp]
+Object.prototype.toString.call(new Error())    // [object Error]
 Object.prototype.toString.call(document)      // [object HTMLDocument]
 Object.prototype.toString.call(window)        // [object global] window 是全局对象 global 的引用
 ```
@@ -607,6 +608,63 @@ Object.defineProperty(obj, 'baz', {
   configurable: false,  // 是否可以重新定义（可配置）
 })
 ```
+
+# this
+* this相当于函数的一个隐藏参数，通过函数的不同调用方式确定，而非直接传递
+  * 一个函数以函数的形式调用：f()，即从一个“变量名”里读出来，其内部的this为window
+  * 一个函数以对象方法的形式调用：foo.bar.obj.f()，即从一个对象中读出并立刻调用，其内部的this为这个对象
+  * 函数当成构造函数调用：new f()，即前面调用前面加new，其内部的this为一个新对象，这个对象以函数的prototype属性为原型。
+  * 函数被call或apply，即 foo.bar.f.call(obj1, a, b), foo.bar.f.apply(obj1, [ a, b ])，函数内部的this为给call或apply传入的第一个参数
+  * 箭头函数里this不再是隐含参数，而是相当于普通变量，直接向外层查找，类似于“词法作用域”
+  * 函数被绑定后，this不再可变，即，f2 = f.bind(obj2), f2.call(obj3)，f2的调用还是相当于f的this为obj2。但当把f2当构造函数调用时，this的绑定会失效，new f2()时f内部的this为一个新的对象，且其原型为f.prototype
+  ```js
+    function bind(f, thisArg, ...fixedArgs) {
+      return function(...args) {
+        return f.call(thisArg, ...fixedArgs, ...args)
+      }
+    }
+  ```
+* 原型(\_\_proto\_\_)与原型属性(prototype)
+  * 每个值（除null与undefined）都有一个原型。
+    * 可以通过Object.getPrototypeOf(val)获取到val的原型
+    * 也可以通过val.__proto__获取到其原型
+  * 原型本身也是一个对象，它自身也会有原型，直到Object.prototype
+  * 原型属性指的是函数上的一个名为prototype的属性，注意并不是函数的原型，函数的原型是f.__proto__，f.prototype一般称为原型属性，是用来做为该函数的实例的原型而用的。
+    * 即 var a = new f()，a的原型(a.\_\_proto\_\_)为f的原型属性(f.prototype)
+  * 每种类型的值都有自身的构造函数，所以同一类型的值之间是共享原型的，即它们构造函数的原型属性。
+    * 数值的构造函数为Number
+    * 字符串的构造函数为String
+    * 布尔值的构造函数为Boolean
+    * 数组的构造函数为Array
+    * 对象的构造函数为Object
+    * 函数的构造函数为Function
+    * undefined和null不是对象，没有构造函数，也没有原型
+      * 但typeof null为“object”，这属于js设计上的失误。
+        * 原因在于，java中，一个变量如果要指向一个对象，但声明时指向的对象还不确定，会让这个变量指向null，用做对象的占位值。
+    * 所以各构造函数的原型属性上都有为自身类型专门设计的方法。
+* 构造函数
+  * 当用new调用一个函数时，该函数可称做为构造函数
+  * 构造函数内部的this为一个新对象，这个对象的原型是该构造函数的原型属性
+  * 如果构造函数不返回一个对象类型的值，则this就会是这个new调用的求值结果
+    * 如果返回一个对象类型的值，则该对象会成为new调用的求值结果
+  * 函数的prototype属性会自动指向一个有一个属性的对象，该属性名为constructor，指向函数自己。
+    * 所以可以通过任何值的constructor属性获知其构造函数。
+* 对象的杂项
+  * 属性的可枚举性：指属性会不会在for in循环中出出
+    * 普通属性都是会的，如果想要创建不可枚举的属性，需要通过Object.defineProperty(obj,propName, 属性描述符)
+  * 属性是否自有属性（对应于属性来源于原型链），可以通过obj.hasOwnProperty判断
+    * 考虑到这个函数可能被覆盖，所以用Object.prototype.hasOwnProperty.call(obj, properyName)
+  * 为对象增加属性永远增加在自有属性上，不会增加到原型上。修改也不会。
+  * Object.create(proto，初始属性的属性描述符集合)
+  * 属性描述符
+    * 一个用来描述属性的特性的对象：
+      * {
+        value: 设置这个属性的值
+        writable: 设置这个属性是否可修改
+        enumerable: 设置这个属性是否可枚举
+        configurable: 设置这个属性是否可重新定义
+      }
+
 
 # call, apply, bind
 - [Function.prototype.call()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/call)

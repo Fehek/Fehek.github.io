@@ -13,6 +13,10 @@ index_img:
 <!-- more -->
 
 # 修改了永久链接
+安装插件
+```bash
+$ npm install hexo-abbrlink --save 
+```
 打开根目录下的 \_config.yml文件，修改为
 ```yaml
 # permalink: :year/:month/:day/:title/
