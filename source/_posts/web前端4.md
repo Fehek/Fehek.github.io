@@ -679,3 +679,21 @@ Object.defineProperty(obj, 'baz', {
 - [Function.prototype.bind()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)
   - 创建一个**新函数**，在 bind() 被调用时，这个新函数的 this 被指定为 bind() 的第一个参数，而其余参数将作为新函数的参数，供调用时使用。
   - 语法：`function.bind(thisArg[, arg1[, arg2[, ...]]])`
+
+# 语言类型
+静态类型：所有变量及表达式的类型都是确定的（java，c，c++，typescript）
+动态类型：变量的类型不确定（js，python，ruby）
+强类型：不会做自动类型转换的语言（python）
+弱类型：会做自动类型转换的语言（java，c，js，ts）
+
+# UTF-8
+Unicode 和 UTF-8 之间的转换关系表 ( x 字符表示码点占据的位 )
+
+bit|字节数|形式 
+:-:|:-:|:-
+7 |1|0xxxxxxx 
+11|2|110xxxxx 10xxxxxx
+16|3|1110xxxx 10xxxxxx 10xxxxxx
+21|4|11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
+26|5|111110xx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx
+31|6|1111110x 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx 10xxxxxx

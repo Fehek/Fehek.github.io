@@ -64,6 +64,7 @@ banner_img:
     var right = x;
     while (right - left > 1) {
       var mid = Math.floor((right + left) / 2);
+      // var mid = (right + left) >> 1;
       if (mid * mid > x) {
         right = mid;
       } else {
@@ -696,7 +697,7 @@ Object.defineProperties(Vector.prototype, {
 })
 ```
 
-# 构造一个虚数表示类
+# 构造一个复数类
 ```js
 function Complex(real, imag) {
   this.real = real
