@@ -1,5 +1,5 @@
 ---
-title: 几个简例
+title: html/css简例
 categories: web前端学习笔记
 abbrlink: eef7064f
 tags:
