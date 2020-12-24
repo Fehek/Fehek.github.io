@@ -380,3 +380,155 @@ BST排序：稳定
 归并排序：稳定
 快速排序：不稳定
 堆排序：不稳定
+
+# class实现
+```js
+// 被调用时必须要加new，原型上的方法默认不能被枚举
+class PriorityQueue{
+  // 构造函数
+  constructor(predicate = it => it, initial = []){
+  	this._predicate() = predicate
+  	this._elements = [...initial]
+  	this._heapify()
+  }
+
+  // 静态方法，PriorityQueue.heapify()，用PriorityQueue.xxx调用
+  static heapify(){
+
+  }
+  static from(ary){
+  	return new PriorityQueue(it => it, ary)
+  }
+
+  // 实例方法，PriorityQueue.prototype._heapify()
+  _heapify(){
+    for(var i = (this._elements.length - 1) >> 1; i >= 0; i--){
+      this._heapDown(i)
+    }
+    return this
+  }
+  push(val){
+    this._elements.push(val)
+    this._heapUp(this._elements.length - 1)
+    return this
+  }
+  get size(){
+  	return this._elements.length
+  }
+  set size(val){
+
+  }
+}
+
+class PriorityQueue extends Array{  //继承
+  constructor(){
+
+  }
+  push(val){
+  	super() //父类，Array.call(this)
+  	super.push(val)
+  	this.push(val)  //写法错误
+  }
+  poll(val){
+  	this.push()  //不同名称才能用this
+  }
+}
+
+class A{
+  #a = 8  //A.a禁止访问
+  b = 9  //可以直接写在前面
+  constructor(){
+  	this.b = 9
+  }
+  getA(){
+    return this.#a  //内部可以访问
+  }
+}
+```
+
+# 处理错误
+## 重试
+假设有一个函数 primitiveMulitiply，在50%的情况下将两个数相乘，在另外50%的情况下会触发 MultiplicatorUnitFailure 类型的异常。编写一个函数，调用这个容易出错的函数，不断尝试直到调用成功并返回结果为止。
+确保只处理你期望的异常。【选自 JavaScript编程精解（第2版）P115】
+```js
+  class MultiplicatorUnitFailure extends Error {
+    constructor(msg) {
+      super(msg)
+    }
+  }
+  function primitiveMultiply(a, b) {
+    if (Math.random() < 0.5) {
+      return a * b
+    } else {
+      throw new MultiplicatorUnitFailure()
+    }
+  }
+  function multiply(a, b) {
+    for (; ;) {
+      try {
+        var result = primitiveMultiply(a, b)
+        return result
+      } catch (e) {
+        if (e instanceof MultiplicatorUnitFailure) {
+          continue
+        } else {
+          throw e
+        }
+      }
+    }
+  }
+
+  // primitiveMultiply(a, b) 会有50 % 的几率失败
+  // multiply(a, b) 在尝试失败时会重新尝试直至成功
+```
+
+## 上锁的箱子
+```js
+var box = {
+  locked: true;
+  unlock: function(){ this.locked = false; },
+  lock: function(){ this.locked = true; },
+  _content: [],
+  get content(){
+    if(this.locked) throw new Error("locked!");
+    return this._content;
+  }
+};
+```
+这是一个带锁的箱子。其中存放了一个数组，但只有在箱子被解锁时，才可以访问数组，不允许直接访问 \_content 属性。
+编写一个名为 withBoxContent 的函数，接受一个函数类型的参数，其作用是解锁箱子，执行该函数，无论是正常返回还是抛出异常，在 withBoxContent 函数返回前都必须锁上箱子。【选自 JavaScript编程精解（第2版）P115】
+```js
+function withBoxUnlocked(f){
+  try{
+    box.unlock()
+    return f(box.content)
+  }finally{
+    box.lock()
+  }
+}
+
+withBoxContent((content) => {
+  // do something with content
+})
+```
+**类似python with语句的高阶函数**
+```js
+function With(...args) {//rest parameter
+  var f = args.pop()
+  try {
+    f(...args)
+  } finally {
+    for (var arg of args) {
+      arg.close()
+    }
+  }
+}
+```
+```py
+# python with 语句
+With(open('a.txt'), open('b.txt'), (a, b) => {
+   # do sth with a and b
+})
+```
+
+# 哈希表
