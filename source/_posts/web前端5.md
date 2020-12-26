@@ -531,4 +531,165 @@ With(open('a.txt'), open('b.txt'), (a, b) => {
 })
 ```
 
-# 哈希表
+# 正则表达式
+## 创建正则表达式
+1. 使用RegExp构造函数 
+`var re1 = new RegExp("abc")`
+2. 使用斜杠（/） 
+`var re2 = /abc/`
+一些字符如问号、加号在正则表达式中有特殊含义，如果想要表示其字符本身，需要在字符前加上反斜杠。如`var eighteenPlus = /eighteen\+/`
+
+## 匹配测试
+test方法接受传递的字符串，并返回一个布尔值，表示字符串中是否包含能与表达式模式匹配的字符串
+```js
+console.log(/abc/.test("abcde"))  //true
+console.log(/abc/.test("abxde"))  //false
+```
+
+## 匹配字符集
+- 一组字符放在方括号之间，匹配方括号中的任意字符
+方括号中的两个字符间插入连字符（-）指定字符范围，字符顺序由Unicode决定。
+```js
+console.log(/[0123456789]/.test("in 1992"))  //true，匹配到 1 就结束了
+console.log(/[0-9]/.test("in 1992"))  //true
+```
+- 许多字符组都有其内置的快捷写法
+简写|意义
+:-:|:-
+\d|任意数字符号
+\w|字母和数字符号（单词符号）
+\s|任意空白符号（空格，制表符，换行符等类似符号）
+\D|非数字符号
+\W|非字母和数字符号
+\S|非空白符号
+.|除了换行符以外的任意符号
+
+- 左方括号后添加 `^` 来排除某个字符集
+```js
+var notBianry = /[^01]/
+console.log(notBianry.test("1100100010100110"))  //false
+console.log(notBianry.test("1100100010200110"))  //true
+```
+
+## 部分模式重复
+- 在正则表达式某个元素后添加 `+` ，表达该元素至少重复一次。
+- `*` 含义与加号类似，但是可以匹配模式不存在的情况。只有无法找到可以匹配的文本才会考虑匹配该元素从未出现的情况。
+```js
+console.log(/'\d+'/.test("'123'"))  //true
+console.log(/'\d+'/.test("''"))     //false
+console.log(/'\d*'/.test("'123'"))  //true
+console.log(/'\d*'/.test("''"))     //true
+```
+- 元素后面跟一个问号表示这部分模式“可选”，即模式可能出现 0 次或 1 次。
+```js
+var neighbor = /neighbou?r/
+console.log(neighbor.test("neighbour"))  //true
+console.log(neighbor.test("neighbor"))   //true
+```
+- 花括号准确指明某个模式的出现次数
+例如，某个元素后加 {4}，则该模式需要出现且仅能出现 4 次。{2,4} 表示该元素至少出现 2 次，至多出现 4 次。
+也可省略任意一侧的数字，表示不限制这一侧的数量。 {,5} 表示 0 到 5 次，{5,} 表示至少 5 次
+```js
+var dateTime = /\d\d-\d\d-\d\d\d\d \d\d:\d\d/
+console.log(dateTime.test("25-12-2020 11:20"))  //true
+
+var dateTime = /\d{1,2}-\d{1,2}-\d{4} \d{1,2}:\d{2}/
+console.log(dateTime.test("25-1-2020 9:20"))  //true
+```
+
+## 子表达式分组
+对多个元素使用 `*`  或者 `+` ，需要使用圆括号将这个元素包围起来，创建一个分组。
+```js
+var cartoonCrying = /boo+(hoo+)+/i
+console.log(cartoonCrying.test("Boohoooohoohooo"))  //true
+```
+第一个和第二个 `+` 分别作用于 boo 与 hoo 的 o 字符，第三个 + 作用于整个元组 hoo+ 。
+末尾的 i 表示正则表达式不区分大小写。
+
+## 匹配和分组
+- exec（执行，execute）方法，无法匹配模式返回null，否则返回一个表示匹配字符串信息的对象
+exec 方法返回的对象包含 index 属性，表示字符串成功匹配的起始位置
+```js
+var m = /\d+/.exec("one two 100")
+console.log(m)        //["100"]
+console.log(m.index)  //8
+```
+- 字符串有一个类似的 match 方法
+```js
+console.log("one two 100".match(/\d+/))  //["100"]
+```
+
+## 日期
+[国际标准时间的表示方法](https://zh.wikipedia.org/zh-hans/ISO_8601)
+[moment](https://momentjs.com/)
+- JavaScript中使用从 0 开始的数字表示月份（因此用 Jan 表示 12 月），使用从 1 开始的数字表示日期。
+构造函数的后四个参数（小时，分钟，秒，毫秒）是可选的，若没有指定，则参数为 0 。
+```js
+d = new Date()
+// Fri Dec 25 2020 14:52:31 GMT+0800
+d.toUTCString()  //格林威治时间
+
+console.log(new Date(2020, 12, 25))
+// Mon Jan 25 2021 00:00:00 GMT+0800
+console.log(new Date(2020, 12, 25, 12, 59, 59, 999))
+// Mon Jan 25 2021 12:59:59 GMT+0800
+```
+
+- 从 1970 年开始流逝的毫秒数表示时间戳，如在 1970 年前，则使用负数。Data 对象的 getTime 方法返回这种时间戳。
+Data 对象提供了一些方法来提取时间中的某些数值，如 getYear、getMonth、getDate、getHours、getMinutes、getSeconds。还有getYear会返回使用两位数字表示的年份（如 99 或 20 ），但很少用到。
+```js
+console.log(new Date(2020, 12, 25).getTime())
+// 1611504000000
+console.log(new Date(1611504000000))
+// Mon Jan 25 2021 00:00:00 GMT+0800
+```
+- 在希望捕获的那部分模式字符串两边加上圆括号，通过字符串创建对应的 Date 对象。
+```js
+function findDate(string){
+  var dateTime = /(\d{1,2})-(\d{1,2})-(\d{4})/
+  var match = dateTime.exec(string)
+  return new Date(Number(match[3]), Number(match[2]), Number(match[1]))
+}
+console.log(findDate("12-25-2020"))
+// Sat Feb 12 2022 00:00:00 GMT+0800
+```
+
+## 单词和字符串边界
+[regular expression 101](https://regex101.com/)
+- `^` 表示输入字符串起始的位置，`$` 表示字符串结束位置，因此`^\d+$`匹配完全由一个或多个数字组成的字符串。
+`^!` 匹配任意以感叹号开头的字符串，`x^` 不匹配任何字符串（ 字符串之前不可能有字符x）
+- 如果要确保日期字符串起始结束位置在单词边界上，可以使用 `\b` 标记。
+单词边界，指的是起始和结束位置都是单词字符，而起始位置的前一个字符以及结束位置的后一个字符不是单词字符。
+```js
+console.log(/cat/.test("concatenate"))      //true
+console.log(/\bcat\b/.test("concatenate"))  //false
+```
+- 零宽断言
+零宽断言扩展了^ $ \b这几个匹配符
+它匹配一个位置，可以要求某个位置满足或不满足特定条件。
+
+分为四种情况：
+1. positive look ahead assition
+要求某个位置的右边满足某种条件（右边遇到某种模式）
+(?=expr) 匹配一个位置，要求其右边要出现expr的匹配
+2. negative look ahead assition
+要求某个位置的右边不满足某种条件（右边不能遇到某种模式）
+(?!expr)
+3. positive look behand assition
+要求某个位置的左边满足某种条件（右边遇到某种模式）
+(?<=expr)
+4. negative look behand assition
+要求某个位置的左边不满足某种条件（右边不能遇到某种模式）
+(?<!expr)
+
+\b == (?=\w)(?<=\W)|(?=\W)(?<=\w)|^|$
+^  == (?<![^])
+$  == (?![^])
+
+## 选项模式
+管道符号 `|` 表示从其左侧的模式和右侧的模式任意选择一个进行匹配
+```js
+var animalCount = /\b\d+ (pig|cow|chicken)s?\b/
+console.log(animalCount.test("15 pigs"))         //true
+console.log(animalCount.test("15 pigchickens"))  //false
+```
