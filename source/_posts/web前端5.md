@@ -686,10 +686,245 @@ console.log(/\bcat\b/.test("concatenate"))  //false
 ^  == (?<![^])
 $  == (?![^])
 
+- 分组命名
+```js
+var dateTime = /(?<year>\d\d\d\d)-(?<month>\d\d)-(?<day>\d\d)/
+console.log(dateTime.exec("2020-12-28"))
+// groups:
+//  day: "20"
+//  month: "12"
+//  year: "2020"
+```
+
 ## 选项模式
 管道符号 `|` 表示从其左侧的模式和右侧的模式任意选择一个进行匹配
 ```js
 var animalCount = /\b\d+ (pig|cow|chicken)s?\b/
 console.log(animalCount.test("15 pigs"))         //true
 console.log(animalCount.test("15 pigchickens"))  //false
+```
+
+## replace方法
+- replace可用于将字符串中的一部分替换为另一个字符串
+```js
+"papa".replace("p", "m")  //mapa
+```
+- 第一个参数也可以是正则表达式。若在正则表达式后加g，会替换字符串中所有匹配项。
+```js
+"Borobudur".replace(/[ou]/, "a")   //Barobudur
+"Borobudur".replace(/[ou]/g, "a")  //Barabadar
+```
+- $1和$2引用了模式中使用圆括号包裹的元组。$1会替换第一个元组匹配的字符串，$2会替换第二个元组匹配的字符串，依此类推，直到$9为止。
+也可以使用$&引用整个匹配。
+[RegExp.$1-$9](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RegExp/n)
+```js
+"Hoppy, Grace\nMcCarthy, John\nRitchine, Dennis".replace(/([\w]+), ([\w]+)/g,'$2 $1')
+// Grace Hoppy
+// John McCarthy
+// Dennis Ritchine
+```
+- 第二个参数还可以使用一个函数
+```js
+var s = "the cia and fbi"
+console.log(s.replace(/\b(fbi|cia)\b/g, function(str){
+  return str.toUpperCase()
+}))
+// the CIA and FBI
+```
+
+## 贪婪模式 
+- 模式重复运算符`+ * ? {}`是“贪婪”的，指的是这些运算符会尽量多地匹配它们可以匹配的字符，然后回溯。
+若在其后加上一个问号`+? *? ?? {}?`，它们会变成非贪婪的，此时它们会尽量少地匹配字符，只有当剩下的模式无法匹配时才会多进行匹配。
+```js
+var a = "I ! have ! an apple ! I ! am fine"
+var b = /!.+!/
+a.match(b)
+// ! have ! an apple ! I !
+```
+首先匹配的是`！`，此时它找到了句子中的第一个感叹号
+然后匹配`.`，即除换行符之外的所有字符，它一直匹配到了句子的最后
+匹配后面的`!`，于是开始往回匹配感叹号，一直匹配到第二个 I 后面的`!`
+于是匹配出第一个和最后一个感叹后中间包含的内容
+```js
+var a = "I ! have ! an apple ! I ! am fine"
+var b = /!.+?!/g
+a.match(b)
+//["! have !", "! I !"]
+```
+与贪婪模式一样先匹配`!`，然后进行`.`的匹配，但是与贪婪模式不同的是，它每匹配一次`.`，就会往后匹配一次`!`
+
+## 基本写法总结
+[正则表达式](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions)
+符号|匹配规则
+:-:|:-:
+?|匹配出现 0 次或 1 次
++|匹配出现 1 次或多次
+\*|匹配出现 0 次或 1 次或多次
+{n}|匹配刚好出现 n 次
+{n,m}|匹配最少出现 n 次最多出现 m 次
+{n,}|匹配最少出现 n 次
+{,m}|匹配最多出现 m 次
+g|全局匹配
+i|不区分大小写
+m|多行匹配
+exp1(?=exp2)|查找exp2前面的exp1
+(?<=exp2)exp1|查找exp2后面的exp1
+exp1(?!exp2)|查找后面不是exp2的exp1
+(?<!exp2)exp1|查找前面不是exp2的exp1
+
+# 解构赋值
+## 对象
+```js
+const person = {
+  name: "XiaoMing",
+  age: 30,
+};
+const { name, age } = person
+console.log(name, age)
+// XiaoMing 30
+
+const person2 = {
+  relatives: {
+    mother: "XiaoHong",
+    father: "XiaoHua",
+  }
+};
+const { mother, father } = person2.relatives
+console.log(mother, father)
+// XiaoHong XiaoHua
+```
+```js
+const person3 = {
+  name: "XiaoMing",
+  age: 30,
+  relatives: {
+    mother: "XiaoHong",
+    father: "XiaoHua",
+  }
+};
+const { age, relatives: { mother } } = person3
+console.log(age, mother) 
+// 30 "XiaoHong"
+```
+
+- 为变量改名
+```js
+const person4 = {
+  name: "XiaoMing",
+  age: 30,
+  relatives: {
+    mother: "XiaoHong",
+    father: "XiaoHua",
+  }
+};
+const { age: A, relatives: { mother: mo } } = person4
+console.log(A, mo)
+// 30 "XiaoHong"
+```
+
+- 为变量赋默认值
+若变量存在，赋原有值；若不存在，赋所声明的值
+```js
+const person = {
+  name: "XiaoMing",
+  age: 30,
+};
+const { name: personName = "guest",
+  age = 18
+} = person
+console.log(personName, age)
+// XiaoMing 30
+
+
+const person2 = {
+};
+const { name: personName = "guest",
+  age = 18
+} = person2
+console.log(personName, age)
+// guest 18
+```
+
+## 数组
+除去将{}改为[]，用法大致与对象一样
+```js
+const info = "Mike,18,1234567"
+const person = info.split(",")
+// ["Mike", "18", "1234567"]
+const [name, age, ID] = person
+console.log(name, age, ID)
+// Mike 18 1234567
+```
+- 略过某个值
+```js
+const info = "Mike,18,1234567"
+const person = info.split(",")
+// ["Mike", "18", "1234567"]
+const [name, , ID] = person
+console.log(name, ID)
+// Mike 1234567
+```
+
+- 交换变量
+```js
+let a = 1;
+let b = -1;
+[a, b] = [b, a];
+console.log(a, b)
+// -1 1
+```
+
+# 剩余参数和扩展参数
+## 剩余参数
+`...`能表示剩余参数，它将这些剩余参数打包成一个数组
+```js
+const team = ["Yukina", "Sayo", "Lisa", "Ako", "Linko"]
+const [vo, gt, ...members] = team
+console.log(vo, gt, members)
+// Yukina Sayo ["Lisa", "Ako", "Linko"]
+```
+```js
+function numbers(...nums) {
+  if (nums.length === 0) return []
+  console.log(nums)
+}
+console.log(numbers())
+// []
+console.log(numbers(1, 2, 3))
+// [1,2,3]
+```
+```js
+function sortNumbers(...nums) {
+  if (nums.length === 0) {
+    return []
+  } else {
+    return nums.sort((a, b) => a - b)
+  }
+}
+console.log(sortNumbers(1, 2, 10, 8, 9))
+// [1, 2, 8, 9, 10]
+```
+
+## 扩展参数
+`...`也能扩展参数，将元素里的数全部展开
+```js
+const vo = "Yukina"
+const gt = "Sayo"
+const members = ["Lisa", "Ako", "Linko"]
+const team = [vo, gt, ...members]
+console.log(team)
+// ["Yukina", "Sayo", "Lisa", "Ako", "Linko"]
+```
+- 合并数组
+```js
+const food = [
+  "rice", "bread", "noodle", "spaghetti"
+]
+const drink = ["milk", "cola", "coffee"]
+const menu = food.concat(drink)
+console.log(menu)
+// ["rice", "bread", "noodle", "spaghetti", "milk", "cola", "coffee"]
+const menu2 = [...food, "chicken", ...drink, "ice cream"]
+console.log(menu2)
+// ["rice", "bread", "noodle", "spaghetti", "chicken", "milk", "cola", "coffee", "ice cream"]
 ```
