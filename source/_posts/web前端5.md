@@ -755,8 +755,9 @@ a.match(b)
 
 ## 基本写法总结
 [正则表达式](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions)
+
 符号|匹配规则
-:-:|:-:
+:-:|:-
 ?|匹配出现 0 次或 1 次
 +|匹配出现 1 次或多次
 \*|匹配出现 0 次或 1 次或多次
@@ -927,4 +928,30 @@ console.log(menu)
 const menu2 = [...food, "chicken", ...drink, "ice cream"]
 console.log(menu2)
 // ["rice", "bread", "noodle", "spaghetti", "chicken", "milk", "cola", "coffee", "ice cream"]
+```
+
+# for in 与 for of
+for in 用来遍历对象（数组，函数）的可枚举属性（key）
+for of 只能用来遍历数组的项（value）
+
+for in 需要注意的问题：可能会把原型中的 key 也遍历出来，可以用使用 hasOwnProperty 函数来判断自有属性
+```js
+const drinkArr = ['百事', '七喜', '橙汁']
+for (const drink of drinkArr) {
+  console.log(drink)
+}
+// 百事
+// 七喜
+// 橙汁
+```
+```js
+const drinkObj = { 1: '百事', 2: '七喜', 3: '橙汁' }
+for (const key in drinkObj) {
+  // console.log(key)
+  // 1 2 3
+  console.log(drinkObj[key])
+}
+// 百事
+// 七喜
+// 橙汁
 ```
