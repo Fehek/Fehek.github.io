@@ -61,15 +61,15 @@ document.documentElement：获取html元素
 鼠标事件|触发条件
 :-|:-
 onclick|鼠标点击左键触发
-mouseenter|当鼠标移入某元素时触发
-mouseleave|当鼠标移出某元素时触发
-mouseover|鼠标经过触发，移入和移出其子元素时也会触发
-mouseout|鼠标离开触发，移入和移出其子元素时也会触发
-mousemove|鼠标移动触发，即使在其子元素上也会触发
-focus|获得鼠标焦点触发
-blur|失去鼠标焦点触发
-mouseup|鼠标弹起触发
-mousedown|鼠标按下触发
+onmouseenter|当鼠标移入某元素时触发
+onmouseleave|当鼠标移出某元素时触发
+onmouseover|鼠标经过触发，移入和移出其子元素时也会触发
+onmouseout|鼠标离开触发，移入和移出其子元素时也会触发
+onmousemove|鼠标移动触发，即使在其子元素上也会触发
+onfocus|获得鼠标焦点触发
+onblur|失去鼠标焦点触发
+onmouseup|鼠标弹起触发
+onmousedown|鼠标按下触发
 
 # 操作元素
 - 改变元素内容
@@ -176,3 +176,20 @@ window.addEventListener('mousewheel', function(e) {
     passive: false//本事件处理函数是否会调用 preventDefault, true代表不会
 })
 ```
+
+# base64
+base64:
+  将任意比特序列编码为可打印字符。
+
+Data URL:
+```js
+  data:mimetype;charset;base64,XXXXXXXXXXXXXXXX;
+  data:mimetype;charset,XXXXXXXXXXXXXXXX;
+  data:text/html,<h1>hello</h1>;
+```
+  将url对应的数据编码进url本身，往往会用base64编码数据
+
+数据将会变大为原来的1.3333倍；
+少了网络传输的过程，但没有了缓存；
+多了编码与解码的过程（编码可以只有一次，解码一般是多次）；
+所以，对于小文件来说比较适用。
