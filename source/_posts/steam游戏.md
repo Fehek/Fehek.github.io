@@ -37,4 +37,5 @@ banner_img: /image/index/steam.jpg
 [Firewatch](https://store.steampowered.com/app/383870/Firewatch/?l=schinese)|indie|第一人称|游戏方式挺好，但故事不太行
 [The Stanley Parable](https://store.steampowered.com/app/221910/The_Stanley_Parable/?l=schinese)|indie|meta，第一人称|旁白
 [Doki Doki Literature Club!](https://store.steampowered.com/app/698780/Doki_Doki_Literature_Club/)|galgame|meta|真.心跳
-[Tomb Raider 9](https://store.steampowered.com/app/203160/Tomb_Raider/)/[10](https://store.steampowered.com/app/391220/Rise_of_the_Tomb_Raider/)/[11](https://store.steampowered.com/app/750920/Shadow_of_the_Tomb_Raider_Definitive_Edition/)|ACT,TPS|墓地|
+[Tomb Raider 9](https://store.steampowered.com/app/203160/Tomb_Raider/)/[10](https://store.steampowered.com/app/391220/Rise_of_the_Tomb_Raider/)/[11](https://store.steampowered.com/app/750920/Shadow_of_the_Tomb_Raider_Definitive_Edition/)|ACT,TPS|墓地
+[Cyberpunk 2077](https://store.steampowered.com/app/1091500/_2077/)|ARPG,FPS|赛博朋克|Judy…
