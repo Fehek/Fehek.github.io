@@ -450,33 +450,33 @@ module3 为异步引入，主程序执行完后执行
 
 - 准备工作
 使用 [Babel](https://www.babeljs.cn/repl) 将ES6编译为ES5代码
-1. 定义package.json文件
-```json
+  1. 定义package.json文件
+  ```json
+    {
+      "name" : "es6-babel-browserify",
+      "version" : "1.0.0"
+    }
+  ```
+  2. 安装 babel-cli, babel-preset-es2015
+  ```bash
+  # cli: command line interface 命令行接口
+  # ！！！一定要在管理员权限下安装
+  npm install babel-cli browserify -g
+  # preset 预设（将es6转换成es5的所有插件打包）
+  npm install babel-preset-es2015 --save-dev 
+  ```
+  3. 定义.babelrc文件
+  rc 文件（run control 运行时控制文件）
+  ```
   {
-    "name" : "es6-babel-browserify",
-    "version" : "1.0.0"
+    "presets": ["es2015"]
   }
-```
-2. 安装 babel-cli, babel-preset-es2015
-```bash
-# cli: command line interface 命令行接口
-# ！！！一定要在管理员权限下安装
-npm install babel-cli browserify -g
-# preset 预设（将es6转换成es5的所有插件打包）
-npm install babel-preset-es2015 --save-dev 
-```
-3. 定义.babelrc文件
-rc 文件（run control 运行时控制文件）
-```
-{
-  "presets": ["es2015"]
-}
-```
-4. 安装 jQuery
-```bash
-# 安装 jQuery 1.xxx 的最新版本
-npm install jquery@1
-```
+  ```
+  4. 安装 jQuery
+  ```bash
+  # 安装 jQuery 1.xxx 的最新版本
+  npm install jquery@1
+  ```
 
 - 代码
 ```js
