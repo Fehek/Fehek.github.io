@@ -29,7 +29,7 @@ JS语言里没有模块系统。
 # CommonJS
 ## 基本语法
 - 暴露模块
-`module.expoers = value`
+`module.exports = value`
 `exports.xxx = value`
 暴露的模块本质是 exports 对象
 - 引入模块
@@ -58,7 +58,7 @@ npm install uniq
 - 代码
 ```js
 // module1.js 文件
-// module.expoers = value 暴露一个对象
+// module.exports = value 暴露一个对象
 module.exports = {
   msg:'module1',
   foo(){
