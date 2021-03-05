@@ -493,13 +493,297 @@ p.then(value => {
 });
 ```
 
+# 自定义封装
+```js
+class Promise {
+  // 构造方法
+  constructor(executor) {
+    this.PromiseState = 'pending'
+    this.PromiseResult = null
+    this.callbacks = []
+    // 保存实例对象的 this 值
+    const self = this //self _this that
 
+    // resolve函数
+    function resolve(data) {
+      // 判断状态，只能更改一次
+      if (self.PromiseState !== 'pending') return
+      // 1. 修改对象的状态(PromiseState)
+      self.PromiseState = 'fulfilled'
+      // 2. 修改对象结果值(PromiseResult)
+      self.PromiseResult = data
+      // 调用成功的回调函数
+      // 在resolve中而不是then中执行回调，改变状态之后才能执行回调
+      // 多个回调
+      // then方法是异步执行，加一个定时器(2)
+      setTimeout(() => {
+        self.callbacks.forEach(item => {
+          item.onResolved(data)
+        })
+      })
+    }
 
+    // reject函数
+    function reject(data) {
+      if (self.PromiseState !== 'pending') return
+      self.PromiseState = 'rejected'
+      self.PromiseResult = data
+      setTimeout(() => {
+        self.callbacks.forEach(item => {
+          item.onRejected(data)
+        })
+      })
+    }
 
+    try {
+      // 同步调用【执行器函数】
+      executor(resolve, reject)
+    } catch (e) {
+      // 修改 promise 对象状态为 失败
+      reject(e)
+    }
+  }
 
+  // then方法
+  then(onResolved, onRejected) {
+    const self = this
+    // 判断回调函数参数
+    if (typeof onRejected !== 'function') {
+      onRejected = reason => {
+        throw reason
+      }
+    }
+    if (typeof onResolved !== 'function') {
+      onResolved = value => value
+    }
+    return new Promise((resolve, reject) => {
+      //封装函数
+      function callback(type) {
+        try {
+          //获取回调函数的执行结果
+          let result = type(self.PromiseResult)
+          //判断
+          if (result instanceof Promise) {
+            //如果是 Promise 类型的对象
+            result.then(v => {
+              resolve(v)
+            }, r => {
+              reject(r)
+            })
+          } else {
+            //结果的对象状态为『成功』
+            resolve(result)
+          }
+        } catch (e) {
+          reject(e)
+        }
+      }
+      //调用回调函数  PromiseState
+      if (this.PromiseState === 'fulfilled') {
+        // then方法是异步执行，加一个定时器(1)
+        setTimeout(() => {
+          callback(onResolved)
+        })
+      }
+      if (this.PromiseState === 'rejected') {
+        setTimeout(() => {
+          callback(onRejected)
+        })
+      }
+      //判断 pending 状态
+      if (this.PromiseState === 'pending') {
+        //保存回调函数
+        this.callbacks.push({
+          onResolved: function () {
+            callback(onResolved)
+          },
+          onRejected: function () {
+            callback(onRejected)
+          }
+        })
+      }
+    })
+  }
 
+  // catch方法
+  catch(onRejected) {
+    return this.then(undefined, onRejected)
+  }
 
+  // 添加resolve方法
+  // 属于类，不属于实例对象
+  static resolve(value) {
+    return new Promise((resolve, reject) => {
+      if (value instanceof Promise) {
+        value.then(v => {
+          resolve(v)
+        }, r => {
+          reject(r)
+        })
+      } else {
+        resolve(value)
+      }
+    })
+  }
 
+  // 添加reject方法
+  static reject(reason) {
+    return new Promise((resolve, reject) => {
+      reject(reason)
+    })
+  }
+
+  // 添加all方法
+  static all(promises) {
+    return new Promise((resolve, reject) => {
+      let count = 0
+      let arr = []
+      for (let i = 0; i < promises.length; i++) {
+        promises[i].then(v => {
+          // 得知对象的状态是成功
+          count++
+          arr[i] = v
+          if (count === promises.length) {
+            // 每个promise对象都成功才能调用resolve()修改状态
+            resolve(arr)
+          }
+        }, r => {
+          reject(r)
+        })
+      }
+    })
+  }
+
+  // 添加race方法
+  static race(promises) {
+    return new Promise((resolve, reject) => {
+      for (let i = 0; i < promises.length; i++) {
+        promises[i].then(v => {
+          resolve(v)
+        }, r => {
+          reject(r)
+        })
+      }
+    })
+  }
+}
+```
+
+# async 和 await
+## async
+- 函数的返回值为 promise 对象
+- promise 对象的结果由 async 函数执行的返回值决定
+```js
+// 和then方法返回结果规则是一样的
+async function main() {
+  // 1. 如果返回值是一个非Promise类型的对象
+  // return 123
+  // 2. 如果返回的是一个Promise对象
+  // return new Promise((resolve, reject) => {
+  //   resolve('OK')
+  //   reject('ERR')
+  // })
+  // 3. 抛出异常
+  throw 'NO'
+}
+let result = main()
+console.log(result)
+```
+
+## await
+await 右侧的表达式一般为 promise 对象, 但也可以是其它的值
+- 如果表达式是 promise 对象, await 返回的是 promise 成功的值
+- 如果表达式是其它值, 直接将此值作为 await 的返回值
+
+注意：await 必须写在 async 函数中, 但 async 函数中可以没有 await。
+如果 await 的 promise 失败了, 就会抛出异常, 需要通过 try...catch 捕获处理。
+```js
+async function main() {
+  let p = new Promise((resolve, reject) => {
+    // resolve('OK')
+    reject('Error')
+  })
+  //1. 右侧为promise的情况
+  // let res = await p
+  //2. 右侧为其他类型的数据
+  // let res2 = await 20
+  //3. 如果promise是失败的状态
+  try {
+    let res3 = await p
+  } catch (e) {
+    console.log(e)
+  }
+}
+main()
+```
+
+## async与await结合
+- 读取文件
+```js
+// 读取 resource 1.html 2.html 3.html 文件内容
+// 回调函数的方式
+fs.readFile('./resource/1.html', (err, data1) => {
+  if (err) throw err
+  fs.readFile('./resource/2.html', (err, data2) => {
+    if (err) throw err
+    fs.readFile('./resource/3.html', (err, data3) => {
+      if (err) throw err
+      console.log(data1 + data2 + data3)
+    })
+  })
+})
+```
+```js
+const fs = require('fs')
+const util = require('util')
+
+const myReadFile = util.promisify(fs.readFile)
+
+//async 与 await
+async function main() {
+  try {
+    //读取第一个文件的内容
+    let data1 = await myReadFile('./resource/1.html')
+    let data2 = await myReadFile('./resource/2.html')
+    let data3 = await myReadFile('./resource/3.html')
+    console.log(data1 + data2 + data3)
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+main()
+```
+- 发送AJAX请求
+```html
+<body>
+  <button id="btn">点击获取段子</button>
+  <script>
+    function sendAJAX(url) {
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest
+        xhr.responseType = 'json'
+        xhr.open('GET', url)
+        xhr.send()
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            if (xhr.status >= 200 && xhr.status < 300) {
+              resolve(xhr.response)
+            } else {
+              reject(xhr.status)
+            }
+          }
+        }
+      })
+    }
+    let btn = document.querySelector('#btn')
+    btn.addEventListener('click', async function () {
+      let duanzi = await sendAJAX('https://api.apiopen.top/getJoke')
+      console.log(duanzi)
+    })
+  </script>
+</body>
+```
 
 # run
 ```js
