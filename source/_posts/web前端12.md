@@ -37,8 +37,7 @@ mint-ui: 基于vue的UI组件库(移动端)
 element-ui: 基于vue的UI组件库(PC端)
 ```
 
-# 基础
-## 基本使用
+# 基本使用
 ```html
 <body>
   <!-- 1. 引入Vue.js
@@ -71,7 +70,7 @@ model： 模型，数据对象(data)
 view: 视图，模板页面
 viewmodel: 视图模型(vue的实例)
 
-## 模板语法
+# 模板语法
 - 模板：动态的html页面，包含了一些JS语法代码。
 大括号表达式，指令(以v-开头的自定义标签属性)
 - 双大括号表达式
@@ -129,7 +128,7 @@ viewmodel: 视图模型(vue的实例)
 </body>
 ```
 
-## 计算属性和监视
+# 计算属性和监视
 - 计算属性
   在computed属性对象中定义计算属性的方法
   在页面中使用`{{方法名}}`来显示计算的结果
@@ -198,7 +197,7 @@ viewmodel: 视图模型(vue的实例)
 </body>
 ```
 
-## class 与 style 绑定
+# class 与 style 绑定
 - 在应用界面中, 某个(些)元素的样式是变化的
   class/style绑定就是专门用来实现动态样式效果的技术
 - class绑定  `:class='xxx'`
@@ -261,7 +260,7 @@ viewmodel: 视图模型(vue的实例)
 </body>
 ```
 
-## 条件渲染
+# 条件渲染
 `v-if  v-else  v-show`
 ```html
 <body>
@@ -290,7 +289,7 @@ viewmodel: 视图模型(vue的实例)
 </body>
 ```
 
-## 列表渲染
+# 列表渲染
 - 列表显示
   数组: v-for / index
   对象: v-for / key
@@ -416,7 +415,7 @@ viewmodel: 视图模型(vue的实例)
 </body>
 ```
 
-## 事件处理
+# 事件处理
 - 绑定监听
   v-on:xxx="fun"
   @xxx="fun"
@@ -486,6 +485,493 @@ viewmodel: 视图模型(vue的实例)
         }
       }
     })
+  </script>
+</body>
+```
+
+# 表单输入绑定
+使用v-model(双向数据绑定)自动收集数据
+`text/textarea  checkbox  radio  select`
+
+```html
+<body>
+  <div id="demo">
+    <form action="/xxx" @submit.prevent="handleSubmit">
+      <span>用户名：</span>
+      <input type="text" v-model="username"><br>
+
+      <span>密码：</span>
+      <input type="password" v-model="pwd"><br>
+
+      <span>性别：</span>
+      <input type="radio" id="female" value="女" v-model="gender">
+      <label for="female">女</label>
+      <input type="radio" id="male" value="男" v-model="gender">
+      <label for="male">男</label><br>
+
+      <span>爱好：</span>
+      <input type="checkbox" id="basketball" value="bk" v-model="hobbit">
+      <label for="basketball">篮球</label>
+      <input type="checkbox" id="football" value="ft" v-model="hobbit">
+      <label for="football">足球</label>
+      <input type="checkbox" id="pingpang" value="pp" v-model="hobbit">
+      <label for="pingpang">乒乓</label><br>
+
+      <span>城市：</span>
+      <select v-model="cityId">
+        <option value="">未选择</option>
+        <option :value="city.id" v-for="(city, index) in allCitys" :key="index">{{city.name}}</option>
+      </select><br>
+      <span>介绍：</span>
+      <textarea rows="10" v-model="description"></textarea><br><br>
+
+      <input type="submit" value="注册">
+    </form>
+  </div>
+
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script type="text/javascript">
+    new Vue({
+      el: "#demo",
+      data: {
+        username: '',
+        pwd: '',
+        gender: '女',
+        hobbit: ['bk', 'ft'],
+        allCitys: [{ id: 1, name: '北京' }, { id: 2, name: '上海' }, { id: 3, name: '深圳' }],
+        cityId: '3',
+        description: ''
+      },
+      methods: {
+        handleSubmit() {
+          console.log(this.username, this.pwd, this.gender, this.hobbit, this.cityId, this.description);
+        }
+      }
+    })
+  </script>
+</body>
+```
+
+# Vue实例的生命周期
+![Vue生命周期](/image/post/Vue生命周期.png)
+- vue对象的生命周期
+  1. 初始化显示
+      * beforeCreate()
+      * created()
+      * beforeMount()
+      * mounted()
+  2. 更新显示 this.xxx = value
+      * beforeUpdate()
+      * updated()
+  3. 销毁vue实例: vm.$destroy()
+      * beforeDestroy()
+      * destroyed()
+- 常用的生命周期方法
+  mounted(): 发送ajax请求, 启动定时器等异步任务
+  beforeDestroy(): 做收尾工作, 如: 清除定时器
+
+```html
+<body>
+  <div id="demo">
+    <button @click="destroyVM">destroy vm</button>
+    <p v-show="isShow">测试</p>
+  </div>
+
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script type="text/javascript">
+    new Vue({
+      el: "#demo",
+      data: {
+        isShow: true
+      },
+
+      // 1. 初始化阶段
+      beforeCreate() {
+        console.log('beforeCreate()')
+      },
+      created() {
+        console.log('created()')
+      },
+      beforeMount() {
+        console.log('beforeMount()')
+      },
+      mounted() { //初始化显示之后立即调用(1次)
+        console.log('Mounted()')
+        this.intervalId = setInterval(() => {
+          console.log('------');
+          this.isShow = !this.isShow //更新数据
+        }, 1000)
+      },
+
+      // 2. 更新阶段
+      beforeUpdate() {
+        console.log('beforeUpdate()')
+      },
+      updated() {
+        console.log('updated()')
+      },
+
+      // 3. 死亡阶段
+      beforeDestroy() { //死亡之前调用(1次)
+        console.log('beforeDestroy()')
+        // 清除定时器
+        clearInterval(this.intervalId)
+      },
+      destroyed() {
+        console.log('destroyed()')
+      },
+
+      methods: {
+        destroyVM() {
+          this.$destroy()
+        }
+      }
+    })
+  </script>
+</body>
+```
+
+# 过渡与动画
+1. vue动画的理解
+  操作css的trasition或animation
+  vue会给目标元素添加/移除特定的class
+2. 基本过渡动画的编码
+    1. 在目标元素外包裹`<transition name="xxx">`
+    2. 定义class样式
+        - 指定过渡样式: transition
+        - 指定隐藏时的样式: opacity/其它
+3. 过渡的类名
+  xxx-enter-active: 指定显示的transition
+  xxx-leave-active: 指定隐藏的transition
+  xxx-enter: 指定隐藏时的样式
+![Vue过渡](/image/post/Vue过渡.png)
+
+```html
+<head>
+  <meta charset="UTF-8">
+  <title>Vue 过渡效果</title>
+  <style>
+    /* 显示/隐藏的过渡效果 */
+    .xxx-enter-active, .xxx-leave-active {
+      transition: opacity 1s;
+    }
+
+    /* 隐藏时的样式 */
+    .xxx-enter, .xxx-leave-to {
+      opacity: 0;
+    }
+
+    /* 显示的过渡效果 */
+    .move-enter-active {
+      transition: all 1s;
+    }
+
+    /* 隐藏的过渡效果 */
+    .move-leave-active {
+      transition: all 3s;
+    }
+
+    /* 隐藏时的样式 */
+    .move-enter, .move-leave-to {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="demo">
+    <button @click="isShow = !isShow">toggle</button>
+    <transition name="xxx">
+      <p v-show="isShow">hello</p>
+    </transition>
+  </div>
+  <div id="demo2">
+    <button @click="isShow = !isShow">toggle</button>
+    <transition name="move">
+      <p v-show="isShow">hello</p>
+    </transition>
+  </div>
+
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script type="text/javascript">
+    new Vue({
+      el: "#demo",
+      data() {
+        return {
+          isShow: true
+        }
+      }
+    })
+    new Vue({
+      el: "#demo2",
+      data() {
+        return {
+          isShow: true
+        }
+      }
+    })
+  </script>
+</body>
+```
+```html
+<head>
+  <meta charset="UTF-8">
+  <title>Vue 动画</title>
+  <style>
+    .bounce-enter-active {
+      animation: bounce-in .5s;
+    }
+    .bounce-leave-active {
+      animation: bounce-in .5s reverse;
+    }
+
+    @keyframes bounce-in {
+      0% {
+        transform: scale(0);
+      }
+      50% {
+        transform: scale(1.5);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="example">
+    <button @click="show = !show">Toggle show</button>
+    <br>
+    <transition name="bounce">
+      <p v-if="show" style="display: inline-block">Lorem</p>
+    </transition>
+  </div>
+
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#example',
+      data: {
+        show: true
+      }
+    })
+  </script>
+</body>
+```
+
+# 过滤器
+1. 理解过滤器
+  功能: 对要显示的数据进行特定格式化后再显示
+  注意: 并没有改变原本的数据, 可是产生新的对应的数据
+2. 编码
+    1. 定义过滤器
+    ```js
+    Vue.filter(filterName, function(value[,arg1,arg2,...]{
+      // 进行一定的数据处理
+      return newValue
+    })
+    ```
+    2. 使用过滤器
+    ```html
+    <div>{{myData | filterName}}</div>
+    <div>{{myData | filterName(arg)}}</div>
+    ```
+
+```html
+<body>
+  <div id="demo">
+    <h2>显示格式化的日期时间</h2>
+    <p>{{date}}</p>
+    <p>完整版：{{date | dateString}}</p>
+    <p>年月日：{{date | dateString('YYYY-MM-DD')}}</p>
+    <p>时分秒：{{date | dateString('HH:mm:ss')}}</p>
+  </div>
+
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/moment.js/2.29.1/moment.js"></script>
+  <script type="text/javascript">
+    // 自定义过滤
+    Vue.filter('dateString', function (value, format = 'YYYY-MM-DD HH:mm:ss') {
+      return moment(value).format(format)
+    })
+    new Vue({
+      el: "#demo",
+      data: {
+        date: new Date()
+      }
+    })
+  </script>
+</body>
+```
+
+# 指令
+## 内置指令
+常用内置指令|含义
+:-|:-
+v-text : |更新元素的 textContent
+v-html : |更新元素的 innerHTML
+v-if : |如果为 true, 当前标签才会输出到页面
+v-else: |如果为 false, 当前标签才会输出到页面
+v-show : |通过控制 display 样式来控制显示/隐藏
+v-for : |遍历数组/对象
+v-on : |绑定事件监听, 一般简写为@
+v-bind : |强制绑定解析表达式, 可以省略 v-bind, 简写为一个冒号
+v-model : |双向数据绑定
+ref : |指定唯一标识, vue 对象通过$els 属性访问这个元素对象
+v-cloak : |防止闪现, 与 css 配合: [v-cloak] { display: none }
+
+```html
+<head>
+  <meta charset="UTF-8">
+  <title>ref 和 v-cloak 指令</title>
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="demo">
+    <p ref="content">test</p>
+    <button @click="hint">提示</button>
+    <!-- 解析之前存在，解析之后没有 -->
+    <p v-cloak>{{msg}}</p>
+  </div>
+
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script type="text/javascript">
+    alert('----')
+    new Vue({
+      el: "#demo",
+      data: {
+        msg: '测试'
+      },
+      methods: {
+        hint() {
+          alert(this.$refs.content.textContent)
+        }
+      }
+    })
+  </script>
+</body>
+```
+
+## 自定义指令
+```js
+// 1. 注册全局指令
+Vue.directive('my-directive', function (el, binding) {
+  el.innerHTML = binding.value.toupperCase()
+})
+
+// 2. 注册局部指令
+directives: {
+  'lower-text'(el, binding) {
+    el.textContent = binding.value.toLowerCase()
+  }
+}
+
+// 3. 使用指令
+v-my-directive='xxx'
+```
+
+```html
+<!-- 需求: 自定义2个指令
+  1. 功能类型于v-text, 但转换为全大写
+  2. 功能类型于v-text, 但转换为全小写 -->
+<body>
+  <div id="demo1">
+    <p v-upper-text="msg1"></p>
+    <p v-lower-text="msg1"></p>
+  </div>
+  <div id="demo2">
+    <p v-upper-text="msg2"></p>
+    <p v-lower-text="msg2"></p>
+  </div>
+
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script type="text/javascript">
+    // 定义全局指令
+    // el: 指令属性所在的标签对象
+    // binding: 包含指令相关信息数据的对象
+    Vue.directive('upper-text', function (el, binding) {
+      console.log(el, binding)
+      el.textContent = binding.value.toUpperCase()
+    })
+    new Vue({
+      el: "#demo1",
+      data: {
+        msg1: 'Hello World'
+      },
+      directives: { //注册局部指令: 只在当前vm管理范围内有效
+        'lower-text'(el, binding) {
+          el.textContent = binding.value.toLowerCase()
+        }
+      }
+    })
+    new Vue({
+      el: "#demo2",
+      data: {
+        msg2: 'I Got It!'
+      }
+    })
+  </script>
+</body>
+```
+
+# 插件
+```js
+// vue-mine.js
+// vue的插件库
+(function () {
+  // 需要向外暴露的插件对象
+  const MyPlugin = {}
+
+  // 插件对象必须有一个install()
+  MyPlugin.install = function (Vue, options) {
+    // 1. 添加全局方法或属性
+    Vue.myGlobalMethod = function () {
+      console.log('Vue函数对象的方法myGlobalMethod()')
+    }
+
+    // 2. 添加全局资源
+    Vue.directive('my-directive', function (el, binding) {
+      el.textContent = binding.value.toUpperCase()
+    })
+
+    // 3. 添加实例方法
+    Vue.prototype.$myMethod = function () {
+      console.log('Vue实例对象的方法$myMethod()')
+    }
+  }
+
+  // 向外暴露
+  window.MyPlugin = MyPlugin
+})()
+```
+
+```html
+<body>
+  <div id="demo">
+    <p v-my-directive="msg"></p>
+  </div>
+
+  <script type="text/javascript" src="../js/vue.js"></script>
+  <script type="text/javascript" src="./vue-mine.js"></script>
+  <script type="text/javascript">
+    // 声明使用插件
+    Vue.use(MyPlugin) //内部会执行MuPlugin.install(Vue)
+    Vue.myGlobalMethod()
+
+    const vm = new Vue({
+      el: "#demo",
+      data: {
+        msg: 'Hello World'
+      }
+    })
+    vm.$myMethod()
   </script>
 </body>
 ```
