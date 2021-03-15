@@ -59,7 +59,7 @@ element-ui: 基于vue的UI组件库(PC端)
       el: '#app',
       data: {
         username: 'world'
-      }ccc
+      }
     })
   </script>
 </body>
