@@ -484,4 +484,3 @@ banner_img:
     return left.concat(middle, right)
   }
 ```
-

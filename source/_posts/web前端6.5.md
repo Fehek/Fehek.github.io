@@ -1,5 +1,6 @@
 ---
-title: js简例
+title: web前端学习笔记6.5——JS简例
+subtitle: JS简例
 categories: web前端学习笔记
 abbrlink: 7e41b4b8
 tags:

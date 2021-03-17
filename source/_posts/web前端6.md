@@ -1,10 +1,12 @@
 ---
-title: web前端学习笔记6
+title: web前端学习笔记6——DOM、BOM
+subtitle: DOM、BOM
 abbrlink: df82c88f
 tags:
   - web前端
   - JavaScript
   - DOM
+  - BOM
 categories: web前端学习笔记
 date: 2021-01-12 21:19:00
 index_img:

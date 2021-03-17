@@ -1,528 +1,863 @@
 ---
-title: web前端学习笔记10
-abbrlink: c642559f
+title: web前端学习笔记10——Promise
+subtitle: Promise
+abbrlink: 4f3dd51e
 tags:
   - web前端
-  - NodeJS
+  - Promise
 categories: web前端学习笔记
-date: 2021-02-24 21:06:00
+date: 2021-02-21 21:24:00
 index_img:
 banner_img:
 ---
 
-# 基础
-- 环境变量（windows系统中变量）  
-当我们在命令行窗口打开一个文件，或调用一个程序时
-系统会首先在当前目录下寻找文件程序，如果找到了则直接打开
-如果没有找到则会依次到环境变量path的路径中寻找，直到找到为止
-如果没找到则报错
-所以我们可以将一些经常需要访问的程序和文件的路径添加到path中，这样我们就可以在任意位置来访问这些文件和程序了
-- 进程和线程
-进程就是一个一个的工作计划。
-线程是计算机中最小的计量单位，负责执行进程中的程序。
-**JS是单线程，但是在后台拥有一个I/O线程池。**
+# 了解Promise
+Promise是JS中进行异步编程的新解决方案（旧解决方案是单纯使用回调函数）
+- 为什么要使用Promise
+  1. 指定回调函数的方式更加灵活
+  旧的：必须在启动异步任务前指定
+  promise：启动异步任务 => 返回promise对象 => 给promise对象绑定回调函数（甚至可以在异步任务结束后指定多个）
+  2. 支持链式调用，可以解决回调地狱
+  回调地狱：回调函数嵌套调用，外部回调函数异步执行的结果是嵌套的回调执行的条件。
+  回调地狱的缺点：不便于阅读，不便于异常处理
+- 异步编程
+  - fs 文件操作
+  ```js
+  require('fs').readFile('./index.html', (err, data) => {})
+  ```
+  - 数据库操作
+  - AJAX
+  ```js
+  $.get('/server', (data) => {})
+  ```
+  - 定时器
+  ```js
+  setTimeout(() => {}, 2000)
+  ```
+- Promise 的状态
+实例对象中的一个属性 【PromiseState】
+  - pending 未决定的
+  - resolved / fullfilled 成功
+  - rejected 失败
 
-# node.js简介
-Node.js是一个能够在服务器端运行JavaScript的开放源代码、跨平台JavaScript运行环境。
-Node采用Google开发的V8引擎运行js代码，使用**事件驱动**、**非阻塞**和**异步I/O模型**等技术来提高性能，可优化应用程序的传输量和规模。
+  状态改变
+  - pending 变为 resolved
+  - pending 变为 rejected
+  只有这2种，且一个promise对象只能改变一次
+  成功的结果数据一般称为value，失败的结果数据一般称为reason
 
-## 模块
-[CommonJS模块](http://nodejs.cn/api/modules.html)
-具体例子可见[笔记8](./383ae588.html)
+- Promise 对象的值
+实例对象中的另一个属性 【PromiseResult】
+保存着对象【成功/失败】的结果
+  - resolve
+  - reject
 
-## 包
-- CommonJS的包规范由包结构和包描述文件两个部分组成。
+- Promise 工作流程
+![promise工作流程](/image/post/promise工作流程.jpg)
 
-包结构：用于组织包中的各种文件
-包实际上就是一个压缩文件，解压以后还原为目录。符合规范的目录，应该包含如下文件：
-```md
-– package.json  描述文件
-– bin           可执行二进制文件
-– lib           js代码
-– doc           文档
-– test          单元测试
-```
-包描述文件：描述包的相关信息，以供外部读取分析
-包描述文件用于表达非代码相关的信息，它是一个JSON格式的文件 – package.json，位于包的根目录下，是包的重要组成部分。
+# 基本使用
+## setTimeout()
+```html
+<body>
+  <div class="container">
+    <h2 class="page-header">Promise 初体验</h2>
+    <button id="btn">点击抽奖</button>
+  </div>
+  <script>
+    //生成随机数
+    function rand(m, n) {
+      return Math.ceil(Math.random() * (n - m + 1)) + m - 1
+    }
+    /*
+        点击按钮,  1s 后显示是否中奖(30%概率中奖)
+            若中奖弹出    恭喜恭喜
+            若未中奖弹出  再接再厉
+    */
+    const btn = document.querySelector('#btn')
+    //绑定单击事件
+    btn.addEventListener('click', function () {
+      // 定时器
+      // setTimeout(() => {
+      //获取从1 - 100的一个随机数
+      //   let n = rand(1, 100)
+      //   if (n <= 30) {
+      //     alert('恭喜恭喜')
+      //   } else {
+      //     alert('再接再厉')
+      //   }
+      // }, 1000)
 
-## NPM
-NPM(Node Package Manager)
-对于Node而言，NPM帮助其完成了第三方模块的发布、安装和依赖等。借助NPM，Node与第三方模块之间形成了很好的一个生态系统。
+      //Promise 形式实现
+      // resolve 解决  函数类型的数据
+      // reject  拒绝  函数类型的数据
+      const p = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          let n = rand(1, 100)
+          if (n <= 30) {
+            resolve(n) // 将 promise 对象的状态设置为 『成功』
+          } else {
+            reject(n) // 将 promise 对象的状态设置为 『失败』
+          }
+        }, 1000)
+      })
 
-指令|操作
-:-|:-
-npm –v|查看npm的版本 包名|在当前目录安装包
-npm r/remove 包名|删除一个模块
-npm i 包名 --save|安装包并添加到依赖中
-npm install|下载当前项目所依赖的包
-npm i 包名 –g|全局安装包（全局安装的包一般都是一些工具）
-npm i 文件路径|从本地安装
-npm i 包名 –registry=地址|从镜像源安装
-npm config set registry 地址|设置镜像源
-
-通过npm下载的包都放到node_modules文件夹中。
-通过npm下载的包，直接通过包名引入即可。
-node在使用模块名字来引入模块时，它会首先在当前目录的node_modules中寻找是否含有该模块，如果有则直接使用。
-如果没有则去上一级目录的node_modules中寻找，如果有则直接使用。
-如果没有则再去上一级目录寻找，直到找到为止。
-直到找到磁盘的根目录，如果依然没有，则报错。
-
-# Buffer（缓冲区）
-[Buffer 文档](http://nodejs.cn/api/buffer.html#buffer)
-1. Buffer的结构和数组很像，操作的方法也和数组类似
-2. 数组中不能存储二进制的文件，而buffer就是专门用来存储二进制数据
-3. 使用buffer不需要引入模块，直接使用即可
-4. 在buffer中存储的都是二进制数据，但是在显示都是以16进制的形式显示。
-buffer中每一个元素的范围是从 00 - ff / 0 - 255 / 00000000 - 11111111
-buffer中的一个元素，占用内存一个字节(byte)
-
-- 使用Buffer保存字符串
-```js
-const str = "Hello 前端" 
-const buf = Buffer.from(str)
-// 使用Buffer保存字符串
-
-console.log(buf.length)
-// 占用内存的大小
-// 12(5+1+3*2)
-
-console.log(str.length) 
-//字符串的长度
-// 8
-
-console.log(buf)
-// Buffer(12) [72, 101, 108, 108, 111, 32, 229, 137, 141, 231, 171, 175]
-
-const buf2 = Buffer.from('我是文本')
-console.log(buf2.toString()) //我是文本
-// buf.toString() 将缓冲区中的数据转换为字符串
-```
-- 创建指定大小的Buffer对象
-```js
-const buf = Buffer.alloc(10)
-// 创建一个长度为 10、以零填充的 Buffer
-
-buf[0] = 255
-// 会转换成16进制 ff
-
-buf[10] = 1 //不会有改变
-// Buffer的大小一旦确定，则不能修改
-// Buffer实际上是对底层内存的直接操作
-
-buf[1] = 256 //0
-buf[2] = 556 //44
-// 会舍弃8位之前的数字
-// 556 = 0b1000101100，后8位为0b00101100 = 0x44
-
-consol.log(buf[0]) //255
-//只要数字在控制台或页面输出一定是10进制
-consol.log(buf[0].toString(2)) //11111111
-//转换成别的进制
-
-const buf2 = Buffer.allocUnsafe(10)
-// 新创建的 Buffer 的内容是未知的，可能包含敏感数据(不清空数据)
-```
-
-# fs（文件系统）
-[fs 文档](http://nodejs.cn/api/fs.html)
-fs(File System)，文件系统。简单来说就是通过Node来操作系统中的文件。
-服务器的本质就是将本地的文件发送给远程的客户端。
-1. 要使用fs模块，首先需要对其进行加载 `const fs = require("fs")`
-2. fs模块中所有的操作都有两种形式可供选择，同步(Sync)和异步(callback)。
-同步文件系统会阻塞程序的执行，也就是除非操作完毕，否则不会向下执行代码。
-异步文件系统不会阻塞程序的执行，而是在操作完成时，通过回调函数将结果返回。
-
-## 同步文件
-### 写入
-1. 打开文件
-```md
-fs.openSync(path[, flags, mode])
-- path 要打开文件的路径
-- flags 打开文件要做的操作的类型
-    r 只读的
-    w 可写的
-- mode 设置文件的操作权限，一般不传
-该方法会返回一个文件的描述符作为结果，可以通过该描述符来对文件进行各种操作
-```
-2. 向文件中写入内容
-```md
-fs.writeSync(fd, string[, position[, encoding]])
-- fd 文件的描述符，通过openSync()获取
-- string 要写入的内容
-- position 写入的起始位置
-- encoding 写入的编码，默认utf-8
-```
-3. 保存并关闭文件
-```md
-fs.closeSync(fd)
-- fd 要关闭文件的描述符
-```
-
-```js
-var fs = require('fs')
-
-// 打开文件
-var fd = fs.openSync('hello.txt', 'w')
-// 向文件中写入内容
-fs.writeSync(fd, '今天天气真好。', 2)
-// 关闭文件
-fs.closeSync(fd)
-```
-### 读取
-`fs.readSync(fd, buffer, [options])`
-
-## 异步文件
-### 写入
-1. 打开文件
-```md
-fs.open(path[, flags[, mode]], callback)
-异步调用的方法，结果都是通过回调函数的参数返回的
-回调函数两个参数
-err 错误对象，如果没有错误则为null
-fd 文件的描述符
-```
-2. 异步写入一个文件
-```md
-fs.write(fd, string[, position[, encoding]], callback)
-```
-3. 关闭文件
-```md
-fs.close(fd, callback)
-```
-
-```js
-var fs = require('fs')
-
-// 打开文件
-fs.open('hello2.txt', 'w', function (err, fd) {
-  // 判断是否出错
-  if (!err) {
-    // 如果没有出错，则对文件进行写入操作
-    fs.write(fd, '这是异步写入的内容', function (err) {
-      if (!err) {
-        console.log('写入成功')
-      }
-      // 关闭文件
-      fs.close(fd, function (err) {
-        if (!err) {
-          console.log('文件已关闭')
-        }
+      console.log(p)
+      //调用 then 方法
+      // value 值
+      // reason 理由
+      p.then((value) => {
+        alert('恭喜恭喜, 您的中奖数字为 ' + value)
+      }, (reason) => {
+        alert('再接再厉, 您的号码为 ' + reason)
       })
     })
-  } else {
-    console.log(err)
-  }
-})
-console.log('程序向下执行')
-```
-### 读取
-`fs.read(fd, [options,] callback)`
 
-## 简单文件
-### 写入
-```md
-fs.writeFile(file, data[, options], callback)
-fs.writeFileSync(file, data[, options])
-  - file 要操作的文件路径
-  - data 要写入的数据，可以是String或BUffer
-  - options 选项，可以对写入进行一些设置
-    - encoding <string> | <null> 默认值: 'utf8'
-    - mode <integer> 默认值: 0o666
-    - flag <string> 默认值: 'w'
-      r 只读  w 可写  a 追加
-  - callback 当写入完成以后执行的函数
+  </script>
+</body>
 ```
-[flag 标志](http://nodejs.cn/api/fs.html#fs_file_system_flags)
+## fs
 ```js
-var fs = require('fs')
+const fs = require('fs')
 
-// 路径或者改为 C:/Users/fe/Desktop/nodejs/hello3.txt
-fs.writeFile('C:\\Users\\fe\\Desktop\\nodejs\\hello3.txt', '这是通过writeFile写入的内容', { flag: "w" }, function (err) {
-  if (!err) {
-    console.log('写入成功')
-  } else {
-    console.log(err)
-  }
+// 回调函数形式
+// fs.readFile('./resources/content.txt', (err, data) => {
+//   if (err) throw err
+//   console.log(data.toString())
+// })
+
+// Promise 形式
+let p = new Promise((resolve, reject) => {
+  fs.readFile('./resources/content.tx', (err, data) => {
+    // 如果出错
+    if (err) reject(err)
+    // 如果成功
+    resolve(data)
+  })
+})
+// 调用then
+p.then(value => {
+  console.log(value.toString())
+}, reason => {
+  console.log(reason)
 })
 ```
-### 读取
-```md
-fs.readFile(path[, options], callback)
-fs.readFileSync(path[, options])
-  - path 要读取的文件的路径
-  - options  <Object> | <string>
-    - encoding <string> | <null> 默认值: null
-    - flag <string> 默认值: 'r'
-  - callback 回调函数，通过回调函数将读取到内容返回(err, data)
-    err 错误对象
-    data 读取到的数据，会返回一个Buffer
+## AJAX
+```html
+<body>
+  <div class="container">
+    <h2 class="page-header">Promise 封装 AJAX 操作</h2>
+    <button id="btn">点击发送 AJAX</button>
+  </div>
+  <script>
+    const btn = document.querySelector('#btn')
+    btn.addEventListener('click', function () {
+
+      const p = new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+        xhr.open('GET', 'https://api.apiopen.top/getJoe')
+        xhr.send()
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            if (xhr.status >= 200 && xhr.status < 300) {
+              resolve(xhr.response)
+            } else {
+              reject(xhr.status)
+            }
+          }
+        }
+      })
+      // 调用then
+      p.then(value => {
+        console.log(value)
+      }, reason => {
+        console.warn(reason)
+      })
+    })
+  </script>
+</body>
+```
+## fs.readFile()封装
+```js
+/*
+封装一个函数 myReadFile 读取文件内容
+参数：path 文件路径
+返回：promise 对象
+*/
+
+function myReadFile(path) {
+  return new Promise((resolve, reject) => {
+    // 读取文件
+    require('fs').readFile(path, (err, data) => {
+      // 判断
+      if (err) reject(err)
+      // 成功
+      resolve(data)
+    })
+  })
+}
+myReadFile('./resources/content.txt')
+  .then(value => {
+    console.log(value.toString())
+  }, reason => {
+    console.log(reason)
+  })
 ```
 ```js
-var fs = require('fs')
-fs.readFile('a.jpg', function (err, data) {
-  if (!err) {
-    // 将data写入到文件中
-    fs.writeFile('hello.jpg', data, function (err) {
-      if (!err) {
-        console.log('写入成功！')
+// util.promisify 方法
+// http://nodejs.cn/api/util.html#util_util_promisify_original
+
+const util = require('util')
+const fs = require('fs')
+let myReadFile = util.promisify(fs.readFile)
+myReadFile('./resources/content.txt')
+  .then(value => {
+    console.log(value.toString())
+  })
+```
+## AJAX GET封装
+```html
+<body>
+  <script>
+    /*
+    封装一个函数 sendAJAX 发送 GET AJAX 请求
+    参数：URL
+    返回结果：Promise对象
+    */
+    function sendAJAX(url) {
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+        xhr.responseType = 'json'
+        xhr.open('GET', url)
+        xhr.send()
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            if (xhr.status >= 200 && xhr.status < 300) {
+              resolve(xhr.response)
+            } else {
+              reject(xhr.status)
+            }
+          }
+        }
+      })
+    }
+    sendAJAX('https://api.apiopen.top/getJoke')
+      .then(value => {
+        console.log(value)
+      }, reason => {
+        console.warn(reason)
+      })
+  </script>
+</body>
+```
+# Promise方法
+## Promise 构造函数
+`Promise{executor}{}`
+executor 函数：执行器 {resolve, reject} => {}
+resolve 函数：内部定义成功时调用函数 value => {}
+reject 函数：内部定义失败时调用函数 reason => {}
+说明：executor 会在 Promise 内部立即**同步调用**，异步操作在执行器中执行
+## Promise.prototype.then
+`{onResolved, onRejected} => {}`
+onResolved 函数：成功的回调函数 (value) => {}
+onRejected 函数：失败的回调函数 (reason) => {}
+说明：value的成功回调和reason的失败回调返回一个新的promise对象
+## Promise.prototype.catch
+`onRejected => {}`
+onRejected 函数：失败的回调函数 (reason) => {}
+说明：then()的语法糖，相当于：then(undefined, onRejected)
+```js
+let p = new Promise((resolve, reject) => {
+  // 修改promise对象的状态
+  reject('error')
+})
+
+p.catch(reason => {
+  console.log(reason)
+})
+```
+## Promise.resolve
+`(value) => {}`
+value：成功的数据或promise对象
+说明：返回一个成功/失败的promise对象
+```js
+// 如果传入的参数为 非Promise类型的对象，则返回的结果为成功的promise对象
+// 如果传入的参数为 Promise对象，则参数的结果决定了 resolve 的结果
+
+// let p1 = Promise.resolve(332)
+/*
+Promise {<fulfilled>: 332}
+  __proto__: Promise
+  [[PromiseState]]: "fulfilled"
+  [[PromiseResult]]: 332
+*/
+let p2 = Promise.resolve(new Promise((resolve, reject) => {
+  // resolve('OK')
+  /*
+  Promise {<fulfilled>: "OK"}
+    __proto__: Promise
+    [[PromiseState]]: "fulfilled"
+    [[PromiseResult]]: "OK"
+  */
+  reject('Error')
+  /*
+  Promise {<rejected>: "Error"}
+    __proto__: Promise
+    [[PromiseState]]: "rejected"
+    [[PromiseResult]]: "Error"
+  */
+}))
+
+// console.log(p2)
+p2.catch(reason => {
+  console.log(reason)
+})
+```
+## Promise.reject
+`(reason) => {}`
+value：失败的原因
+说明：返回一个失败的promise对象
+```js
+// let p = Promise.reject('123') //Promise {<rejected>: "123"}
+let p2 = Promise.reject(new Promise((resolve, reject) => {
+  resolve('OK')
+}))
+console.log(p2) //Promise {<rejected>: Promise}
+```
+## Promise.all
+`(promises) => {}`
+promises：包括n个promise的数组
+说明：返回一个新的promise，只有所有的promise都成功才成功，只要有一个失败了就直接失败
+```js
+let p1 = new Promise((resolve, reject) => {
+  resolve('OK')
+})
+// let p2 = Promise.resolve('Success')
+let p2 = Promise.reject('Error')
+let p3 = Promise.resolve('Yeah')
+
+const result = Promise.all([p1, p2, p3])
+console.log(result)
+/*
+全部成功，返回3个promise数组
+Promise {<pending>}
+  __proto__: Promise
+  [[PromiseState]]: "fulfilled"
+  [[PromiseResult]]: Array(3)
+    0: "OK"
+    1: "Success"
+    2: "Yeah"
+    length: 3
+    __proto__: Array(0)
+*/
+/*
+p2失败，返回p2的失败结果
+Promise {<pending>}
+  __proto__: Promise
+  [[PromiseState]]: "rejected"
+  [[PromiseResult]]: "Error"
+*/
+```
+## Promise.race
+`(promises) => {}`
+promises：包括n个promise的数组
+说明：返回一个新的promise，第一个完成的promise的结果状态就是最终的结果状态，不管结果本身是成功状态还是失败状态。
+```js
+let p1 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('OK')
+  }, 1000)
+})
+let p2 = Promise.reject('Error')
+let p3 = Promise.resolve('Yeah')
+
+const result = Promise.race([p1, p2, p3])
+console.log(result)
+/*
+返回p2的结果状态
+Promise {<pending>}
+  __proto__: Promise
+  [[PromiseState]]: "rejected"
+  [[PromiseResult]]: "Error"
+*/
+```
+# 几个问题
+1. 如何改变promise的状态？
+    1.  resolve(value) pending => resolved
+    2.  reject(reason) pending => rejected
+    3.  抛出异常 pending => rejected
+    ```js
+    let p = new Promise((resolve, reject) => {
+      // resolve('OK')
+      // reject('Error')
+      throw '出问题了'
+    })
+    console.log(p)
+    ```
+<br>
+2. 一个promise指定多个成功/失败回调函数，都会调用吗？
+当promise改变为对应状态时都会调用
+```js
+let p = new Promise((resolve, reject) => {
+  resolve('OK')
+})
+
+// 指定回调 1
+p.then(value => {
+  console.log(value)
+})
+// 指定回调 2
+p.then(value => {
+  alert(value)
+})
+```
+<br>
+3. 改变 promise 状态和指定回调函数谁先谁后?
+(1) 都有可能, 正常情况下是先指定回调再改变状态【异步任务】, 但也可以先改状态再指定回调
+(2) 如何先改状态再指定回调?
+&nbsp;&nbsp;&nbsp;&nbsp;① 在执行器中直接调用 resolve()/reject()【同步任务】
+&nbsp;&nbsp;&nbsp;&nbsp;② 延迟更长时间才调用 then()
+(3) 什么时候才能得到数据（回调函数什么时候执行）?
+&nbsp;&nbsp;&nbsp;&nbsp;① 如果先指定的回调, 那当状态发生改变时, 回调函数就会调用, 得到数据
+&nbsp;&nbsp;&nbsp;&nbsp;② 如果先改变的状态, 那当指定回调时, 回调函数就会调用, 得到数据
+
+4. promise.then()返回的新 promise 的结果状态由什么决定?
+(1) 简单表达: 由 then()指定的回调函数执行的结果决定
+(2) 详细表达:
+&nbsp;&nbsp;&nbsp;&nbsp;① 如果抛出异常, 新 promise 变为 rejected, reason 为抛出的异常
+&nbsp;&nbsp;&nbsp;&nbsp;② 如果返回的是非 promise 的任意值, 新 promise 变为 resolved, value 为返回的值
+&nbsp;&nbsp;&nbsp;&nbsp;③ 如果返回的是另一个新 promise, 此 promise 的结果就会成为新 promise 的结果
+
+5. promise 如何串连多个操作任务?
+(1) promise 的 then()返回一个新的 promise, 可以生成 then()的链式调用
+(2) 通过 then 的链式调用串连多个同步/异步任务
+```js
+let p = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('OK')
+  }, 1000)
+})
+
+p.then(value => {
+  return new Promise((resolve, reject) => {
+    resolve("success")
+  })
+}).then(value => {
+  console.log(value) //success
+}).then(value => {
+  console.log(value) //undefined
+})
+```
+<br>
+6. promise 异常传透?
+(1) 当使用 promise 的 then 链式调用时, 可以在最后指定失败的回调
+(2) 前面任何操作出了异常, 都会传到最后失败的回调中处理
+```js
+let p = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('OK');
+    // reject('Err');
+  }, 1000);
+});
+
+p.then(value => {
+  // console.log(111);
+  throw '失败啦!';
+}).then(value => {
+  console.log(222);
+}).then(value => {
+  console.log(333);
+}).catch(reason => {
+  console.warn(reason); //失败啦！
+});
+```
+<br>
+7. 中断 promise 链?
+当使用 promise 的 then 链式调用时, 在中间中断, 不再调用后面的回调函数。
+办法: 在回调函数中返回一个 pending 状态的 promise 对象
+```js
+let p = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('OK');
+  }, 1000);
+});
+
+p.then(value => {
+  console.log(111);
+  //有且仅有一种方式
+  return new Promise(() => { });
+}).then(value => {
+  console.log(222);
+}).then(value => {
+  console.log(333);
+}).catch(reason => {
+  console.warn(reason);
+});
+```
+
+# 自定义封装
+```js
+class Promise {
+  // 构造方法
+  constructor(executor) {
+    this.PromiseState = 'pending'
+    this.PromiseResult = null
+    this.callbacks = []
+    // 保存实例对象的 this 值
+    const self = this //self _this that
+
+    // resolve函数
+    function resolve(data) {
+      // 判断状态，只能更改一次
+      if (self.PromiseState !== 'pending') return
+      // 1. 修改对象的状态(PromiseState)
+      self.PromiseState = 'fulfilled'
+      // 2. 修改对象结果值(PromiseResult)
+      self.PromiseResult = data
+      // 调用成功的回调函数
+      // 在resolve中而不是then中执行回调，改变状态之后才能执行回调
+      // 多个回调
+      // then方法是异步执行，加一个定时器(2)
+      setTimeout(() => {
+        self.callbacks.forEach(item => {
+          item.onResolved(data)
+        })
+      })
+    }
+
+    // reject函数
+    function reject(data) {
+      if (self.PromiseState !== 'pending') return
+      self.PromiseState = 'rejected'
+      self.PromiseResult = data
+      setTimeout(() => {
+        self.callbacks.forEach(item => {
+          item.onRejected(data)
+        })
+      })
+    }
+
+    try {
+      // 同步调用【执行器函数】
+      executor(resolve, reject)
+    } catch (e) {
+      // 修改 promise 对象状态为 失败
+      reject(e)
+    }
+  }
+
+  // then方法
+  then(onResolved, onRejected) {
+    const self = this
+    // 判断回调函数参数
+    if (typeof onRejected !== 'function') {
+      onRejected = reason => {
+        throw reason
+      }
+    }
+    if (typeof onResolved !== 'function') {
+      onResolved = value => value
+    }
+    return new Promise((resolve, reject) => {
+      //封装函数
+      function callback(type) {
+        try {
+          //获取回调函数的执行结果
+          let result = type(self.PromiseResult)
+          //判断
+          if (result instanceof Promise) {
+            //如果是 Promise 类型的对象
+            result.then(v => {
+              resolve(v)
+            }, r => {
+              reject(r)
+            })
+          } else {
+            //结果的对象状态为『成功』
+            resolve(result)
+          }
+        } catch (e) {
+          reject(e)
+        }
+      }
+      //调用回调函数  PromiseState
+      if (this.PromiseState === 'fulfilled') {
+        // then方法是异步执行，加一个定时器(1)
+        setTimeout(() => {
+          callback(onResolved)
+        })
+      }
+      if (this.PromiseState === 'rejected') {
+        setTimeout(() => {
+          callback(onRejected)
+        })
+      }
+      //判断 pending 状态
+      if (this.PromiseState === 'pending') {
+        //保存回调函数
+        this.callbacks.push({
+          onResolved: function () {
+            callback(onResolved)
+          },
+          onRejected: function () {
+            callback(onRejected)
+          }
+        })
       }
     })
   }
-})
-// 实现了复制操作
+
+  // catch方法
+  catch(onRejected) {
+    return this.then(undefined, onRejected)
+  }
+
+  // 添加resolve方法
+  // 属于类，不属于实例对象
+  static resolve(value) {
+    return new Promise((resolve, reject) => {
+      if (value instanceof Promise) {
+        value.then(v => {
+          resolve(v)
+        }, r => {
+          reject(r)
+        })
+      } else {
+        resolve(value)
+      }
+    })
+  }
+
+  // 添加reject方法
+  static reject(reason) {
+    return new Promise((resolve, reject) => {
+      reject(reason)
+    })
+  }
+
+  // 添加all方法
+  static all(promises) {
+    return new Promise((resolve, reject) => {
+      let count = 0
+      let arr = []
+      for (let i = 0; i < promises.length; i++) {
+        promises[i].then(v => {
+          // 得知对象的状态是成功
+          count++
+          arr[i] = v
+          if (count === promises.length) {
+            // 每个promise对象都成功才能调用resolve()修改状态
+            resolve(arr)
+          }
+        }, r => {
+          reject(r)
+        })
+      }
+    })
+  }
+
+  // 添加race方法
+  static race(promises) {
+    return new Promise((resolve, reject) => {
+      for (let i = 0; i < promises.length; i++) {
+        promises[i].then(v => {
+          resolve(v)
+        }, r => {
+          reject(r)
+        })
+      }
+    })
+  }
+}
 ```
 
-## 流式文件
-### 写入
-同步、异步、简单文件的写入都不适合大文件的写入，性能较差，容易导致内存溢出。
-```md
-首先需要创建一个Writable对象
-  fs.createWriteStream(path[, options])
-    - path 文件路径
-    - options {encoding:"",mode:"",flag:""}
-打开了Writable文件流，就可以使用write()方法来写入它
-写入完成后，再调用end()方法来关闭流
+# async 和 await
+## async
+- 函数的返回值为 promise 对象
+- promise 对象的结果由 async 函数执行的返回值决定
+```js
+// 和then方法返回结果规则是一样的
+async function main() {
+  // 1. 如果返回值是一个非Promise类型的对象
+  // return 123
+  // 2. 如果返回的是一个Promise对象
+  // return new Promise((resolve, reject) => {
+  //   resolve('OK')
+  //   reject('ERR')
+  // })
+  // 3. 抛出异常
+  throw 'NO'
+}
+let result = main()
+console.log(result)
+```
+
+## await
+await 右侧的表达式一般为 promise 对象, 但也可以是其它的值
+- 如果表达式是 promise 对象, await 返回的是 promise 成功的值
+- 如果表达式是其它值, 直接将此值作为 await 的返回值
+
+注意：await 必须写在 async 函数中, 但 async 函数中可以没有 await。
+如果 await 的 promise 失败了, 就会抛出异常, 需要通过 try...catch 捕获处理。
+```js
+async function main() {
+  let p = new Promise((resolve, reject) => {
+    // resolve('OK')
+    reject('Error')
+  })
+  //1. 右侧为promise的情况
+  // let res = await p
+  //2. 右侧为其他类型的数据
+  // let res2 = await 20
+  //3. 如果promise是失败的状态
+  try {
+    let res3 = await p
+  } catch (e) {
+    console.log(e)
+  }
+}
+main()
+```
+
+## async与await结合
+- 读取文件
+```js
+// 读取 resource 1.html 2.html 3.html 文件内容
+// 回调函数的方式
+fs.readFile('./resource/1.html', (err, data1) => {
+  if (err) throw err
+  fs.readFile('./resource/2.html', (err, data2) => {
+    if (err) throw err
+    fs.readFile('./resource/3.html', (err, data3) => {
+      if (err) throw err
+      console.log(data1 + data2 + data3)
+    })
+  })
+})
 ```
 ```js
-var fs = require('fs')
+const fs = require('fs')
+const util = require('util')
 
-// 创建一个可写流
-var ws = fs.createWriteStream('hello4.txt')
-// 可以通过监听流的open和close事件来监听流的打开和关闭
-/*
-on(事件字符串, 回调函数)
-  - 可以为对象绑定一个事件
-once(事件字符串, 回调函数)
-  - 可以为对象绑定一个一次性的事件，该事件将会在触发一次以后自动失效
-*/
-ws.once('open', function () {
-  console.log('流打开了')
-})
-ws.once('close', function () {
-  console.log('流关闭了')
-})
+const myReadFile = util.promisify(fs.readFile)
 
-// 通过ws向文件中输出内容
-ws.write('通过可写流写入文件的内容')
-ws.write('今天天气真好')
-ws.write('HELLO')
-ws.write('WORLD')
+//async 与 await
+async function main() {
+  try {
+    //读取第一个文件的内容
+    let data1 = await myReadFile('./resource/1.html')
+    let data2 = await myReadFile('./resource/2.html')
+    let data3 = await myReadFile('./resource/3.html')
+    console.log(data1 + data2 + data3)
+  } catch (e) {
+    console.log(e)
+  }
+}
 
-// 关闭流
-ws.close()
-// ws.end()
+main()
 ```
-### 读取
-流式文件读取也适用于一些比较大的文件，可以分多次将文件读取到内容中
-```md
-首先需要创建一个Readable流对象
-  fs.createReadStream(path[, options])
-    - path 文件路径
-    - options {encoding:"",mode:"",flag:""}
-打开Readable文件流以后，可以通过readable事件和read()请求，或通过data事件处理程序从它读出。
+- 发送AJAX请求
+```html
+<body>
+  <button id="btn">点击获取段子</button>
+  <script>
+    function sendAJAX(url) {
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest
+        xhr.responseType = 'json'
+        xhr.open('GET', url)
+        xhr.send()
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState === 4) {
+            if (xhr.status >= 200 && xhr.status < 300) {
+              resolve(xhr.response)
+            } else {
+              reject(xhr.status)
+            }
+          }
+        }
+      })
+    }
+    let btn = document.querySelector('#btn')
+    btn.addEventListener('click', async function () {
+      let duanzi = await sendAJAX('https://api.apiopen.top/getJoke')
+      console.log(duanzi)
+    })
+  </script>
+</body>
 ```
+
+# run
 ```js
-var fs = require('fs')
+function run(generatorFunction) {
+  return new Promise((resolve, reject) => {
+    var generator = generatorFunction()
+    var generated = generator.next()
 
-// 创建一个可读流
-var rs = fs.createReadStream('ABC.mp3')
-// 创建一个可写流
-var ws = fs.createWriteStream('123.mp3')
+    step()
 
-// 监听流的开启和关闭
-rs.once('open', function () {
-  console.log('可读流打开了')
-})
-rs.once('close', function () {
-  console.log('可读流关闭了')
-  // 数据读取完毕，关闭可写流
-  ws.end()
-})
-ws.once('open', function () {
-  console.log('可写流打开了')
-})
-ws.once('close', function () {
-  console.log('可写流关闭了')
-})
-
-// 如果要读取一个可读流中的数据，必须要为可读流绑定一个data事件，data事件绑定文笔，它会自动开始读取数据
-rs.on('data', function (data) {
-  // console.log(data)
-  // 将读取到的数据写入到可写流中
-  ws.write(data)
-})
-// 复制一个大文件
+    function step() {
+      if (!generated.done) {
+        generated.value.then(val => {
+          try {
+            generated = generator.next(val)
+          } catch (e) {
+            reject(e)
+            return
+          }
+          step()
+        }, reason => {
+          try {
+            generated = generator.throw(reason)
+          } catch (e) {
+            reject(e)
+            return
+          }
+          step()
+        })
+      } else {
+        resolve(generated.value)
+      }
+    }
+  })
+}
 ```
 ```js
 // 另一种写法
-var fs = require('fs')
+function run(generatorFunc) {
+  return new Promise((resolve, reject) => {
+    var generator = generatorFunc()
+    var gen = generator.next()
 
-// 创建一个可读流
-var rs = fs.createReadStream('ABC.mp3')
-// 创建一个可写流
-var ws = fs.createWriteStream('456.mp3')
+    step()
 
-// 监听流的开启和关闭
-rs.once('open', function () {
-  console.log('可读流打开了')
-})
-rs.once('close', function () {
-  console.log('可读流关闭了')
-})
-ws.once('open', function () {
-  console.log('可写流打开了')
-})
-ws.once('close', function () {
-  console.log('可写流关闭了')
-})
-
-// pipe()可以将可读流中的内容，直接俄输出到可写流中
-rs.pipe(ws)
-```
-
-## 其它方法
-- 检查一个文件是否存在
-`fs.existsSync(path)`
-```js
-var isExists = fs.existsSync('a.mp3')
-console.log(isExists)
-// 存在输出 true，不存在输出 false
-```
-
-- 获取文件信息
-[fs.Stats类 文档](http://nodejs.cn/api/fs.html#fs_class_fs_stats)
-```md
-fs.stat(path[, options], callback)
-fs.statSync(path[, options])
-  会返回一个对象，这个对象中保存了当前对象状态的相关信息
-```
-```js
-fs.stat('ABC.mp3', function (err, stat) {
-  /*
-  isFile() 是否是一个文件
-  isDirectory() 是否是一个文件夹
-  */
-  // console.log(stat.size)
-  console.log(stat.isFile())
-})
-```
-
-- 删除文件
-```md
-fs.unlink(path, callback)
-fs.unlinkSync(path)
-```
-```js
-fs.unlinkSync('hello.txt')
-```
-
-- 列出文件
-```md
-fs.readdir(path[, options], callback)
-fs.readdirSync(path[, options])
-```
-```js
-fs.readdir('.', function (err, files) {
-  if (!err) {
-    console.log(files)
-  }
-})
-// files是一个字符串数组，每一个元素就是一个文件夹或文件的名字
-```
-
-- 截断文件
-```md
-fs.truncate(path, len, callback)
-fs.truncateSync(path, len)
-```
-```js
-fs.truncateSync('hello2.txt', 10)
-截断文件，将文件修改为指定大小
-```
-
-- 建立目录
-```md
-fs.mkdir(path[, mode], callback)
-fs.mkdirSync(path[, mode])
-```
-```js
-fs.mkdirSync('hello')
-```
-
-- 删除目录
-```md
-fs.rmdir(path, callback)
-fs.rmdirSync(path)
-```
-```js
-fs.rmdirSync('hello')
-```
-
-- 重命名文件和目录
-```md
-fs.rename(oldPath, newPath, callback)
-fs.renameSync(oldPath, newPath)
-  - oldPath 旧路径
-  - newPath 新路径
-  - callback 回调函数
-```
-```js
-fs.rename('hello3.txt', 'C:/Users/fe/Desktop/555.txt', function (err) {
-  if (!err) {
-    console.log('修改成功！')
-  }
-})
-// 也可以实现剪切功能
-```
-
-- 监视文件更改写入
-```md
-fs.watchFile(filename[, options], listener)
-  - filename 要监视的文件的名字
-  - options 配置选项
-    - bigint <boolean> 默认值: false
-    - persistent <boolean> 默认值: true
-    - interval <integer> 默认值: 5007 间隔时间
-  - listener 回调函数，当文件发生变化时，回调函数会执行。有两个参数：
-    curr 当前文件的状态
-    prev 修改前文件的状态
-      这两个对象都是status对象
-
-```
-```js
-fs.watchFile('hello4.txt', { interval: 1000 }, function (curr, prev) {
-  console.log('修改前文件大小：' + prev.size)
-  console.log('修改后文件大小：' + curr.size)
-})
-```
-
-# EventEmitter
-```js
-// EventEmitter类 实现
-class Eventer {
-  #eventListeners = {}
-
-  constructor() { }
-
-  on(eventName, handler) {
-    if (!(eventName in this.#eventListeners)) {
-      this.#eventListeners[eventName] = []
+    function tick(methodName, val) {
+      gen = generator[methodName](val)
+      step()
     }
 
-    this.#eventListeners[eventName].push(handler)
-    return this
-  }
-
-  emit(eventName, ...args) {
-    var handlers = this.#eventListeners[eventName]
-    if (handlers && handlers.length > 0) {
-      for (var handler of handlers) {
-        handler.call(this, ...args)
+    function step() {
+      if (gen.done) {
+        resolve(gen.value)
+      } else {
+        gen.value.then(tick.bind(null, 'next'), tick.bind(null, 'throw'))
       }
-      return true
-    } else {
-      return false
     }
+  })
+}
+```
+```js
+// 简版
+function run(generatorFunc) {
+  var generator = generatorFunc()
+  var generated = generator.next()
+
+  step()
+
+  function step() {
+    generated.value.then(val => {
+      generated = generator.next(val)
+      step()
+    })
   }
 }
 ```

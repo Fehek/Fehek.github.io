@@ -1,5 +1,6 @@
 ---
-title: web前端学习笔记2
+title: web前端学习笔记2——CSS
+subtitle: CSS
 categories: web前端学习笔记
 abbrlink: d8ef0c96
 tags:

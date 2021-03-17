@@ -1,656 +1,401 @@
 ---
-title: web前端学习笔记7
-abbrlink: a885f819
-tags:
+title: web前端学习笔记7——计算机网络
+subtitle: 计算机网络
+abbrlink: 71c437b1
+date: 2021-01-18 09:50:00
+tags: 
   - web前端
-  - AJAX
+  - 计算机网络
 categories: web前端学习笔记
-date: 2021-01-26 22:00:00
 index_img:
 banner_img:
 ---
 
-# AJAX
-## 简介
-AJAX 全称为 Asynchronous JavaScript And XML，就是异步的 JS 和 XML。
-通过 AJAX 可以在浏览器中向服务器发送异步请求，最大的优势：无刷新获取数据。
-AJAX 不是新的编程语言，而是一种将现有的标准组合在一起使用的新方式。
+# 分类
+名称|英语|范围|区域
+:-:|:-:|:-:|:-:
+广域网|WAN(Wide Area NetWork)|几十到几千公里|跨省、跨国
+城域网|MAN(Metro Area NetWork)|5KM-50KM|城市间
+局域网|LAN(Local Area NetWork)|1KM以内|城区内
 
-## 特点
-- 优点
-可以无需刷新页面而与服务器端进行通信
-允许根据用户事件来更新部分页面内容
-- 缺点
-没有浏览历史，不能回退
-存在跨域问题(同源)
-SEO 不友好
+# 模型
+- 层次结构设计的基本原则：
+各层之间是相互独立的
+每一层要有足够的灵活性
+各层之间完全解耦
 
-# HTTP协议
-## 请求报文
-```md
-行      POST  /s?ie=utf-8  HTTP/1.1 
-头      Host: atguigu.com
-        Cookie: name=guigu
-        Content-type: application/x-www-form-urlencoded
-        User-Agent: chrome 83
-空行
-体      username=admin&password=admin
-```
-在 Chrome 浏览器中，
-Headers => Request Headers 查看请求报文行、头
-Headers => From Data 查看请求体
+OSI 七层模型|作用
+:-|:-
+应用层|为计算机用户提供接口和服务
+表示层|数据处理（编码解码、加密解密等）
+会话层|管理（建立、维护、重连）通信会话
+传输层|管理端到端的通信连接
+网络层|数据路由（决定数据在网络的路径）
+数据链路层|管理相邻节点之间的数据通信
+物理层|数据通信的光电物理特性
 
-## 响应报文
-```md
-行      HTTP/1.1  200  OK
-头      Content-Type: text/html;charset=utf-8
-        Content-length: 2048
-        Content-encoding: gzip
-空行    
-体      <html>
-            <head>
-            </head>
-            <body>
-                <h1>XXX</h1>
-            </body>
-        </html>
-```
-Headers => Response Headers 查看响应行、头
-Response 查看响应体
+OSI最终并没有成为广为使用的标准模型
 
-# 原生方法
-## GET
-```js
-const express = require('express')
-const app = express()
-app.get('/server', (request, response) => {
-  // 设置响应头，设置允许跨域
-  response.setHeader('Access-control-Allow-Origin', '*')
-  // 设置响应体
-  response.send('Hello Ajax')
-})
+TCP/IP 四层模型|协议
+:-|:-
+应用层|HTTP/FTP/SMTP/POP3...
+传输层|TCP/UDP
+网络层|IP/ICMP
+网络接口层|Ethernet/ARP/RARP/PPP...
 
-app.listen(8000, () => {
-  console.log("服务已经启动，8000端口监听中......")
-})
-```
-```html
-<!DOCTYPE html>
-<html lang="en">
+![IP模型](/image/post/IP模型.png)
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AJAX GET 请求</title>
-  <style>
-    #result {
-      width: 200px;
-      height: 100px;
-      border: solid 1px red;
-    }
-  </style>
-</head>
+# 网络接口层
+## 物理层
+**性能指标**
+- 为什么拉的 100M 光纤，测试峰值只有12M/s?
+网络常用单位为 Mbps，bps = bit/s
+100M/s = 100Mbps = 100Mbit/s
+100Mbit/s = (100/8)MB/s = 12.5MB/s
 
-<body>
-  <button>点击发送请求</button>
-  <div id="result"></div>
+- 时延
+发送时延 = 数据长度(bit) / 发送速率(bit/s)[受限于计算机网卡]
+传播时延 = 传输路径距离 / 传播速率(bit/s)[受限于传播介质]
+排队时延：数据包在网络设备中等待被处理的时间
+处理时延：数据包到达设备或者目的机器被处理所需要的时间
+总时延 = 发送时延 + 传播时延 + 排队时延 + 处理时延
 
-  <script>
-    // 获取button元素
-    const btn = document.getElementsByTagName('button')[0]
-    const result = document.getElementById('result')
-    // 绑定事件
-    btn.onclick = function () {
-      // 1.创建对象
-      const xhr = new XMLHttpRequest()
-      // 2.初始化 设置请求方法和url
-      xhr.open('GET', 'http://127.0.0.1:8000/server')
-      // 3.发送
-      xhr.send()
-      // 4.事件绑定 处理服务端返回的结果
-      xhr.onreadystatechange = function () {
-        // 判断服务端返回了所有的结果
-        if (xhr.readyState == 4) {
-          // 判断响应状态码 200 404 403 401 500
-          // 2xx 成功
-          if (xhr.status >= 200 && xhr.status < 300) {
-            // 处理结果 行 头 空行 体
-            // 1.响应行
-            // console.log(xhr.status)  //状态码
-            // console.log(xhr.statusText)  //状态字符串
-            // console.log(xhr.getAllResponseHeaders())  //所有响应头
-            // console.log(xhr.response)  //响应体
+- 往返时间RTT(Route-Trip Time)
+数据报文在端到端通信中的来回一次的时间
+通常使用 ping 命令查看 RTT
 
-            // 设置result文本
-            // 可以实现不刷新页面直接获取响应体
-            result.innerHTML = xhr.response
-          }
-        }
-      }
-    }
-  </script>
-</body>
+## 数据链路层
+### 过程
+1. 封装成帧
+“帧”是数据链路层数据的基本单位
+发送端在网络层的一段数据前后添加特定标记形成“帧”
+接收端根据前后特定标记识别出“帧”<br>
+帧首部(SOH) | IP数据报（“帧”的数据）| 帧尾部(EOT)
+帧首部和尾部是特定的控制字符（特定比特流）
+SOH: 00000001
+EOT: 00000100
 
-</html>
-```
-- 设置请求参数
-直接在url后以?开始加上，如上述代码url参数可改成`http://127.0.0.1:8000/server?a=100&b=200&c=300`
+2. 透明传输
+控制字符在帧数据中，要当做不存在去处理<br>
+数据里面恰好有这些比特流怎么办？
+在前面加一个转义字符(ESC)
 
-## POST
-```js
-const express = require('express')
-const app = express()
+3. 差错检测
+- 奇偶校验码：出现偶数个错误，检测不到错误
+- 循环冗余校验码CRC：一种根据传输或保存的数据而产生固定位数校验码的方法，检测数据传输或者保存后可能出现的错误生成的数字计算出来并且附加到数据后面。
+CRC的错误检测能力与位串的阶数r有关
+数据链路层只进行数据的检测，不进行纠正
+CRC可校验位串：
+  1. 选择一个用于校验的多项式G(x)，并在数据尾部添加r个0
+  2. 将添加r个0后的数据，使用模“2”除法除以多项式的位串
+  3. 得到的余数填充在原数据r个0的位置得到可校验的位串
+模“2”除法：是二进制下的除法；与算术除法类似，但除法不借位，实际是“异或”操作
 
-app.post('/server', (request, response) => {
-  // 设置响应头，设置允许跨域
-  response.setHeader('Access-control-Allow-Origin', '*')
-  // 设置响应体
-  response.send('Hello Ajax POST')
-})
+e.g. 使用CRC计算101001的可校验位串
+G(x) = x<sup>3</sup> + x<sup>2</sup> + 1
+G(x) = 1 * x<sup>3</sup> + 1 * x<sup>2</sup> + 0 * x + 1
+=> 二进制位串：1101，最高阶3 => 原来的数尾部添加3个0，101001000
+101001000 模“2”除法除以 1101 => 得到余数 001
+余数填充在最后3位，101001000 => 可校验位串101001001
+接收端接收的数据除以G(x)的位串（101001001 / 1101），余数为 0 则没有出错
 
-app.listen(8000, () => {
-  console.log("服务已经启动，8000端口监听中......")
-})
-```
-```html
-<!DOCTYPE html>
-<html lang="en">
+### MTU
+最大传输单元MTU(Maximum Transmission Unit)
+数据链路层的数据帧也不是无限大的，数据帧长度受MTU限制
+数据帧过大或过小都会影响传输的效率，以太网MTU一般为1500字节
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AJAX POST 请求</title>
-  <style>
-    #result {
-      width: 200px;
-      height: 100px;
-      border: solid 1px red;
-    }
-  </style>
-</head>
+路径MTU：路径MTU由链路中MTU的最小值决定（木桶效应）
 
-<body>
-  <!-- 把鼠标放在div上时，发送post请求，结果在div中显示 -->
-  <div id="result"></div>
-  <script>
-    const result = document.getElementById('result')
-    result.addEventListener('mouseover', function () {
-      const xhr = new XMLHttpRequest()
-      xhr.open('POST', 'http://127.0.0.1:8000/server')
-      // 设置请求头
-      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-      xhr.send('a=100&b=200&c=300')
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-          if (xhr.status >= 200 && xhr.status < 300) {
-            result.innerHTML = xhr.response
-          }
-        }
-      }
-    })
-  </script>
-</body>
+### MAC地址
+MAC地址（物理地址、硬件地址）
+每一个设备都拥有唯一的MAC地址
+MAC地址共48位，使用十六进制表示
+查看计算机的MAC地址：`ipconfig /all`，例 68-07-15-6F-54-F0
 
-</html>
-```
-- 设置请求参数
-在`xhr.send()`里面添加，格式灵活，不限于'a=100&b=200'的样式。
-- 设置请求头
-在`xhr.setRequestHeader()`里设置
-若要自定义请求头如`xhr.setRequestHeader('name', 'fehek')`，需要在server.js里面添加响应头，新建一个app.all函数（可以接收任意类型的请求），在里面添加`response.setHeader('Access-control-Allow-Headers', '*')`
+### 以太网协议
+以太网(Ethernet)是一种使用广泛的**局域网**技术
+以太网是一种应用于数据链路层的协议
+使用以太网可以完成**相邻设备**的数据帧传输
 
-## JSON响应
-```js
-const express = require('express')
-const app = express()
+目的地址|源地址|类型|帧数据|CRC
+:-:|:-:|:-:|:-:|:-:
+6|6|2|46~1500|4
 
-app.all('/json-server', (request, response) => {
-  // 设置响应头，设置允许跨域
-  response.setHeader('Access-control-Allow-Origin', '*')
-  // 响应头
-  response.setHeader('Access-control-Allow-Headers', '*')
-  // 响应一个数据
-  const data = {
-    name: 'fehek'
-  }
-  // 对对象进行字符串转换
-  let str = JSON.stringify(data)
-  // 设置响应体
-  response.send(str)
-})
+目标地址和源地址都是MAC地址，48位即6字节
 
-app.listen(8000, () => {
-  console.log("服务已经启动，8000端口监听中......")
-})
-```
-```html
-<!DOCTYPE html>
-<html lang="en">
+MAC地址会映射到具体接口，例如下面的MAC地址表
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JSON响应</title>
-  <style>
-    #result {
-      width: 200px;
-      height: 100px;
-      border: solid 1px red;
-    }
-  </style>
-</head>
+MAC地址|硬件接口
+:-:|:-:
+68-07-15-6F-54-F0|接口1
+68-07-15-6F-54-F1|接口2
+68-07-15-6F-54-F2|接口4
+...|...
 
-<body>
-  <div id="result"></div>
-  <script>
-    const result = document.getElementById('result')
-    window.onkeydown = function () {
-      const xhr = new XMLHttpRequest()
-      xhr.responseType = 'json'  // 2.自动转换
-      xhr.open('GET', 'http://127.0.0.1:8000/json-server')
-      xhr.send()
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-          if (xhr.status >= 200 && xhr.status < 300) {
-            // 1.手动对数据转化
-            // let data = JSON.parse(xhr.response)
-            // console.log(data)
-            // result.innerHTML = data.name
+A设备通过网卡发出数据帧
+数据帧达到路由器，路由器取出前6字节
+路由器匹配MAC地址表，找到对应的网络接口
+路由器往该网络接口发送数据帧
 
-            // 2.自动转换
-            console.log(xhr.response)
-            result.innerHTML = xhr.response.name
-          }
-        }
-      }
-    }
-  </script>
-</body>
+E(路由器)检查MAC地址表，发现没有C的信息
+E将广播A的数据包到除A以外的端口
+E将受到来自B、C的回应，并将地址记录
 
-</html>
-```
+它能实现相邻物理节点传输。
+但是怎么跨设备传输呢？需要网络层才能解决。
 
-## IE缓存问题
-IE在实现ajax时，会优先以缓存的结果展现
-解决方法：在请求中加一个时间戳，这样每次实际发送的请求都会不一样
-如`xhr.open('GET', 'http://127.0.0.1:8000/ie?t=' + Date.now())`
+# 网络层
+## IP协议相关
+IP协议使得复杂的实际网络变为一个虚拟互连的网络
+IP协议使得网络层可以屏蔽底层细节而专注网络层的数据转发
+IP协议**解决了在虚拟网络中数据报传输路径的问题**
+### IP地址
+IP地址长度为32位，常分成4个8位
+IP地址常使用点分十进制来表示(0\~255 . 0\~255 . 0\~255 . 0\~255)，最多可以表示2<sup>32</sup> = 4294961296个IP地址
+### IP协议
+![](/image/post/IP协议.png)
+- 版本：占4位，指的是IP协议的版本，通信双方的版本必须一致，当前主流版本是4，即IPv4，也有IPv6
+- 首部位长度：占4位，最大数值为15，单位是32位字（4个字节），IP首部最大长度为15 * 4 = 60字节
+- 服务类型（TOS）：表示当前的数据包是高优先级的，还是低优先级的。数据包是按照 TOS 被分配到3个波段（band0、band1、band2）里面的。
+- 总长度：占16位，最大数值为65535，表示的是IP数据总长度（IP首部+IP数据）
+数据在数据链路层中的传输受最大传输单元 MTU 的限制，而 MTU 一般为为 1500 个字节，如果 IP 数据报的长度高于 MTU 的话，数据链路层将会把 IP 数据报进行 分片，即拆分成多个数据帧进行传输。
+- 标识：协议内部自身使用，不需要关注。
+- 标志：占3位，目前只有两位是有意义的，表示标识是否进行分片。
+- 片偏移：占 13 位，如果发生了分片，这里将会记录当前的数据帧保存的是第几个偏移的 IP 数据。
+- TTL：占8位，表明IP数据报文在网络中的寿命，每经过一个设备，TTL减1，当TTL=0时，网络设备必须丢弃该报文。
+当 IP 报文在网络中找不到终点的时候，避免 IP 数据在网络中无限进行传输，消耗带宽。
+- 协议：占8位，表明 IP 数据所携带的具体数据是什么协议的。
+协议名|ICMP|IGMP|**IP**|TCP|UDP|OSPF|...
+:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:
+字段值|1|2|**4**|6|17|89|...
+- 首部校验和：占16位，校验 IP 首部是否有错，如果出错会进行丢弃。
+- 源 IP 地址：发送 IP 数据报文的 IP 地址。
+- 目的 IP 地址：数据报到达的 IP 的地址。
 
-## 请求超时
-```js
-const express = require('express')
-const app = express()
+### IP地址的转发
+- 路由表
+不同于 MAC 地址表是由一组一组的 MAC 地址与硬件接口组成的，路由表是由一组一组的 目的 IP 地址与 下一跳的 IP 地址组成的。
+计算机或者路由器都拥有路由表。
+目的IP地址|下一跳IP地址
+:-:|:-:
+IP1|IP4
+IP2|IP5
+IP3|IP6
+...|...
 
-app.get('/delay', (request, response) => {
-  // 设置响应头，设置允许跨域
-  response.setHeader('Access-control-Allow-Origin', '*')
-  setTimeout(() => {
-    response.send('延时响应')
-  }, 3000)
-})
+- 逐跳(hop-by-hop)：数据是从目的设备传输到下一个网络1，又从下一个网络1传输到路由器，又从路由器跳到下一个网络2，所以是一跳一跳，即 hop-by-hop。
 
-app.listen(8000, () => {
-  console.log("服务已经启动，8000端口监听中......")
-})
-```
-```js
-btn.addEventListener('click', function () {
-  const xhr = new XMLHttpRequest()
-  // 超时设置（2s）
-  xhr.timeout = 2000
-  // 超时回溯
-  xhr.ontimeout = function () {
-    alert("网络异常，请稍后重试")
-  }
-  // 网络异常回溯
-  xhr.onerror = function () {
-    alert("你的网络似乎出了一些问题")
-  }
-  xhr.open('GET', 'http://127.0.0.1:8000/delay')
-  xhr.send()
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState == 4) {
-      if (xhr.status >= 200 && xhr.status < 300) {
-        result.innerHTML = xhr.response
-      }
-    }
-  }
-})
-```
+- MAC 地址与 IP 地址最大的区别
+1. 数据帧每一跳的 MAC 地址都在变化，而IP 数据报每一跳的 IP 地址始终不变。
+2. IP 地址具有远程定位功能，而 MAC 地址更像是身份证号，它的唯一性是为了组网时可以不用担心不同的网卡在一个网络里会产生冲突，从硬件角度保证不同的网卡有不同的标识。
+3. 相比于 IP 地址，MAC 地址的通信范围比较小，局限在一个子网里。例如：从 192.168.0.1/24 访问 192.168.0.9/24 是可以用 MAC 地址的。
 
-## 取消请求
-调用abort
-```html
-<body>
-  <button>点击发送</button>
-  <button>点击取消</button>
-  <script>
-    const btns = document.querySelectorAll('button')
-    let xhr = null
+### 子网划分
+![](/image/post/分类的IP地址.png)
 
-    btns[0].onclick = function () {
-      xhr = new XMLHttpRequest()
-      xhr.open('GET', 'http://127.0.0.1:8000/delay')
-      xhr.send()
-    }
+-|最小网络号|最大网络号|子网数量|最小主机号|最大主机号|主机数量
+:-:|:-:|:-:|:-:|:-:|:-:|:-:
+A|1|127(01111111)|2<sup>7</sup> - 2|0.0.1|255.255.254|2<sup>24</sup> - 2
+B|128.1|191.255|2<sup>14</sup> - 1|0.1|255.254|2<sup>16</sup> - 2
+C|192.0.1|223.255.255|2<sup>21</sup> - 1|1|254|2<sup>8</sup> - 2
 
-    // abort
-    btns[1].onclick = function () {
-      xhr.abort()
-    }
-  </script>
-</body>
-```
+- 特殊的主机号
+主机号全0表示当前网络段，不可分配为特定主机
+主机号为全1表示广播地址，向当前网络段所有主机发消息
+- 特殊的网络号
+A类地址网络段全0(00000000)表示特殊网络
+A类地址网络段后7位全1(01111111:127)表示回环地址
+B类地址网络段(10000000.00000000:128.0)是不可使用的
+C类地址网络段(192.0.0)是不可使用的<br>
+本地回环地址(Loopback Address)：127.0.0.1，不属于任何一个有类别地址类。它代表设备的本地虚拟接口，所以默认被看作是永远不会废弃的接口。在 Windwos 操作系统中也有相似的定义，所以一般在安装网卡前就可以 ping 通这个本地回环地址。一般都会用来检查本地网络协议、基本数据接口等是否是正常的。
 
-## 重复请求
-若重复发送相同请求，取消之前的请求，实现最新的请求
-```html
-<body>
-  <button>点击发送</button>
-  <script>
-    const btn = document.getElementsByTagName('button')[0]
-    let xhr = null
-    // 标识变量，是否正在发送ajax请求
-    let isSending = false
+- 分类地址的补充
+D 类地址：1110.....
+E 类地址：1111.....
+它们都仅用作特殊用途。
 
-    btn.onclick = function () {
-      // 判断标识变量
-      // 如果正在发送，则取消该请求，创建一个新的请求
-      if (isSending) xhr.abort()
-      xhr = new XMLHttpRequest()
-      // 修改 标识变量的值
-      isSending = true
-      xhr.open('GET', 'http://127.0.0.1:8000/delay')
-      xhr.send()
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4) {
-          isSending = false
-        }
-      }
-    }
-  </script>
-</body>
-```
+![](/image/post/子网.png)
 
-# 其它方法
-## JQuery发送AJAX
-```js
-const express = require('express')
-const app = express()
+- 子网掩码
+IP & 子网掩码 = 该 IP 对应的子网号
+与 IP 地址一样，都是32位。
+由连续的1和连续的0组成。
+某一个子网的子网掩码具备网络号位数个连续的1。
 
-app.all('/jQuery-server', (request, response) => {
-  // 设置响应头，设置允许跨域
-  response.setHeader('Access-control-Allow-Origin', '*')
-  // 设置响应头，允许自定义请求头
-  response.setHeader('Access-control-Allow-Headers', '*')
-  // response.send('Hello jQuery AJAX')
-  const data = { name: 'fehek' }
-  response.send(JSON.stringify(data))
-})
+- 无分类编址 CIDR
+![](/image/post/CIDR.png)
+CIDR 中没有 A、B、C 类网络号和子网划分的概念。
+CIDR 将 网络前缀 相同的 IP 地址称为一个 CIDR 地址块。
+网络前缀是任意位数的。
+相比原来子网划分更加灵活。
+CIDR 使用了斜线记法，例如：193.10.10.129/25 表示网络号为 25 位，主机号为 7位
 
-app.listen(8000, () => {
-  console.log("服务已经启动，8000端口监听中......")
-})
+## ARP与RARP
+### ARP
+地址解析协议（Address Resolution Protocol）
+网络层IP32位地址 ——ARP协议——> 数据链路层MAC48位地址
+- ARP缓存表
 
-```
-```html
-<!DOCTYPE html>
-<html lang="en">
+IP地址|MAC地址
+:-:|:-:
+192.168.01.01|0d-56-33-50-fc-98
+259.1.1.3|01-00-5e-39-ff-fa-7f
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>jQuery 发送 AJAX 请求</title>
-  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-</head>
+ARP缓存表是ARP协议和RARP协议运行的关键
+ARP缓存表缓存了IP地址到硬件地址之间的映射关系
+ARP缓存表中的记录并不是永久有效的，有一定的期限
+查看ARP缓存表`arp -a`
 
-<body>
-  <div class="container">
-    <h2 class="page-header">jQuery发送AJAX请求</h2>
-    <button>GET</button>
-    <button>POST</button>
-    <button>通用型方法ajax</button>
-  </div>
-  <script>
-    $('button').eq(0).click(function () {
-      $.get('http://127.0.0.1:8000/jQuery-server', { a: 100, b: 200 }, function (data) {
-        console.log(data)
-      }, 'json')  //输出对象
-    })
-    $('button').eq(1).click(function () {
-      $.post('http://127.0.0.1:8000/jQuery-server', { a: 100, b: 200 }, function (data) {
-        console.log(data)  //输出字符串
-      })
-    })
-    $('button').eq(2).click(function () {
-      $.ajax({
-        // url
-        url: 'http://127.0.0.1:8000/jQuery-server',
-        // 参数
-        data: { a: 100, b: 200 },
-        // 请求类型
-        type: 'GET',
-        // 响应体结果
-        dataType: 'json',
-        // 成功的回调
-        success: function (data) {
-          console.log(data)
-        },
-        // 超时时间
-        timeout: 2000,
-        // 失败的回调
-        error: function () {
-          console.log('ERROR!')
-        },
-        // 头信息
-        headers: {
-          c: 300,
-          d: 400
-        }
-      })
-    })
-  </script>
-</body>
+类型<br>0806|APR请求/应答|PAD
+:-:|:-:|:-:
+2|28|18
 
-</html>
-```
+### RARP
+逆地址解析协议（Reverse Address Resolution Protocol）
+数据链路层MAC48位地址 ——RARP协议——> 网络层IP32位地址
 
-## axios发送AJAX
-[axios](https://github.com/axios/axios)
-```js
-const express = require('express')
-const app = express()
+类型<br>8035|RAPR请求/应答|PAD
+:-:|:-:|:-:
+2|28|18
 
-app.all('/axios-server', (request, response) => {
-  // 设置响应头，设置允许跨域
-  response.setHeader('Access-control-Allow-Origin', '*')
-  // 设置响应头，允许自定义请求头
-  response.setHeader('Access-control-Allow-Headers', '*')
-  // response.send('Hello jQuery AJAX')
-  const data = { name: 'fehek' }
-  response.send(JSON.stringify(data))
-})
+## NAT
+网络地址转换，NAT(Network Address Translation)
+- 内网地址：内部机构使用，避免与外网地址重复
+A 类：10.0.0.0\~10.255.255.255（支持千万数量级设备）。
+B 类：172.16.0.0\~172.31.255.255（支持百万数据级设备）。
+C 类：192.168.0.0\~192.168.255.255（支持万数量级设备）。
+- 外网地址：全球范围使用，全球公网唯一
 
-app.listen(8000, () => {
-  console.log("服务已经启动，8000端口监听中......")
-})
-```
-```html
-<!DOCTYPE html>
-<html lang="en">
+可以将设备内网地址和端口号转换为外网地址与端口号
+由于同时转换了 Port ，即进行了 端口映射，NAT 也可称为 NA(P)T
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>axios 发送 AJAX 请求</title>
-  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
-</head>
+## ICMP
+网络控制报文协议，ICMP(Internet Control Message Protocol)
+主要用于辅助 IP 协议发送与接收数据，它可以报告错误信息或异常情况。
 
-<body>
-  <button>GET</button>
-  <button>POST</button>
-  <button>通用型方法ajax</button>
-  <script>
-    const btns = document.querySelectorAll('button')
-    // 配置 baseURL
-    axios.defaults.baseURL = 'http://127.0.0.1:8000'
+### 结构
+![](/image/post/ICMP.png)
+ICMP 协议被封装在 IP 数据报的数据之中，其也分为 报文首部与报文数据。如果需要使用 ICMP 协议，则需要在 IP 协议首部的8位协议中写入1，以表明 IP 数据所携带的具体数据是 ICMP 协议的。
 
-    btns[0].onclick = function () {
-      // GET 请求
-      axios.get('/axios-server', {
-        // url 参数
-        params: {
-          id: 100,
-          level: 5
-        },
-        // 请求头信息
-        headers: {
-          name: 'fehek',
-          age: 21
-        }
-      }).then(value => {
-        console.log(value)
-      })
-    }
+### 类型
+![ICMP差错报告报文](/image/post/ICMP差错报告报文.png)
+![ICMP询问报文](/image/post/ICMP询问报文.png)
 
-    btns[1].onclick = function () {
-      // POST 请求
-      //第一个参数是url，第二个参数是请求体，第三个参数是其它配置
-      axios.post('/axios-server', {
-        // 请求体
-        username: 'admin',
-        password: 'admin'
-      }, {
-        // url 参数
-        params: {
-          id: 100,
-          level: 5
-        },
-        // 请求头信息
-        headers: {
-          height: 170,
-          weight: 170,
-        }
-      })
-    }
+### 应用
+- Ping 应用
+1. Ping 回环地址 127.0.0.1，不通，说明计算机使用的协议栈有问题，需要重装系统或协议栈。
+2. Ping 网关地址（路由地址），内网 ping 192.168.0.1/ 192.168.1.1，通，说明本机到路由器的地址是通的。不通，则说明 WIFI、网线是有问题的。
+3. Ping 远端地址不通，则说明家中到 ISP 的网络之间是有故障的。这个时候就要从电信、联通、移动等 ISP 来排查问题了。
+- Traceoute 应用
+用于探测 IP 数据报在网络中走过的路径。
+巧妙地应用了 ICMP 终点不可达差错报文与 TTL 机制，为了探测 IP 数据报文走过的路径，它会发送一个 UDP 数据包。将 TTL 设置为1，一旦遇到一个路由器，它就会牺牲了。接着返回一个 ICMP 包，就是网络差错包，类型是时间超时，这样就能知道一个路由器有多远。
 
-    btns[2].onclick = function () {
-      axios({
-        // 请求方法
-        method: 'POST',
-        // url
-        url: '/axios-server',
-        // url 参数
-        params: {
-          id: 100,
-          level: 5
-        },
-        // 头信息
-        headers: {
-          a: 100,
-          b: 200
-        },
-        // 请求体参数
-        data: {
-          username: 'admin',
-          password: 'admin'
-        }
-      }).then(response => {
-        // 响应状态码
-        console.log(response.status)
-        // 响应状态字符串
-        console.log(response.statusText)
-        // 响应头信息
-        console.log(response.headers)
-        // 响应体
-        console.log(response.data)
-      })
-    }
-  </script>
-</body>
+# 传输层
+在传输层重点解决的是两个设备它们直接是如何进行通信的。
+## 主要功能
+- 进程与进程的通信
+不同于在单个操作系统内使用的进程间通信（Unix 域套接字、共享内存），网络通信可以跨设备、跨网络进行通信。
+- 端口的概念
+使用端口来标记不同的网络进程。
+端口使用16比特位表示（0\~65535）。
+FTP|HTTP|HTTPS|DNS|TELNET
+:-:|:-:|:-:|:-:|:-:
+21|80|443|53|23
 
-</html>
-```
+## UDP
+用户数据报协议，UDP(User Datagram Protocol)
+不会对数据报进行任何的处理，即不合并，也不拆分数据
+![](/image/post/UDP.png)
+- 报文结构
+![](/image/post/UDP报文结构.png)
+UDP 长度最小值为 8， 即仅包括 UDP 首部。
+校验和是用来检测 UDP 的数据报在传输过程中是否出错。
+- UDP 是无连接协议
+UDP 不能保证可靠的交付数据
+UDP 是面向报文传输的
+UDP 没有拥塞控制
+UDP 的首部开销很小
 
-## fetch发送AJAX
-[fetch](https://developer.mozilla.org/zh-CN/docs/Web/API/WindowOrWorkerGlobalScope/fetch)
-```html
-<!DOCTYPE html>
-<html lang="en">
+## TCP
+### TCP协议详解
+- TCP 是面向连接的协议
+TCP 的一个连接有两端（点对点通信）
+TCP 提供可靠的传输服务
+TCP 协议提供全双工的通信
+TCP 是面向字节流的协议
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>fetch 发送 AJAXA 请求</title>
-</head>
+![](/image/post/TCP.png)
+- 序号
+0 ~ 2<sup>32</sup> - 1，一个字节一个序号，数据首字节序号
+- 确认号
+0 ~ 2<sup>32</sup> - 1，一个字节一个序号，期望收到数据的首字节序号
+确认号为N，则表示 N - 1 序号的数据都已经收到
+- 数据偏移
+占4位：0 ~ 15，单位为：32字 => 首部范围为20~60字节
+数据偏移首部的距离，因为 TCP 选项的大小是不确定的，所以需要此数据项
+- TCP标记
+占6位，每位都有不同的含义
+标记|含义
+:-|:-
+URG|Urgent紧急位，URG = 1,表示紧急数据
+ACK|Acknowledgement确认位，ACK = 1，确认号才生效
+PSH|Push推送位，PSH = 1，表示需要尽快地把数据交付给应用层
+RST|Reset重置位，RST = 1，重新建立连接
+SYN|Synchronization同步位，SYN = 1表示连接请求报文
+FIN|Finish终止位，FIN = 1表示释放连接
 
-<body>
-  <button>AJAX请求</button>
-  <script>
-    const btn = document.querySelector('button');
-    btn.onclick = function () {
-      fetch('http://127.0.0.1:8000/fetch-server?id=10', {
-        //请求方法
-        method: 'POST',
-        //请求头
-        headers: {
-          name: 'fehek'
-        },
-        //请求体
-        body: 'username=admin&password=admin'
-      }).then(response => {
-        // return response.text()
-        return response.json()
-      }).then(response => {
-        console.log(response)
-      })
-    }
-  </script>
-</body>
+- 窗口
+占16位：0 ~ 2 ^ 16 - 1
+窗口指明允许对方发送的数据量。例如：确认号为501，窗口为1000，那么可以接收序号的范围为 501 ~ 1000。
+- 紧急指针
+紧急数据（URG = 1）
+指定紧急数据在报文中的位置
+- TCP选项
+最多40字节
+支持未来的扩展
 
-</html>
-```
+### 可靠传输
+- 停止等待协议
+![](/image/post/停止等待协议_无差错.png)
+![发送的消息在路上丢失了](/image/post/停止等待重传_发送丢失.png)
+![确认的消息在路上丢失了](/image/post/停止等待重传_确认丢失.png)
+![](/image/post/停止等待重传_确认很久.png)
+以上情况都通过超时重传来保证可靠传输
+超时定时器：每发送一个消息，都需要设置一个定时器
+  - 停止等待协议是最简单的可靠传输协议
+  - 停止等待协议对信道的利用效率不高
+- 连续ARQ协议
+ARQ（Automatic Repeat Request，自动重传请求协议）
+  - 累计确认
+  ![](/image/post/连续ARQ_累计确认.png)
+  只要我收到第5个消息的确认了，就表示第 1 ~ 5 个消息接收方都收到了。
+  - 滑动窗口
+  ![](/image/post/连续ARQ_滑动窗口.png)
+  窗口中的数据都可以发送。
+  通过移动窗口的方式来标识没有接收到确认的消息。
+  采用了累积确认的方式，并不需要对每一个消息都进行确认。
+- TCP 的可靠传输基于连续 ARQ 协议。
+TCP 的滑动窗口以字节为单位。
+![](/image/post/TCP_可靠传输.png)
+- TCP协议的选择重传
+![](/image/post/TCP_选择重传.png)
+选择重传需要指定需要重传的字节
+每一个字节都有唯一的32位序号（4字节）
+要重传的数据是存储在“TCP 选项”中，其中最多只能存储 10 个序号，即 5 个范围段的信息。
+选择重传的是一个信息边界，即一段字节流，例如：传送 1000 ~ 1200，2000 ~ 3000 这个范围内的信息。
 
-# 跨域
-同源：协议、域名、端口号必须完全相同。
-违背同源策略就是跨域。
+### 流量控制
+流量控制指的是让发送方发送速率不要太快。TCP 使用了滑动窗口来实现流量控制。
+- 滑动窗口
+接收方可以调整滑动窗口的大小来控制发送方发送数据的效率。
+当接收方将 rwnd 从0调整为1000并将这个信息发送给发送方时，消息丢失了，会导致发送方和接收方都会等待，形成一个死锁局面。
+- 坚持定时器
+坚持定时器是使用滑动窗口进行流量控制的时候设置的。
+当接收到窗口为0的消息，则启动坚持定时器。
+坚持定时器每隔一段时间发送一个窗口探测报文。
 
-## 解决方法
-### JSONP
-JSONP(JSON with Padding)是一个非官方的跨域解决方案，只支持 get 请求。
-在网页有一些标签天生具有跨域能力，比如：img，link，iframe，script。JSONP 就是利用 script 标签的跨域能力来发送请求的。
-- 原生实现
-1. 动态的创建一个 script 标签
-`var script = document.createElement("script")`
-2. 设置 script 的 src，设置回调函数
-```js
-script.src = "http://localhost:3000/testAJAX?callback=abc"
-function abc(data) {
-  alert(data.name)
-}
-```
-3. 将 script 添加到 body 中
-`document.body.appendChild(script)`
-4. 服务器中路由的处理
-```js
-router.get("/testAJAX", function (req, res) {
-  console.log("收到请求");
-  var callback = req.query.callback;
-  var obj = {
-    name: "fehek",
-    id: 100
-  }
-  res.send(callback + "(" + JSON.stringify(obj) + ")");
-})
-```
 
-### CORS
-[CORS](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS)
-CORS(Cross-Origin Resource Sharing)，跨域资源共享。
-CORS 是官方的跨域解决方案，它的特点是不需要在客户端做任何特殊的操作，完全在服务器中进行处理，支持 get 和 post 请求。
-```js
-// 设置响应头，来允许跨域请求
-//res.set("Access-Control-Allow-Origin","http://127.0.0.1:3000");
-res.set("Access-Control-Allow-Origin","*")
-res.set("Access-Control-Allow-Headers","*")
-res.set("Access-Control-Allow-Method","*")
-```
+
+
+# 网络攻击
+XSS CSRF SQL Inject

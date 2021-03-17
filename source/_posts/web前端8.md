@@ -1,593 +1,657 @@
 ---
-title: web前端学习笔记8
-abbrlink: 383ae588
+title: web前端学习笔记8——AJAX
+subtitle: AJAX
+abbrlink: a885f819
 tags:
   - web前端
-  - 模块化
+  - AJAX
 categories: web前端学习笔记
-date: 2021-02-03 20:09:00
+date: 2021-01-26 22:00:00
 index_img:
 banner_img:
 ---
 
-# 介绍
-在浏览器用script标签加载很多模块是不可行的。
-JS语言里没有模块系统。
-- 为什么要模块系统？
-模块化开发便于维护，也便于解耦。
-不同功能模块的代码放在不同的文件及文件夹里甚至放在不同的软件包里。
+# AJAX
+## 简介
+AJAX 全称为 Asynchronous JavaScript And XML，就是异步的 JS 和 XML。
+通过 AJAX 可以在浏览器中向服务器发送异步请求，最大的优势：无刷新获取数据。
+AJAX 不是新的编程语言，而是一种将现有的标准组合在一起使用的新方式。
 
-- 实现好的模块系统在浏览器中实际上不可用
-因为浏览器如果还一个一个加载模块文件，就太慢了。
-从网络上加载大量的小文件总体速度是很慢的，而在所有模块加载完成之前，模块系统是不会开始执行入口模块的代码的，进而相当于不执行任何模块代码，也就是页面中的功能都不可用。
-视模块数量、依赖关系以及网络速度，这个不可用的时间可能很久，甚至可能长达10秒以上，所以需要将所有的模块打包成一整个文件。
-一个10M的文件比1000个10k的文件下载速度快。
+## 特点
+- 优点
+可以无需刷新页面而与服务器端进行通信
+允许根据用户事件来更新部分页面内容
+- 缺点
+没有浏览历史，不能回退
+存在跨域问题(同源)
+SEO 不友好
 
-- 打包原理即为浏览器中异步加载模块的基本原理
-从入口文件开始，加载并缓存所有模块的依赖，等所有的依赖都加载完成的时候，构建好的对象其实就是打包结果的一部分，将其跟require函数一起输出为一个文件，即为打包结果。
-
-# CommonJS
-## 基本语法
-- 暴露模块
-`module.exports = value`
-`exports.xxx = value`
-暴露的模块本质是 exports 对象
-- 引入模块
-`require(xxx)`
-第三方模块：xxx为模块名
-自定义模块：xxx为模块文件路径
-
-## 实现
-服务端实现：[Node.js](https://nodejs.org/)
-- 创建项目结构
+# HTTP协议
+## 请求报文
 ```md
-|-modules
-  |-module1.js
-  |-module2.js
-  |-module3.js
-|-app.js
-|-package.json
+行      POST  /s?ie=utf-8  HTTP/1.1 
+头      Host: atguigu.com
+        Cookie: name=guigu
+        Content-type: application/x-www-form-urlencoded
+        User-Agent: chrome 83
+空行
+体      username=admin&password=admin
 ```
-```bash
-# package.json 生成
-npm init
-# 引入 uniq 
-npm install uniq
-```
+在 Chrome 浏览器中，
+Headers => Request Headers 查看请求报文行、头
+Headers => From Data 查看请求体
 
-- 代码
-```js
-// module1.js 文件
-// module.exports = value 暴露一个对象
-module.exports = {
-  msg:'module1',
-  foo(){
-    console.log(this.msg)
-  }
-}
-```
-```js
-// module2.js 文件
-// 暴露一个函数 module.exports = function(){}
-module.exports = function(){
-  console.log('module2')
-}
-```
-```js
-// module3.js 文件
-// exports.xxx = value
-exports.foo = function(){
-  console.log('foo() module3')
-}
-
-exports.bar = function(){
-  console.log('bar() module3')
-}
-
-exports.arr = [2,3,4,5,4,5,1,11]
-```
-```js
-// 将其它模块汇集到主模块
-let uniq = require('uniq')
-
-let module1 = require('./modules/module1')
-let module2 = require('./modules/module2')
-let module3 = require('./modules/module3')
-
-module1.foo()
-module2()
-
-module3.foo()
-module3.bar()
-
-let result = uniq(module3.arr)
-console.log(result)
-```
-
-- 运行结果
+## 响应报文
 ```md
-module1
-module2
-foo() module3
-bar() module3
-[ 1, 11, 2, 3, 4, 5 ]
+行      HTTP/1.1  200  OK
+头      Content-Type: text/html;charset=utf-8
+        Content-length: 2048
+        Content-encoding: gzip
+空行    
+体      <html>
+            <head>
+            </head>
+            <body>
+                <h1>XXX</h1>
+            </body>
+        </html>
 ```
+Headers => Response Headers 查看响应行、头
+Response 查看响应体
 
----
-浏览器实现：[Browserify](http://browserify.org/)
-- 创建项目结构
-```md
-|-js
-  |-dist //打包生成文件的目录
-  |-src //源码所在的目录
-    |-module1.js
-    |-module2.js
-    |-module3.js
-    |-app.js //应用主源文件
-|-index.html
-|-package.json
-```
-- 下载 browserify
-```bash
-# 全局
-npm install browserify -g
-# 局部
-npm install browserify --save-dev
-# --save、-S参数意思是把模块的版本信息保存到 dependencies（生产环境依赖）中，
-# 即 package.json 文件的 dependencies 字段中；
-# --save-dev、-D参数意思是把模块版本信息保存到 devDependencies（开发环境依赖）中
-# 即 package.json 文件的 devDependencies 字段中。
-```
-下载成功时：
-```json
-"dependencies": {
-  "uniq": "^1.0.1"
-}
-"devDependencies": {
-  "browserify": "^17.0.0"
-}
-```
-
-- 代码
-app.js, module1.js, module2.js, module3.js 和上面的一样
-
-- 打包处理 js
-`browserify js/src/app.js -o js/dist/build.js`
-`-o` output，输出。它之前为原始路径，之后为处理之后的路径。
-
-- 页面引入
-在 index.html 中引入打包处理之后的文件
-`<script type="text/javascript" src="./js/dist/build.js"></script>`
-
-# AMD
-Asynchronous Module Definition(异步模块定义)
-专门用于浏览器端, 模块的加载是异步的。
-## 基本语法
-- 定义暴露模块
+# 原生方法
+## GET
 ```js
-//定义没有依赖的模块
-define(function(){
-  return 模块
+const express = require('express')
+const app = express()
+app.get('/server', (request, response) => {
+  // 设置响应头，设置允许跨域
+  response.setHeader('Access-control-Allow-Origin', '*')
+  // 设置响应体
+  response.send('Hello Ajax')
 })
-//定义有依赖的模块
-define(['module1', 'module2'], function(m1, m2){
-  return 模块
-})
-```
-- 引用使用模块
-```js
-require(['module1', 'module2'], function(m1, m2){
-  使用m1/m2
-})
-```
 
-
-## 实现
-### 未使用AMD
-- 创建项目结构
-```md
-|-js
-  |-alerter.js
-  |-dataService.js
-|-app.js
-|-test.html
-```
-- 代码
-```js
-// alerter.js
-// 定义一个有依赖的模块
-(function (window, dataService) {
-  let msg = 'alerter.js'
-  function showMsg() {
-    console.log(msg, dataService.getName())
-  }
-  window.alerter = { showMsg }
-})(window, dataService)
-```
-```js
-// dataService.js
-// 定义一个没有依赖模块
-(function (window) {
-  let name = 'dataService.js'
-  function getName() {
-    return name
-  }
-  window.dataService = { getName }
-})(window)
-```
-```js
-// app.js
-(function (alerter) {
-  alerter.showMsg()
-})(alerter)
+app.listen(8000, () => {
+  console.log("服务已经启动，8000端口监听中......")
+})
 ```
 ```html
-<!-- test.html 里的 script -->
-<script type="text/javascript" src="./js/dataService.js"></script>
-<script type="text/javascript" src="./js/alerter.js"></script>
-<script type="text/javascript" src="./app.js"></script>
-```
-- 运行结果
-```md
-alerter.js dataService.js
-```
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AJAX GET 请求</title>
+  <style>
+    #result {
+      width: 200px;
+      height: 100px;
+      border: solid 1px red;
+    }
+  </style>
+</head>
 
-### 使用AMD
-[Require.js](http://101.132.137.99/home.html)
-- 创建项目结构
-```md
--js 
- |-libs 
-   |-angular.js 
-   |-jquery.js
-   |-require.js 
- |-modules 
-   |-alerter.js 
-   |-dataService.js 
- |-main.js|
--index.html
-```
-- 代码
-require.js, -jquery.js, require.js 里分别引用对应文件
-```js
-// dataService.js
-// 定义没有依赖的模块
-define(function () {
-  let name = 'dataService.js'
-  function getName() {
-    return name
-  }
-  // 暴露模块
-  return { getName }
-})
-```
-```js
-// alerter.js
-// 定义有依赖的模块
-define(['dS', 'jquery'], function (dataService, $) {
-  let msg = 'alerter.js'
-  function showMsg() {
-    console.log(msg, dataService.getName())
-  }
-  $('body').css('background', 'lightblue')
-  // 暴露模块
-  return { showMsg }
-})
-```
-```js
-// main.js
-(function () {
-  requirejs.config({
-    // baseUrl: '', //基本路径
-    paths: {  //配置路径
-      dS: './modules/dataService', //路径不用加后缀名
-      alerter: './modules/alerter',
-      jquery: './libs/jquery',
-      angular: './libs/angular'
-    },
-    shim: { //angular 不支持，单独配置
-      angular: {
-        exports: 'angular'
+<body>
+  <button>点击发送请求</button>
+  <div id="result"></div>
+
+  <script>
+    // 获取button元素
+    const btn = document.getElementsByTagName('button')[0]
+    const result = document.getElementById('result')
+    // 绑定事件
+    btn.onclick = function () {
+      // 1.创建对象
+      const xhr = new XMLHttpRequest()
+      // 2.初始化 设置请求方法和url
+      xhr.open('GET', 'http://127.0.0.1:8000/server')
+      // 3.发送
+      xhr.send()
+      // 4.事件绑定 处理服务端返回的结果
+      xhr.onreadystatechange = function () {
+        // 判断服务端返回了所有的结果
+        if (xhr.readyState == 4) {
+          // 判断响应状态码 200 404 403 401 500
+          // 2xx 成功
+          if (xhr.status >= 200 && xhr.status < 300) {
+            // 处理结果 行 头 空行 体
+            // 1.响应行
+            // console.log(xhr.status)  //状态码
+            // console.log(xhr.statusText)  //状态字符串
+            // console.log(xhr.getAllResponseHeaders())  //所有响应头
+            // console.log(xhr.response)  //响应体
+
+            // 设置result文本
+            // 可以实现不刷新页面直接获取响应体
+            result.innerHTML = xhr.response
+          }
+        }
       }
     }
-  });
+  </script>
+</body>
 
-  requirejs(['alerter', 'angular'], function (alerter, angular) {
-    alerter.showMsg()
-    console.log(angular)
-  })
-})()
+</html>
 ```
-```html
-<!-- index.html 里的 script -->
-<script data-main="js/main.js" src="js/libs/require.js"></script>
-```
-- 运行结果
-```md
-<!-- 背景为淡蓝色 -->
-alerter.js dataService.js
-{$interpolateMinErr: ƒ, element: ƒ, bootstrap: ƒ, copy: ƒ, extend: ƒ, …}
-```
+- 设置请求参数
+直接在url后以?开始加上，如上述代码url参数可改成`http://127.0.0.1:8000/server?a=100&b=200&c=300`
 
-
-# CMD
-Common Module Definition(通用模块定义)
-专门用于浏览器端, 模块的加载是异步的。
-模块使用时才会加载执行。
-## 基本语法
-- 定义暴露模块
+## POST
 ```js
-//定义没有依赖的模块
-define(function(require, exports, module){
-  exports.xxx = value
-  module.exports = value
+const express = require('express')
+const app = express()
+
+app.post('/server', (request, response) => {
+  // 设置响应头，设置允许跨域
+  response.setHeader('Access-control-Allow-Origin', '*')
+  // 设置响应体
+  response.send('Hello Ajax POST')
 })
 
-//定义有依赖的模块
-define(function(require, exports, module){
-  //引入依赖模块(同步)
-  var module2 = require('./module2')
-  //引入依赖模块(异步)
-    require.async('./module3', function (m3) {
-      
-    })
-  //暴露模块
-  exports.xxx = value
-})
-```
-- 引入使用模块
-```js
-define(function (require) {
-  var m1 = require('./module1')
-  var m4 = require('./module4')
-  m1.show()
-  m4.show()
-})
-```
-
-
-## 实现
-[Sea.js](https://seajs.github.io/seajs/docs/)
-- 创建项目结构
-```md
-|-js
-  |-libs
-    |-sea.js
-  |-modules
-    |-module1.js
-    |-module2.js
-    |-module3.js
-    |-module4.js
-    |-main.js
-|-index.html
-```
-- 代码
-```js
-// module1.js
-// 定义没有依赖的模块
-define(function (require, exports, module) {
-  let msg = 'module1'
-  function foo() {
-    return msg
-  }
-  // 暴露模块
-  module.exports = { foo }
-})
-```
-```js
-// module2.js
-define(function (require, exports, module) {
-  let msg = 'module2'
-  function bar() {
-    console.log(msg)
-  }
-  module.exports = bar
-})
-```
-```js
-// module3.js
-define(function (require, exports, module) {
-  let data = 'module3'
-  function fun() {
-    console.log(data)
-  }
-  exports.module3 = { fun }
-})
-```
-```js
-// module4.js
-define(function (require, exports, module) {
-  let msg = 'module4'
-  // 同步引入
-  let module2 = require('./module2')
-  module2()
-  // 异步引入
-  require.async('./module3', function (module3) {
-    module3.module3.fun()
-  })
-  function fun2() {
-    console.log(msg)
-  }
-  exports.fun2 = fun2
+app.listen(8000, () => {
+  console.log("服务已经启动，8000端口监听中......")
 })
 ```
 ```html
-<!-- index.html 里的 script -->
-<script type='text/javascript' src='js/libs/sea.js'></script>
-<script type='text/javascript'>
-    seajs.use('./js/modules/main.js');
-</script>
-```
-- 运行结果
-```md
-module1
-module2
-module4
-module3
-```
-module3 为异步引入，主程序执行完后执行
+<!DOCTYPE html>
+<html lang="en">
 
-# ES6 Module
-依赖模块需要编译打包处理
-## 语法
-- 导出模块 export
-- 引入模块 import
-
-## 实现
-- 创建项目结构
-```md
-|-js
-  |-src
-    |-module1.js
-    |-module2.js
-    |-module3.js
-    |-main.js
-|-index.html
-|-package.json
-|-.babelrc
-```
-
-- 准备工作
-使用 [Babel](https://www.babeljs.cn/repl) 将ES6编译为ES5代码
-  1. 定义package.json文件
-  ```json
-    {
-      "name" : "es6-babel-browserify",
-      "version" : "1.0.0"
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AJAX POST 请求</title>
+  <style>
+    #result {
+      width: 200px;
+      height: 100px;
+      border: solid 1px red;
     }
-  ```
-  2. 安装 babel-cli, babel-preset-es2015
-  ```bash
-  # cli: command line interface 命令行接口
-  # ！！！一定要在管理员权限下安装
-  npm install babel-cli browserify -g
-  # preset 预设（将es6转换成es5的所有插件打包）
-  npm install babel-preset-es2015 --save-dev 
-  ```
-  3. 定义.babelrc文件
-  rc 文件（run control 运行时控制文件）
-  ```
-  {
-    "presets": ["es2015"]
+  </style>
+</head>
+
+<body>
+  <!-- 把鼠标放在div上时，发送post请求，结果在div中显示 -->
+  <div id="result"></div>
+  <script>
+    const result = document.getElementById('result')
+    result.addEventListener('mouseover', function () {
+      const xhr = new XMLHttpRequest()
+      xhr.open('POST', 'http://127.0.0.1:8000/server')
+      // 设置请求头
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+      xhr.send('a=100&b=200&c=300')
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            result.innerHTML = xhr.response
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
+```
+- 设置请求参数
+在`xhr.send()`里面添加，格式灵活，不限于'a=100&b=200'的样式。
+- 设置请求头
+在`xhr.setRequestHeader()`里设置
+若要自定义请求头如`xhr.setRequestHeader('name', 'fehek')`，需要在server.js里面添加响应头，新建一个app.all函数（可以接收任意类型的请求），在里面添加`response.setHeader('Access-control-Allow-Headers', '*')`
+
+## JSON响应
+```js
+const express = require('express')
+const app = express()
+
+app.all('/json-server', (request, response) => {
+  // 设置响应头，设置允许跨域
+  response.setHeader('Access-control-Allow-Origin', '*')
+  // 响应头
+  response.setHeader('Access-control-Allow-Headers', '*')
+  // 响应一个数据
+  const data = {
+    name: 'fehek'
   }
-  ```
-  4. 安装 jQuery
-  ```bash
-  # 安装 jQuery 1.xxx 的最新版本
-  npm install jquery@1
-  ```
+  // 对对象进行字符串转换
+  let str = JSON.stringify(data)
+  // 设置响应体
+  response.send(str)
+})
 
-- 代码
-```js
-// module1.js
-// 暴露模块 分别暴露
-export function foo() {
-  console.log('foo() module1')
-}
-export function bar() {
-  console.log('bar() module1')
-}
-export let arr = [1, 2, 3, 4, 5]
-```
-```js
-// module2.js
-// 统一暴露
-function fun() {
-  console.log('fun() module2')
-}
-function fun2() {
-  console.log('fun2() module2')
-}
-export { fun, fun2 }
-```
-```js
-// module3.js
-// 默认暴露 
-// 可以暴露任意数据类型，暴露什么数据接收到的就是什么数据
-// export default value
-export default {
-  msg: '默认暴露',
-  foo() {
-    console.log(this.msg)
-  }
-}
-```
-```js
-// main.js
-// 引入其他的模块
-// 语法：import xxx from '路径'
-import $ from 'jquery'
-import { foo, bar } from './module1'
-import { fun, fun2 } from './module2'
-import module3 from './module3'
-
-$('body').css('background', 'lightblue')
-foo()
-bar()
-fun()
-fun2()
-module3.foo()
-```
-
-- 转换打包
-```bash
-# 使用Babel将ES6编译为ES5代码(但包含CommonJS语法)
-babel js/src -d js/build
-# 使用Browserify编译js
-browserify js/build/main.js -o js/dist/bundle.js
+app.listen(8000, () => {
+  console.log("服务已经启动，8000端口监听中......")
+})
 ```
 ```html
-<!-- index.html 里的 script -->
-<script type='text/javascript' src='js/dist/bundle.js'></script>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON响应</title>
+  <style>
+    #result {
+      width: 200px;
+      height: 100px;
+      border: solid 1px red;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="result"></div>
+  <script>
+    const result = document.getElementById('result')
+    window.onkeydown = function () {
+      const xhr = new XMLHttpRequest()
+      xhr.responseType = 'json'  // 2.自动转换
+      xhr.open('GET', 'http://127.0.0.1:8000/json-server')
+      xhr.send()
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            // 1.手动对数据转化
+            // let data = JSON.parse(xhr.response)
+            // console.log(data)
+            // result.innerHTML = data.name
+
+            // 2.自动转换
+            console.log(xhr.response)
+            result.innerHTML = xhr.response.name
+          }
+        }
+      }
+    }
+  </script>
+</body>
+
+</html>
 ```
 
-- 结果
-```md
-<!-- 背景为淡蓝色 -->
-foo() module1
-bar() module1
-fun() module2
-fun2() module2
-```
+## IE缓存问题
+IE在实现ajax时，会优先以缓存的结果展现
+解决方法：在请求中加一个时间戳，这样每次实际发送的请求都会不一样
+如`xhr.open('GET', 'http://127.0.0.1:8000/ie?t=' + Date.now())`
 
-
-## 其他
-
-每个模块有自己的作用域内执行
-通过import创建的变量相当于const创建，所以不能单独放在等号左边
-通过import创建的变量会跟其引入的来源绑定，来源变量发生变化，引入的变量也发生变化
+## 请求超时
 ```js
-// 导入其它模块的默认导出
-import xxx from './xxx.js'
+const express = require('express')
+const app = express()
 
-// 导入俱名导出
-import { a, b as bb , c as cc} from './x.js'
+app.get('/delay', (request, response) => {
+  // 设置响应头，设置允许跨域
+  response.setHeader('Access-control-Allow-Origin', '*')
+  setTimeout(() => {
+    response.send('延时响应')
+  }, 3000)
+})
 
-// 同时导入默认及俱名导出
-import a, { b, c, d } from './mod.js'
+app.listen(8000, () => {
+  console.log("服务已经启动，8000端口监听中......")
+})
+```
+```js
+btn.addEventListener('click', function () {
+  const xhr = new XMLHttpRequest()
+  // 超时设置（2s）
+  xhr.timeout = 2000
+  // 超时回溯
+  xhr.ontimeout = function () {
+    alert("网络异常，请稍后重试")
+  }
+  // 网络异常回溯
+  xhr.onerror = function () {
+    alert("你的网络似乎出了一些问题")
+  }
+  xhr.open('GET', 'http://127.0.0.1:8000/delay')
+  xhr.send()
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4) {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        result.innerHTML = xhr.response
+      }
+    }
+  }
+})
+```
 
-// 创建默认导出
-export default [1, 2, 3, 4]
+## 取消请求
+调用abort
+```html
+<body>
+  <button>点击发送</button>
+  <button>点击取消</button>
+  <script>
+    const btns = document.querySelectorAll('button')
+    let xhr = null
 
-// 创建俱名导出
-export var a = 1
-export var b = 2
-var c = 3
-var d = 4
-export { c, d }
+    btns[0].onclick = function () {
+      xhr = new XMLHttpRequest()
+      xhr.open('GET', 'http://127.0.0.1:8000/delay')
+      xhr.send()
+    }
 
-//将foo.js的所有导出导入到foo变量
-import * as foo from './foo.js'
-// foo.default 为默认导出
-// foo.xxx 为俱名导出
-// 且都为getter setter，但set是无效的
+    // abort
+    btns[1].onclick = function () {
+      xhr.abort()
+    }
+  </script>
+</body>
+```
 
-//将a.js的所有导出从当前文件再导出
-export * from './a.js'
-export * from './b.js'
-import xx from yy + '.js'
-````
-所有的导入导出语句都必须出现在模块文件的最外层，即不能放入任何代码块，如if，函数，循环
-所有导入的模块名称必须是静态的，不能有任何运算
+## 重复请求
+若重复发送相同请求，取消之前的请求，实现最新的请求
+```html
+<body>
+  <button>点击发送</button>
+  <script>
+    const btn = document.getElementsByTagName('button')[0]
+    let xhr = null
+    // 标识变量，是否正在发送ajax请求
+    let isSending = false
 
+    btn.onclick = function () {
+      // 判断标识变量
+      // 如果正在发送，则取消该请求，创建一个新的请求
+      if (isSending) xhr.abort()
+      xhr = new XMLHttpRequest()
+      // 修改 标识变量的值
+      isSending = true
+      xhr.open('GET', 'http://127.0.0.1:8000/delay')
+      xhr.send()
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4) {
+          isSending = false
+        }
+      }
+    }
+  </script>
+</body>
+```
+
+# 其它方法
+## JQuery发送AJAX
+```js
+const express = require('express')
+const app = express()
+
+app.all('/jQuery-server', (request, response) => {
+  // 设置响应头，设置允许跨域
+  response.setHeader('Access-control-Allow-Origin', '*')
+  // 设置响应头，允许自定义请求头
+  response.setHeader('Access-control-Allow-Headers', '*')
+  // response.send('Hello jQuery AJAX')
+  const data = { name: 'fehek' }
+  response.send(JSON.stringify(data))
+})
+
+app.listen(8000, () => {
+  console.log("服务已经启动，8000端口监听中......")
+})
+
+```
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>jQuery 发送 AJAX 请求</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <h2 class="page-header">jQuery发送AJAX请求</h2>
+    <button>GET</button>
+    <button>POST</button>
+    <button>通用型方法ajax</button>
+  </div>
+  <script>
+    $('button').eq(0).click(function () {
+      $.get('http://127.0.0.1:8000/jQuery-server', { a: 100, b: 200 }, function (data) {
+        console.log(data)
+      }, 'json')  //输出对象
+    })
+    $('button').eq(1).click(function () {
+      $.post('http://127.0.0.1:8000/jQuery-server', { a: 100, b: 200 }, function (data) {
+        console.log(data)  //输出字符串
+      })
+    })
+    $('button').eq(2).click(function () {
+      $.ajax({
+        // url
+        url: 'http://127.0.0.1:8000/jQuery-server',
+        // 参数
+        data: { a: 100, b: 200 },
+        // 请求类型
+        type: 'GET',
+        // 响应体结果
+        dataType: 'json',
+        // 成功的回调
+        success: function (data) {
+          console.log(data)
+        },
+        // 超时时间
+        timeout: 2000,
+        // 失败的回调
+        error: function () {
+          console.log('ERROR!')
+        },
+        // 头信息
+        headers: {
+          c: 300,
+          d: 400
+        }
+      })
+    })
+  </script>
+</body>
+
+</html>
+```
+
+## axios发送AJAX
+[axios](https://github.com/axios/axios)
+```js
+const express = require('express')
+const app = express()
+
+app.all('/axios-server', (request, response) => {
+  // 设置响应头，设置允许跨域
+  response.setHeader('Access-control-Allow-Origin', '*')
+  // 设置响应头，允许自定义请求头
+  response.setHeader('Access-control-Allow-Headers', '*')
+  // response.send('Hello jQuery AJAX')
+  const data = { name: 'fehek' }
+  response.send(JSON.stringify(data))
+})
+
+app.listen(8000, () => {
+  console.log("服务已经启动，8000端口监听中......")
+})
+```
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>axios 发送 AJAX 请求</title>
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.1/axios.js"></script>
+</head>
+
+<body>
+  <button>GET</button>
+  <button>POST</button>
+  <button>通用型方法ajax</button>
+  <script>
+    const btns = document.querySelectorAll('button')
+    // 配置 baseURL
+    axios.defaults.baseURL = 'http://127.0.0.1:8000'
+
+    btns[0].onclick = function () {
+      // GET 请求
+      axios.get('/axios-server', {
+        // url 参数
+        params: {
+          id: 100,
+          level: 5
+        },
+        // 请求头信息
+        headers: {
+          name: 'fehek',
+          age: 21
+        }
+      }).then(value => {
+        console.log(value)
+      })
+    }
+
+    btns[1].onclick = function () {
+      // POST 请求
+      //第一个参数是url，第二个参数是请求体，第三个参数是其它配置
+      axios.post('/axios-server', {
+        // 请求体
+        username: 'admin',
+        password: 'admin'
+      }, {
+        // url 参数
+        params: {
+          id: 100,
+          level: 5
+        },
+        // 请求头信息
+        headers: {
+          height: 170,
+          weight: 170,
+        }
+      })
+    }
+
+    btns[2].onclick = function () {
+      axios({
+        // 请求方法
+        method: 'POST',
+        // url
+        url: '/axios-server',
+        // url 参数
+        params: {
+          id: 100,
+          level: 5
+        },
+        // 头信息
+        headers: {
+          a: 100,
+          b: 200
+        },
+        // 请求体参数
+        data: {
+          username: 'admin',
+          password: 'admin'
+        }
+      }).then(response => {
+        // 响应状态码
+        console.log(response.status)
+        // 响应状态字符串
+        console.log(response.statusText)
+        // 响应头信息
+        console.log(response.headers)
+        // 响应体
+        console.log(response.data)
+      })
+    }
+  </script>
+</body>
+
+</html>
+```
+
+## fetch发送AJAX
+[fetch](https://developer.mozilla.org/zh-CN/docs/Web/API/WindowOrWorkerGlobalScope/fetch)
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>fetch 发送 AJAXA 请求</title>
+</head>
+
+<body>
+  <button>AJAX请求</button>
+  <script>
+    const btn = document.querySelector('button');
+    btn.onclick = function () {
+      fetch('http://127.0.0.1:8000/fetch-server?id=10', {
+        //请求方法
+        method: 'POST',
+        //请求头
+        headers: {
+          name: 'fehek'
+        },
+        //请求体
+        body: 'username=admin&password=admin'
+      }).then(response => {
+        // return response.text()
+        return response.json()
+      }).then(response => {
+        console.log(response)
+      })
+    }
+  </script>
+</body>
+
+</html>
+```
+
+# 跨域
+同源：协议、域名、端口号必须完全相同。
+违背同源策略就是跨域。
+
+## 解决方法
+### JSONP
+JSONP(JSON with Padding)是一个非官方的跨域解决方案，只支持 get 请求。
+在网页有一些标签天生具有跨域能力，比如：img，link，iframe，script。JSONP 就是利用 script 标签的跨域能力来发送请求的。
+- 原生实现
+1. 动态的创建一个 script 标签
+`var script = document.createElement("script")`
+2. 设置 script 的 src，设置回调函数
+```js
+script.src = "http://localhost:3000/testAJAX?callback=abc"
+function abc(data) {
+  alert(data.name)
+}
+```
+3. 将 script 添加到 body 中
+`document.body.appendChild(script)`
+4. 服务器中路由的处理
+```js
+router.get("/testAJAX", function (req, res) {
+  console.log("收到请求");
+  var callback = req.query.callback;
+  var obj = {
+    name: "fehek",
+    id: 100
+  }
+  res.send(callback + "(" + JSON.stringify(obj) + ")");
+})
+```
+
+### CORS
+[CORS](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS)
+CORS(Cross-Origin Resource Sharing)，跨域资源共享。
+CORS 是官方的跨域解决方案，它的特点是不需要在客户端做任何特殊的操作，完全在服务器中进行处理，支持 get 和 post 请求。
+```js
+// 设置响应头，来允许跨域请求
+//res.set("Access-Control-Allow-Origin","http://127.0.0.1:3000");
+res.set("Access-Control-Allow-Origin","*")
+res.set("Access-Control-Allow-Headers","*")
+res.set("Access-Control-Allow-Method","*")
+```

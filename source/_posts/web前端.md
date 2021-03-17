@@ -1,5 +1,6 @@
 ---
-title: web前端学习笔记1
+title: web前端学习笔记1——HTML
+subtitle: HTML
 categories: web前端学习笔记
 abbrlink: 41e65d2c
 tags:
@@ -487,6 +488,3 @@ rows 和 cols 属性设置文本输入窗口的高度和宽度。
 		</tbody>
 	</table>
 </form>
-
-
-

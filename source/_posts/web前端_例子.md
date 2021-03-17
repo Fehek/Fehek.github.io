@@ -1,5 +1,6 @@
 ---
-title: html/css简例
+title: web前端——html/css简例
+subtitle: html/css简例
 categories: web前端学习笔记
 abbrlink: eef7064f
 tags:

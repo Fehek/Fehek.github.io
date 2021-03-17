@@ -1,5 +1,6 @@
 ---
-title: web前端学习笔记2.5
+title: web前端学习笔记2.5——CSS画图
+subtitle: CSS画图
 categories: web前端学习笔记
 abbrlink: 32c066a8
 tags:

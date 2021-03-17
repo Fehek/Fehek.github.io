@@ -1,5 +1,6 @@
 ---
-title: web前端学习笔记3
+title: web前端学习笔记3——JS基础
+subtitle: JS基础
 abbrlink: afe83c00
 tags:
   - web前端
@@ -169,4 +170,3 @@ console.log(false ? 1 : 2); //2
 ```
 
 优先级： `||` < `&&` < `比较运算符(>,==)` < `其它运算符`
-

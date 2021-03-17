@@ -1,9 +1,11 @@
 ---
-title: web前端学习笔记5
+title: web前端学习笔记5——JS其它
+subtitle: 回调、堆、正则等
 abbrlink: 468b9935
 tags:
   - web前端
   - JavaScript
+  - 正则
 categories: web前端学习笔记
 date: 2020-12-23 15:52:00
 index_img:
