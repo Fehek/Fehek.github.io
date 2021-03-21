@@ -663,7 +663,7 @@ Observer.prototype = {
     // 遍历data中所有属性
     Object.keys(data).forEach(function (key) {
       // 对指定的属性实现响应式的数据绑定
-      me.defineReactive(this.data, key, data[key]);
+      me.defineReactive(me.data, key, data[key]);
     });
   },
 
@@ -744,11 +744,42 @@ Dep.target = null;
 
 
 # MVVM原理
-![MVVM 原理图](/image/post/MVVM原理图.png)
+![MVVM 原理图](/image/post/MVVM原理图1.png)
+![MVVM 原理图](/image/post/MVVM原理图2.png)
 [MVVM 实现 源码](https://www.baidupcs.com/rest/2.0/pcs/file?method=batchdownload&app_id=250528&zipcontent=%7B%22fs_id%22%3A%5B1090386846218427%5D%7D&sign=DCb740ccc5511e5e8fedcff06b081203:qiyANTDUp3R5mBKma5x7lbyKs6o%3D&uid=4036931918&time=1616336215&dp-logid=8748101793799066579&dp-callid=0&vuk=4036931918&zipname=mvvm%20%E7%AD%891%E4%B8%AA%E6%96%87%E4%BB%B6.zip)
 
+# 双向数据绑定
+- 双向数据绑定是建立在单向数据绑定(model => View)的基础之上的
+- 双向数据绑定的实现流程:
+    1. 在解析 v-model 指令时, 给当前元素添加 input 监听
+    2. 当 input 的 value 发生改变时, 将最新的值赋值给当前表达式所对应的 data 属性
+```js
+// compile.js
+var compileUtil = {
+  // 解析v-model
+  model: function (node, vm, exp) {
+    // 实现数据的初始化显示和创建对应watcher
+    this.bind(node, vm, exp, 'model');
 
-
+    var me = this,
+      // 得到表达式的值
+      val = this._getVMVal(vm, exp);
+    // 给节点绑定input事件监听(输入改变时)
+    node.addEventListener('input', function (e) {
+      // 得到输入的最新值
+      var newValue = e.target.value;
+      // 如果没有变化，直接结束
+      if (val === newValue) {
+        return;
+      }
+      // 将最新value保存给表达式所对应的属性
+      me._setVMVal(vm, exp, newValue);
+      // 保存最新的值
+      val = newValue;
+    });
+  }
+}
+```
 
 # 函数实现
 ```js

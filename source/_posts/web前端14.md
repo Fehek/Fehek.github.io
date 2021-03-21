@@ -1,5 +1,6 @@
 ---
 title: web前端学习笔记14——使用Vue模板
+subtitle: 使用Vue模板
 abbrlink: 5f4b0425
 tags:
   - web前端
@@ -281,7 +282,7 @@ this.$emit('addTodo', todo)
 </child>
 ```
 
-[todos 源文件最终版](https://www.baidupcs.com/rest/2.0/pcs/file?method=batchdownload&app_id=250528&zipcontent=%7B%22fs_id%22%3A%5B466857802587390%5D%7D&sign=DCb740ccc5511e5e8fedcff06b081203:dtyGJpquGTRv3QakfAPJeqdF%2BHE%3D&uid=4036931918&time=1615901719&dp-logid=561017168825414791&dp-callid=0&vuk=4036931918&zipname=src_todos_final%20%E7%AD%891%E4%B8%AA%E6%96%87%E4%BB%B6.zip)
+[todos 源文件最终版](https://www.baidupcs.com/rest/2.0/pcs/file?method=batchdownload&app_id=250528&zipcontent=%7B%22fs_id%22%3A%5B466857802587390%5D%7D&sign=DCb740ccc5511e5e8fedcff06b081203:j9NJoc6yVNtIBzvtyaAU%2FBbWG8s%3D&uid=4036931918&time=1616390085&dp-logid=8762562628998474716&dp-callid=0&vuk=4036931918&zipname=src_todos_final%20%E7%AD%891%E4%B8%AA%E6%96%87%E4%BB%B6.zip)
 
 # vue-ajax
 ## vue-resource
@@ -484,3 +485,372 @@ new Vue({
 - this.$router.go(1): 请求下一个记录路由
 
 [vue-router源码 下载](https://www.baidupcs.com/rest/2.0/pcs/file?method=batchdownload&app_id=250528&zipcontent=%7B%22fs_id%22%3A%5B160508998630300%5D%7D&sign=DCb740ccc5511e5e8fedcff06b081203:aLWldkpQt%2BA8tx%2FonZB88zC9v%2F8%3D&uid=4036931918&time=1616035350&dp-logid=8667339095460594506&dp-callid=0&vuk=4036931918&zipname=src_router%20%E7%AD%891%E4%B8%AA%E6%96%87%E4%BB%B6.zip)
+
+# vuex
+## 了解
+[文档](https://vuex.vuejs.org/zh/)
+简单来说: 对 vue 应用中多个组件的共享状态进行集中式的管理(读/写)
+- 状态自管理应用
+state: 驱动应用的数据源
+view: 以声明方式将 state 映射到视图
+actions: 响应在 view 上的用户输入导致的状态变化(包含 n 个更新状态的方法)【一个action是一个函数】
+![状态自管理](/image/post/自管理.png)
+- 多组件共享状态的问题
+    1. 多个视图依赖于同一状态
+    2. 来自不同视图的行为需要变更同一状态
+    3. 以前的解决办法
+        1. 将数据以及操作数据的行为都定义在父组件
+        2. 将数据以及操作数据的行为传递给需要的各个子组件(有可能需要多级传递)
+    4. vuex 就是用来解决这个问题的
+
+## 核心概念和 API
+![vuex](/image/post/vuex.png)
+1. state
+    - vuex管理的状态对象
+    - 它应该是唯一的
+    ```js
+    const state = {
+      xxx: initValue
+    }
+    ```
+2. mutations
+    - 包含多个直接更新 state 的方法(回调函数)的对象
+    - 谁来触发：action 中的 commit('mutation 名称')
+    - 只能包含同步的代码，不能写异步代码
+    ```js
+    const mutations = {
+      yyy(state, {data1}){
+        // 更新 state 的某个属性
+      }
+    }
+    ```
+3. actions
+    - 包含多个事件回调函数的对象
+    - 通过执行: commit()来触发 mutation 的调用, 间接更新 state
+    - 谁来触发: 组件中: $store.dispatch('action 名称', data1) // 'zzz'
+    - 可以包含异步代码(定时器, ajax)
+    ```js
+    const action = {
+      zzz({commit, state}, data1){
+        commit('yyy', {data1})
+      }
+    }
+    ```
+4. getters
+    - 包含多个计算属性(get)的对象
+    - 谁来读取: 组件中: $store.getters.xxx
+    ```js
+    const getters = {
+      mmm(state){
+        return ...
+      }
+    }
+    ```
+5. store 对象
+```js
+// 向外暴露 store 对象
+// store.js
+export default new Vuex.Store({
+  state, // 状态
+  getters, // 包含多个getter计算属性函数的对象
+  mutations, // 包含多个更新state函数的对象
+  actions, // 包含多个对应事件回调函数的对象
+}
+
+// 映射 store
+// main.js
+import store from './store'
+new Vue({
+  store
+})
+```
+    - 所有用 vuex 管理的组件中都多了一个属性$store, 它就是一个 store 对象
+    - 属性:
+        - state: 注册的 state 对象
+        - getters: 注册的 getters 对象
+    - 方法: 
+        - dispatch(actionName, data): 分发调用 action
+
+6. 组件中简化语法
+```js
+// App.vue
+import {mapState, mapGetters, mapActions} from 'vuex'
+export default {
+  /* computed: {
+    count () {
+      return this.$store.state.count
+    },
+    evenOrOdd () {
+      return this.$store.getters.evenOrOdd
+    }
+  }, */
+  computed: {
+    ...mapState(['count']),
+    ...mapGetters(['evenOrOdd'])
+  },
+  /*methods: {
+    increment () {
+      this.$store.dispatch('increment')
+    },
+    decrement () {
+      this.$store.dispatch('decrement')
+    }
+  } */
+  methods: {
+    ...mapActions(['increment', 'decrement'])
+  }
+}
+```
+7. modules
+    - 包含多个 module
+    - 一个 module 是一个 store 的配置对象
+    - 与一个组件(包含有共享数据)对应
+
+## 例子
+```vue
+// 普通写法
+// App.vue
+<template>
+  <div>
+    <p>click {{ count }} times, count is {{ evenOrOdd }}</p>
+    <button @click="increment">+</button>
+    <button @click="decrement">-</button>
+    <button @click="incrementIfOdd">increment if odd</button>
+    <button @click="incrementAsync">increment async</button>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      count: 0
+    }
+  },
+  computed: {
+    evenOrOdd() {
+      return this.count % 2 === 0 ? '偶数' : '奇数'
+    }
+  },
+  methods: {
+    // 增加
+    increment() {
+      const count = this.count
+      this.count = count + 1
+    },
+    // 减少
+    decrement() {
+      const count = this.count
+      this.count = count - 1
+    },
+    // 如果是奇数才增加
+    incrementIfOdd() {
+      const count = this.count
+      if (count % 2 === 1) {
+        this.count = count + 1
+      }
+    },
+    // 过1秒才增加
+    incrementAsync() {
+      setTimeout(() => {
+        const count = this.count
+        this.count = count + 1
+      }, 1000)
+    }
+  }
+}
+</script>
+
+<style>
+</style>
+```
+```js
+// main.js
+import Vue from 'vue'
+import App from './App.vue'
+
+/* eslint-disable no-new */
+new Vue({
+  el: '#app',
+  components: { App },
+  template: '<App/>'
+})
+```
+<hr>
+
+```vue
+// 用vuex
+// App.vue
+<template>
+  <div>
+    <p>click {{ count }} times, count is {{ evenOrOdd }}</p>
+    <button @click="increment">+</button>
+    <button @click="decrement">-</button>
+    <button @click="incrementIfOdd">increment if odd</button>
+    <button @click="incrementAsync">increment async</button>
+  </div>
+</template>
+
+<script>
+export default {
+  computed: {
+    evenOrOdd() {
+      return this.$store.getters.evenOrOdd
+    }
+  },
+  methods: {
+    // 增加
+    increment() {
+      // 通知vuex去增加
+      this.$store.dispatch('increment') // 触发store中对应的action调用
+    },
+    // 减少
+    decrement() {
+      this.$store.dispatch('decrement')
+    },
+    // 如果是奇数才增加
+    incrementIfOdd() {
+      this.$store.dispatch('incrementIfOdd')
+    },
+    // 过1秒才增加
+    incrementAsync() {
+      this.$store.dispatch('incrementAsync')
+    }
+  }
+}
+</script>
+
+<style>
+</style>
+```
+```js
+// store.js
+// vuex的核心管理对象模块：store
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+// 状态
+const state = { // 初始化状态
+  count: 0
+}
+
+// 包含多个更新state函数的对象
+const mutations = {
+  // 增加的mutation
+  INCREMENT(state) {
+    state.count++
+  },
+  //  减少的mutation
+  DECREMENT(state) {
+    state.count--
+  }
+}
+
+// 包含多个对应事件回调函数的对象
+const actions = {
+  // 增加的action
+  increment({ commit }) {
+    // 提交增加的mutation
+    commit('INCREMENT')
+  },
+
+  // 减少的action
+  decrement({ commit }) {
+    commit('DECREMENT')
+  },
+
+  // 带条件的action
+  incrementIfOdd({ commit, state }) {
+    if (state.count % 2 === 1) {
+      commit('INCREMENT')
+    }
+  },
+
+  // 异步的action
+  incrementAsync({ commit }) {
+    // 在action中直接就可以执行异步代码
+    setTimeout(() => {
+      commit('INCREMENT')
+    }, 1000);
+  }
+}
+
+// 包含多个getter计算属性函数的对象
+const getters = { // 不需要调用，只需要读取属性值
+  evenOrOdd(state) {
+    return state.count % 2 === 0 ? '偶数' : '奇数'
+  }
+}
+
+export default new Vuex.Store({
+  state, // 状态
+  mutations, // 包含多个更新state函数的对象
+  actions, // 包含多个对应事件回调函数的对象
+  getters, // 包含多个getter计算属性函数的对象
+})
+```
+```js
+// main.js
+import Vue from 'vue'
+import App from './App.vue'
+import store from './store'
+
+/* eslint-disable no-new */
+new Vue({
+  el: '#app',
+  components: { App },
+  template: '<App/>',
+  store // 所有组件对象都多了一个属性：$store
+})
+```
+<hr>
+
+```js
+// App.vue优化
+import { mapState, mapGetters, mapActions } from 'vuex'
+export default {
+  computed: {
+    // mapState()返回值: {count(){return this.$store.state['count']}}
+    ...mapState(['count']),
+    // mapGetters()返回值: {evenOrOdd(){return this.$store.getters['eventOrOdd']}}
+    ...mapGetters(['evenOrOdd'])
+  },
+
+  methods: {
+    ...mapActions([
+      'increment',
+      'decrement',
+      'incrementIfOdd',
+      'incrementAsync'
+    ])
+  }
+}
+```
+![vuex结构](/image/post/vuex.jpg)
+[所有项目源代码 下载](https://pcs.baidu.com/rest/2.0/pcs/file?method=download&app_id=250528&filename=vueCode.zip&path=%2Fshare%2F%E6%BA%90%E7%A0%81%2FVue%2FvueCode.zip&filename=vueCode.zip)
+
+# render
+```js
+// main.js
+new Vue({
+  el: '#app',
+  components: { App }, // 映射组件标签
+  template: '<App/>' // 指定需要渲染到页面的模板
+})
+```
+上述代码可以简写为：
+```js
+// main.js
+new Vue({
+  el: '#app',
+  render: h => h(App)
+})
+```
+其中，render函数相当于：
+```js
+function (createElement) {
+  return createElement(App)
+}
+```
