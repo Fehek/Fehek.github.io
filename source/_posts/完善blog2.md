@@ -80,7 +80,7 @@ module.exports = function(locals) {
   });
 };
 ```
-更新：此主题fluid已自带置顶，加上sticky: Num，数字越大，排序在前。 
+更新：hexo-generator-index 从 2.0.0 开始，已经支持文章置顶功能。可以直接在文章的front-matter区域里添加sticky: Number将文章置顶。数值越大，置顶的优先级越高。 
 
 # 源文件备份
 ```
