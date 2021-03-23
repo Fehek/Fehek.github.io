@@ -196,7 +196,7 @@ custom_js:
 
 # 指定自定义 .css 文件路径，用法和 custom_js 相同
 # The usage is the same as custom_js
-custom_css: /css/custom.css
+custom_css: 
 
 # 自定义 <head> 节点中的 HTML 内容
 # Customize <head> HTML content
@@ -315,7 +315,7 @@ navbar:
     - { key: "category", link: "/categories/", icon: "iconfont icon-category-fill" }
     - { key: "tag", link: "/tags/", icon: "iconfont icon-tags-fill" }
     - { key: "about", link: "/about/", icon: "iconfont icon-user-fill" }
-    - { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }
+    # - { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }
 
 # 搜索功能，基于 hexo-generator-search 插件，若已安装其他搜索插件请关闭此功能，以避免生成多余的索引文件
 # Search feature, based on hexo-generator-search. If you have installed other search plugins, please disable this feature to avoid generating redundant index files
@@ -830,17 +830,13 @@ about:
   banner_mask_alpha: 0
   subtitle: About me
   avatar: /image/avatar.jpg
-  name: "Fehek"
-  intro: "游戏 / 宅"
+  name: "ek"
+  intro: "愚者千虑，必有一得"
   # 更多图标可从 https://hexo.fluid-dev.com/docs/icon/ 查找，`class` 代表图标的 css class，添加 `qrcode` 后，图标不再是链接而是悬浮二维码
   # More icons can be found from https://hexo.fluid-dev.com/docs/en/icon/  `class` is the css class of the icon. If adding `qrcode`, The icon is no longer a link, but a hovering QR code
   icons:
     - { class: 'iconfont icon-github-fill', link: 'https://github.com/Fehek/Fehek.github.io' }
     - { class: 'iconfont icon-qq-fill', link: 'tencent://AddContact/?fromId=45&fromSubId=1&subcmd=all&uin=3376745547&website=www.oicqzone.com' }
-    - { class: 'iconfont icon-weibo-fill', link: 'https://weibo.com/u/6027701546/home' }
-    - { class: 'iconfont icon-bilibili', link: 'https://space.bilibili.com/34975759' }
-    - { class: 'iconfont icon-douban-fill', link: 'https://www.douban.com/people/168176483/' }
-    - { class: 'iconfont icon-steam', link: 'https://steamcommunity.com/id/fehek/' }
     - { class: 'iconfont icon-rss', link: '/atom.xml' }
 
 

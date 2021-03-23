@@ -484,6 +484,11 @@ new Vue({
 - this.$router.go(-1): 请求(返回)上一个记录路由
 - this.$router.go(1): 请求下一个记录路由
 
+## 前端history路由的问题
+页面中加载的资源相对路径会根据地址栏的变化而变化，所以要使用绝对路径，或相对于根目录的路径需要声明base属性，以说明地址中哪部分是前端路由部分，哪部分是后端路由部分。
+以特定url开头的地址都需要返回该url对应的内容。
+该模式不利于缓存。
+
 [vue-router源码 下载](https://www.baidupcs.com/rest/2.0/pcs/file?method=batchdownload&app_id=250528&zipcontent=%7B%22fs_id%22%3A%5B160508998630300%5D%7D&sign=DCb740ccc5511e5e8fedcff06b081203:aLWldkpQt%2BA8tx%2FonZB88zC9v%2F8%3D&uid=4036931918&time=1616035350&dp-logid=8667339095460594506&dp-callid=0&vuk=4036931918&zipname=src_router%20%E7%AD%891%E4%B8%AA%E6%96%87%E4%BB%B6.zip)
 
 # vuex
