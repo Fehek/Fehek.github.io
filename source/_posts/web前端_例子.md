@@ -4,7 +4,7 @@ subtitle: html/css简例
 categories: web前端学习笔记
 abbrlink: eef7064f
 tags:
-  - web前端
+  - front-end
   - HTML
   - CSS
 date: 2020-10-14 17:13:00

@@ -3,7 +3,7 @@ title: web前端学习笔记8——AJAX
 subtitle: AJAX
 abbrlink: a885f819
 tags:
-  - web前端
+  - front-end
   - AJAX
 categories: web前端学习笔记
 date: 2021-01-26 22:00:00

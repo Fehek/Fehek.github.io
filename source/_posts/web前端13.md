@@ -3,7 +3,7 @@ title: web前端学习笔记13——Vue基础
 subtitle: Vue基础
 abbrlink: 284c34b3
 tags:
-  - web前端
+  - front-end
   - Vue
 categories: web前端学习笔记
 date: 2021-03-12 22:04:00

@@ -3,8 +3,8 @@ title: web前端学习笔记12——数据库
 subtitle: 数据库
 abbrlink: b1456509
 tags:
-  - web前端
-  - 数据库
+  - front-end
+  - Database
 categories: web前端学习笔记
 date: 2021-03-09 10:02:00
 index_img:

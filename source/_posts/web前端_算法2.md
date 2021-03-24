@@ -2,7 +2,7 @@
 title: 常见的算法题2
 abbrlink: 44151e2d
 tags:
-  - web前端
+  - front-end
   - JavaScript
 categories: web前端学习笔记
 date: 2020-12-23 15:59:00

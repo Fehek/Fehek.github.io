@@ -4,7 +4,7 @@ subtitle: JS简例
 categories: web前端学习笔记
 abbrlink: 7e41b4b8
 tags:
-  - web前端
+  - front-end
   - JavaScript
 date: 2021-01-14 22:13:00
 index_img:

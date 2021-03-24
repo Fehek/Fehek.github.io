@@ -3,7 +3,7 @@ title: web前端学习笔记6——DOM、BOM
 subtitle: DOM、BOM
 abbrlink: df82c88f
 tags:
-  - web前端
+  - front-end
   - JavaScript
   - DOM
   - BOM

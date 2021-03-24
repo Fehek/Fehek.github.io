@@ -3,7 +3,7 @@ title: 完善blog1
 categories: blog相关
 abbrlink: 129da0a3
 date: 2020-04-29 14:50:00
-tags: APlayer播放器
+tags: APlayer
 index_img:
 ---
 添加APlayer播放器

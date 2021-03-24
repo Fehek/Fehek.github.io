@@ -3,7 +3,7 @@ title: web前端学习笔记11——NodeJS
 subtitle: NodeJS
 abbrlink: c642559f
 tags:
-  - web前端
+  - front-end
   - NodeJS
 categories: web前端学习笔记
 date: 2021-02-24 21:06:00

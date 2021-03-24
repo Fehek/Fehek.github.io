@@ -3,8 +3,8 @@ title: Markdown语法
 categories: 实用
 abbrlink: 87f960c2
 tags: 
-- Markdown语法
-- emoji
+- Markdown syntax
+- Emoji
 date: 2020-04-30 17:25:00
 index_img: /image/index/markdown.png
 ---

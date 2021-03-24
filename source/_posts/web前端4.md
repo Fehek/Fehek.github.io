@@ -3,9 +3,9 @@ title: web前端学习笔记4——JS函数与二叉树
 subtitle: JS函数与二叉树
 abbrlink: 318ca9a3
 tags:
-  - web前端
+  - front-end
   - JavaScript
-  - 二叉树
+  - Binary tree
 categories: web前端学习笔记
 date: 2020-11-17 10:27:00
 index_img:

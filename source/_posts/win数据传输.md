@@ -2,8 +2,7 @@
 title: Windows与Windows之间传输数据
 categories: 实用
 abbrlink: 5d108ff3
-tags:
-  - 数据传输
+tags: Data transmission
 date: 2020-08-01 21:57:00
 index_img: /image/index/transfer.jpg
 ---

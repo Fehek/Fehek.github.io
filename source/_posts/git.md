@@ -2,9 +2,9 @@
 title: git、ssh等
 abbrlink: c34887c6
 tags:
+  - PATH Environment Variable
   - Git
   - SSH
-  - 系统变量
 categories: 实用
 date: 2020-09-24 15:50:00
 index_img:
@@ -60,5 +60,3 @@ git config --global alias st status|取别名，例如将status改成st
 
 `ssh-add ~/.ssh/id_rsa_2`
 将新的SSH私钥添加至ssh-agent。
-
-

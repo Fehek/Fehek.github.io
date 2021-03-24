@@ -4,9 +4,9 @@ categories: blog相关
 abbrlink: 659a9035
 date: 2020-04-30 11:40:00
 tags: 
-- 链接格式
-- 博客排序
-- 上传博客源文件
+- hexo-abbrlink
+- blog sorting
+- upload source files
 index_img:
 ---
 一些小改进。

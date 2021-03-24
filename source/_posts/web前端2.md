@@ -4,7 +4,7 @@ subtitle: CSS
 categories: web前端学习笔记
 abbrlink: d8ef0c96
 tags:
-  - web前端
+  - front-end
   - CSS
 date: 2020-06-14 22:25:00
 index_img:

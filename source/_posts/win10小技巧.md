@@ -3,7 +3,7 @@ title: win10小技巧
 categories: 实用
 abbrlink: d50f6bf6
 date: 2020-05-28 14:56:00
-tags: win10
+tags: Win10
 index_img: /image/index/tip.jpg
 ---
 # 输入法

@@ -3,8 +3,8 @@ title: web前端学习笔记9——模块化
 subtitle: 模块
 abbrlink: 383ae588
 tags:
-  - web前端
-  - 模块化
+  - front-end
+  - JS Modules 
 categories: web前端学习笔记
 date: 2021-02-03 20:09:00
 index_img:

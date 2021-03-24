@@ -4,7 +4,7 @@ subtitle: HTML
 categories: web前端学习笔记
 abbrlink: 41e65d2c
 tags:
-  - web前端
+  - front-end
   - HTML
 date: 2020-06-14 19:17:00
 index_img:

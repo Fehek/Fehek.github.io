@@ -4,8 +4,8 @@ subtitle: 计算机网络
 abbrlink: 71c437b1
 date: 2021-01-18 09:50:00
 tags: 
-  - web前端
-  - 计算机网络
+  - front-end
+  - Computer Networks
 categories: web前端学习笔记
 index_img:
 banner_img:

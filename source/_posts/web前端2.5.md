@@ -4,7 +4,7 @@ subtitle: CSS画图
 categories: web前端学习笔记
 abbrlink: 32c066a8
 tags:
-  - web前端
+  - front-end
   - CSS
 date: 2020-10-08 22:16:00
 index_img:

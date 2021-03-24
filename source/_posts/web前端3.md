@@ -3,7 +3,7 @@ title: web前端学习笔记3——JS基础
 subtitle: JS基础
 abbrlink: afe83c00
 tags:
-  - web前端
+  - front-end
   - JavaScript
 date: 2020-09-19 17:58:00
 categories: web前端学习笔记

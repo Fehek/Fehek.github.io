@@ -3,7 +3,7 @@ title: web前端学习笔记10——Promise
 subtitle: Promise
 abbrlink: 4f3dd51e
 tags:
-  - web前端
+  - front-end
   - Promise
 categories: web前端学习笔记
 date: 2021-02-21 21:24:00
