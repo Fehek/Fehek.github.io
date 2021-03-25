@@ -782,6 +782,7 @@ var compileUtil = {
 ```
 
 # 函数实现
+## observe
 ```js
 //监控obj对象的变化，在变化后调用callback，暂时只考虑对象只有一层(watch)
 //方法是通过把obj的每个属性都改成getter，setter，在setter调用时，调用callback
@@ -831,5 +832,36 @@ function observe(obj, callback) {
     }
   }
   return obj
+}
+```
+
+## mapState
+```js
+function mapState(obj) {
+  if (Array.isArray(obj)) {
+    let mapped = {}
+    for (let key of propAry) {
+      mapped[key] = function () {
+        return this.$store.state[key]
+      }
+    }
+    return mapped
+  }
+
+  var mapped = {}
+  for (let key in obj) {
+    var val = obj[key]
+    if (typeof val == 'string') {
+      mapped[key] = function () {
+        return this.$store.state[val]
+      }
+    }
+    if (typeof val == 'function') {
+      mapped[key] = function () {
+        return val.call(this, this.$store.state)
+      }
+    }
+  }
+  return mapped
 }
 ```
