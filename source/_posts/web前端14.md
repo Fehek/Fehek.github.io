@@ -451,7 +451,7 @@ new Vue({
     `<router-view></router-view>`
 
 ## 向路由组件传递数据
-- 路由路径携带参数(param/query)
+- 路由传参(param)
     1. 配置路由
     ```js
     children: [
@@ -465,6 +465,11 @@ new Vue({
     `<router-link :to="'/home/message/mdetail/'+m.id">{{m.title}}</router-link>`
     3. 路由组件中读取请求参数
     `this.$route.params.id`
+- 路由传参(query)
+    1. 在地址的后面 写上 ？分隔
+    2. 通过 key=value&key2=value 的方式添加参数
+    3. 组件中通过 `this.$route.query` 访问对应的 key 即可获取数据
+
 - <router-view>属性携带数据
 `<router-view :msg="msg"></router-view>`
 
