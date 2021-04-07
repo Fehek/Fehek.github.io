@@ -41,7 +41,7 @@ ts文件中的变量使用的是let进行修饰，编译的js文件中的修饰�
     终端 -> 运行任务 -> 监视tsconfig.json
 ```
 
-# 使用
+# 基础使用
 ## 类型注解
 TypeScript 里的类型注解是一种轻量级的为函数或变量添加约束的方式
 ```typescript
@@ -99,7 +99,7 @@ console.log(greeter(user))
 ```
 TypeScript 里的类只是一个语法糖，本质上还是 JavaScript 函数的实现。
 
-# 基础类型
+# 类型
 ## 布尔值 boolean
 ```ts
 let flag: boolean = false
@@ -367,3 +367,220 @@ person3.fly() // f
 person3.swim() // s
 ```
 总结：接口和接口之间叫继承（使用的是extends关键字），类和接口之间叫实现（使用的是implements）
+
+# 类
+## 基本实例
+类可以理解为模板，通过模板可以实例化对象
+```ts
+// ts中类的定义及使用
+class Person {
+  // 定义属性
+  name: string
+  age: number
+  gender: string
+  // 定义构造函数：为了将来实例化对象时，可以直接对属性的值进行初始化
+  constructor(name: string = '小明', age: number = 18, gender: string = '男') {
+    this.name = name
+    this.age = age
+    this.gender = gender
+  }
+  // 定义实例方法
+  sayHi(str: string) {
+    console.log(`你好，我是${this.name}，今年已经${this.age}岁了，是个${this.gender}孩子，${str}`)
+  }
+}
+
+// ts中使用类，实例化对象，可以直接进行初始化操作
+const person = new Person('小红', 10, '女')
+person.sayHi('你叫什么名字')
+```
+
+## 继承
+继承：类与类之间的关系
+A类继承了B类，A类叫子类（派生类），B类叫基类（超类 / 父类）
+```ts
+// 定义一个类，继承自Person
+class Student extends Person {
+  constructor(name: string, age: number, gender: string) {
+    // 调用的是父类中的构造函数，使用的是super
+    super(name, age, gender)
+  }
+  // 可以调用父类中的方法
+  sayHi() {
+    console.log('我是学生类中的sayHi方法')
+    // 调用父类中的sayHi方法
+    super.sayHi('haha')
+  }
+}
+const stu = new Student('小张', 21, '女')
+stu.sayHi()
+```
+总结：类和类之间如果要有继承关系，需要使用extends关键字
+子类中可以调用父类中的构造函数，使用的是super关键字（包括调用父类中的实例方法，也可以使用super）
+子类中可以重写父类的方法
+
+## 多态
+父类型的引用指向了子类型的对象，不同类型的对象针对相同的方法，产生了不同的行为
+```ts
+// 定义一个父类
+class Animal {
+  name: string
+  constructor(name: string) {
+    this.name = name
+  }
+  run(distance: number = 0) {
+    console.log(`跑了${distance}米这么远的距离`, this.name)
+  }
+}
+
+// 定义一个子类
+class Dog extends Animal {
+  constructor(name: string) {
+    super(name)
+  }
+  run(distance: number = 5) {
+    console.log(`跑了${distance}米这么远的距离`, this.name)
+  }
+}
+
+// 定义一个子类
+class Pig extends Animal {
+  constructor(name: string) {
+    super(name)
+  }
+  run(distance: number = 10) {
+    console.log(`跑了${distance}米这么远的距离`, this.name)
+  }
+}
+
+// 实例化父类对象
+const ani: Animal = new Animal('动物')
+ani.run()
+// 实例化子类对象
+const dog: Dog = new Dog('小狗')
+dog.run()
+const pig: Pig = new Pig('小猪')
+pig.run()
+console.log('========')
+
+// 也可以写成这样
+const dog2: Animal = new Dog('大狗')
+dog2.run()
+const pig2: Animal = new Pig('大猪')
+pig2.run()
+console.log('========')
+
+function showRun(ani: Animal) {
+  ani.run()
+}
+showRun(dog2)
+showRun(pig2)
+```
+
+## 修饰符
+- public
+默认修饰符，任何位置都可以访问类中的成员
+- private
+不能在声明它的类的外部访问
+- protected
+外部无法无法访问这个成员数据，但是子类中是可以访问的
+- readonly
+```ts
+// 修饰类中的成员属性
+// 修饰后，该属性成员就不能在外部被随意修改了
+// 构造函数中可以对只读属性成员的数据进行修改
+class Person {
+  readonly name: string = 'abc'
+  constructor(name: string) {
+    this.name = name
+  }
+}
+
+let stu = new Person('John')
+console.log(stu)
+// stu.name = 'Peter' // error
+```
+```ts
+// 修饰类中的构造函数中的参数（参数属性）
+class Person2 {
+  constructor(readonly name: string) {
+    // 被修饰后，有了一个name属性成员，外部无法进行修改
+    // 也可以使用 public, private, protected 进行修饰，无论是哪个进行修饰，该类中都会自动添加这么一个属性成员
+    // this.name = name
+  }
+}
+
+const p = new Person2('Jack')
+console.log(p)
+// p.name = 'Kat' // error
+console.log(p.name)
+```
+
+## 存取器
+可以有效控制对对象中成员的访问，通过getter和setter来进行操作
+```ts
+class Person {
+  firstName: string
+  lastName: string
+  constructor(firstName: string, lastName: string) {
+    this.firstName = firstName
+    this.lastName = lastName
+  }
+  // 读取器=》负责读取数据
+  get fullName() {
+    console.log('getting...')
+    return this.firstName + '_' + this.lastName
+  }
+  // 设置器 =》负责设置数据（修改）
+  set fullName(val) {
+    console.log('setting...')
+    let names = val.split('_')
+    this.firstName = names[0]
+    this.lastName = names[1]
+  }
+}
+const person: Person = new Person('张', '三')
+console.log(person)
+// 获取该属性成员属性
+console.log(person.fullName)
+// 设置该属性的数据
+person.fullName = '李_四'
+console.log(person.fullName)
+```
+
+## 静态属性
+非静态属性, 是类的实例对象的属性
+静态属性, 是类对象的属性
+```ts 
+class Person {
+  name1: string = 'A'
+  static name2: string = 'B'
+}
+console.log(new Person().name1)
+// console.log(Person.name1) // error
+// console.log(new Person().name2) // error
+console.log(Person.name2)
+```
+
+## 抽象类
+抽象类不能被实例化，可以包含实例方法。作用是为了子类服务的。
+```ts
+abstract class Animal {
+  abstract cry()
+  run() {
+    console.log('run()')
+  }
+}
+
+class Dog extends Animal {
+  cry() {
+    console.log('Dog cry()')
+  }
+}
+
+const dog = new Dog()
+dog.cry()
+dog.run()
+```
+
+# 函数
