@@ -610,3 +610,131 @@ console.log(add('a', 'b'))
 ```
 
 # 泛型
+指在定义函数、接口或类的时候，不预先指定具体的类型，而在使用的时候再指定具体类型的一种特性。
+## 使用函数泛型
+```ts
+function createArray<T>(value: T, count: number): T[] {
+  const arr: Array<T> = []
+  for (let i = 0; i < count; i++) {
+    arr.push(value)
+  }
+  return arr
+}
+
+const arr = createArray<number>(11.123, 3)
+console.log(arr[0].toFixed())
+const arr2 = createArray<string>('aa', 3)
+console.log(arr2[0].split(''))
+```
+
+## 多个泛型参数的函数
+一个函数可以定义多个泛型参数
+```ts
+function getMsg<K, V>(value1: K, value2: V): [K, V] {
+  return [value1, value2]
+}
+const arr1 = getMsg<string, number>('Jack', 100.123)
+console.log(arr1[0].split(''), arr1[1].toFixed(1))
+```
+
+## 泛型接口
+在定义接口时, 为接口中的属性或方法定义泛型类型; 在使用接口时, 再指定具体的泛型类型。
+```ts
+interface baseCRUD<T> {
+  data: T[]
+  add: (t: T) => void
+  getById: (id: number) => T
+}
+
+class User {
+  id?: number
+  name: string
+  age: number
+  constructor(name, age) {
+    this.name = name
+    this.age = age
+  }
+}
+
+class UserCRUD implements baseCRUD<User> {
+  data: User[] = []
+
+  add(user: User): void {
+    user = { ...user, id: Date.now() }
+    this.data.push(user)
+    console.log('保存user', user.id)
+  }
+
+  getById(id: number): User {
+    return this.data.find(item => item.id === id)
+  }
+}
+
+
+const userCRUD = new UserCRUD()
+userCRUD.add(new User('tom', 12))
+userCRUD.add(new User('tom2', 13))
+console.log(userCRUD.data)
+```
+
+## 泛型类
+在定义类时, 为类中的属性或方法定义泛型类型; 在创建类的实例时, 再指定特定的泛型类型
+```ts
+class GenericNumber<T> {
+  zeroValue: T
+  add: (x: T, y: T) => T
+}
+
+let myGenericNumber = new GenericNumber<number>()
+myGenericNumber.zeroValue = 0
+myGenericNumber.add = function (x, y) {
+  return x + y
+}
+
+let myGenericString = new GenericNumber<string>()
+myGenericString.zeroValue = 'abc'
+myGenericString.add = function (x, y) {
+  return x + y
+}
+
+console.log(myGenericString.add(myGenericString.zeroValue, 'test'))
+console.log(myGenericNumber.add(myGenericNumber.zeroValue, 12))
+```
+
+## 泛型约束
+```ts
+// 如果直接对一个泛型参数取 length 属性会报错, 因为这个泛型根本就不知道它有这个属性
+interface ILength {
+  length: number
+}
+function getLength<T extends ILength>(x: T): number {
+  return x.length
+}
+console.log(getLength<string>('Hello World'))
+// console.log(getLength<number>(123)) // error
+```
+
+# 内置对象
+JavaScript 中有很多内置对象，它们可以直接在 TypeScript 中当做定义好了的类型。
+内置对象是指根据标准在全局作用域（Global）上存在的对象。这里的标准是指 ECMAScript 和其他环境（比如 DOM）的标准。
+- ECMAScript 的内置对象
+`Boolean  Number  String  Date  RegExp  Error`
+```ts
+let b: Boolean = new Boolean(1)
+let n: Number = new Number(true)
+let s: String = new String('abc')
+let d: Date = new Date()
+let r: RegExp = /^1/
+let e: Error = new Error('error message')
+// let bb: boolean = new Boolean(2)  // error
+```
+- BOM 和 DOM 的内置对象
+`Window  Document  HTMLElement  DocumentFragment  Event  NodeList`
+```ts
+const div: HTMLElement = document.getElementById('test')
+const divs: NodeList = document.querySelectorAll('div')
+document.addEventListener('click', (event: MouseEvent) => {
+  console.dir(event.target)
+})
+const fragment: DocumentFragment = document.createDocumentFragment()
+```
