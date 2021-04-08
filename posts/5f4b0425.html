@@ -1,0 +1,1237 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/image/icon.png">
+  <link rel="icon" href="/image/icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Fehek">
+  <meta name="keywords" content="">
+  
+  <title>web前端学习笔记14——使用Vue模板 - my notes</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      
+        
+          
+          
+          
+        
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/themes/prism-tomorrow.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/plugins/line-numbers/prism-line-numbers.min.css" />
+      
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>ZONE OUT</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/image/post.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="使用Vue模板">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-03-14 17:51" pubdate>
+        2021年3月14日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      35
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">使用Vue模板</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年4月8日 下午
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1 id="创建模板项目"><a href="#创建模板项目" class="headerlink" title="创建模板项目"></a>创建模板项目</h1><p><a target="_blank" rel="noopener" href="https://github.com/vuejs/vue-cli">vue-cli</a>：官方提供的脚手架工具<br>从 <a target="_blank" rel="noopener" href="https://github.com/vuejs-templates">vuejs-templates</a> 下载模板项目</p>
+<ul>
+<li>创建 vue 项目<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> -g vue-cli
+vue init webpack vue_demo  <span class="token comment">#名称不能包含大写</span>
+<span class="token comment"># vue-router， unit tests 和 e2e tests 两个单元测试包暂时不需要，其余默认</span>
+<span class="token builtin class-name">cd</span> vue_demo
+<span class="token function">npm</span> run dev
+<span class="token comment"># 访问: http://localhost:8080/</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+<li>模板项目的结构<div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md">|-- build : webpack 相关的配置文件夹(基本不需要修改)
+  |-- dev-server.js : 通过 express 启动后台服务器
+|-- config: webpack 相关的配置文件夹(基本不需要修改)
+  |-- index.js: 指定的后台服务的端口号和静态资源文件夹
+|-- node_modules
+|-- src : 源码文件夹
+  |-- components: vue 组件及其相关资源文件夹
+  |-- App.vue: 应用根主组件
+  |-- main.js: 应用入口 js
+|-- static: 静态资源文件夹
+|-- .babelrc: babel 的配置文件
+|-- .eslintignore: eslint 检查忽略的配置
+|-- .eslintrc.js: eslint 检查的配置
+|-- .gitignore: git 版本管制忽略的配置
+|-- index.html: 主页面文件
+|-- package.json: 应用包配置文件
+|-- README.md: 应用描述说明的 readme 文件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+</li>
+</ul>
+<h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><ul>
+<li><p>vue文件的组成<br>分为3部分：模板页面，JS 模块对象，样式</p>
+<div class="code-wrapper"><pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">&lt;template&gt;
+// 页面模板
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  data() {
+    return {}
+  },
+  methods: {},
+  computed: {},
+  components: {}
+}
+&lt;/script&gt;
+
+&lt;style&gt;
+/* 样式定义 */
+&lt;/style&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+</li>
+<li><p>简单案例</p>
+<div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md"><span class="token comment">&lt;!-- 结构目录 --&gt;</span>
+|-- src
+  |-- assets
+    |-- logo.png
+  |-- components
+    |-- helloworld.vue
+  |-- App.vue
+  |-- main.js
+|-- index.html<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">// helloworld.vue
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;p class="msg"&gt;{{ msg }}&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {  //配置对象(与Vue一致)
+  data() {  //必须写函数
+    return {
+      msg: 'Hello Vue Component',
+    }
+  },
+}
+&lt;/script&gt;
+
+&lt;style&gt;
+.msg {
+  color: red;
+  font-size: 30px;
+}
+&lt;/style&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">// App.vue
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;img class="logo" src="./assets/logo.png" alt="logo" /&gt;
+    &lt;!-- 3. 使用组件标签 --&gt;
+    &lt;HelloWorld /&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+// 1. 引入组件
+import HelloWorld from './components/helloworld'
+export default {
+  // 2. 映射组件标签
+  components: {
+    HelloWorld,
+  },
+}
+&lt;/script&gt;
+
+&lt;style&gt;
+.logo {
+  width: 200px;
+  height: 200px;
+}
+&lt;/style&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token comment">// main.js</span>
+<span class="token comment">// 入口JS：创建Vue实例</span>
+<span class="token keyword">import</span> Vue <span class="token keyword">from</span> <span class="token string">'vue'</span>
+<span class="token keyword">import</span> App <span class="token keyword">from</span> <span class="token string">'./App.vue'</span>
+
+<span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  el<span class="token operator">:</span> <span class="token string">"#app"</span><span class="token punctuation">,</span> <span class="token comment">//index.html里写的名称</span>
+  components<span class="token operator">:</span> <span class="token punctuation">{</span> App <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token comment">//组件标签名</span>
+  template<span class="token operator">:</span> <span class="token string">'&lt;App/&gt;'</span> <span class="token comment">// 模板插入到el所匹配的页面div里</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token comment">&lt;!-- index.html --&gt;</span>
+<span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>utf-8<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>viewport<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>width=device-width,initial-scale=1.0<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">&gt;</span></span>helloworld<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>app<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token comment">&lt;!-- built files will be auto injected --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+</li>
+</ul>
+<h1 id="项目打包与发布"><a href="#项目打包与发布" class="headerlink" title="项目打包与发布"></a>项目打包与发布</h1><ul>
+<li>静态服务器工具包<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 打包，会生成dist文件夹</span>
+<span class="token function">npm</span> run build
+<span class="token comment"># 发布</span>
+<span class="token function">npm</span> <span class="token function">install</span> -g serve
+serve dist
+<span class="token comment"># 访问：http://localhost:5000</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+<li>动态 web 服务器(tomcat)<ol>
+<li>修改配置<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token comment">// webpack.prod.conf.js</span>
+output<span class="token operator">:</span> <span class="token punctuation">{</span>
+  publicPath<span class="token operator">:</span> <span class="token string">'/xxx/'</span>
+  <span class="token comment">//打包文件夹的名称</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+<li>重新打包: <code>npm run build</code></li>
+<li>修改 dist 文件夹为项目名称: xxx</li>
+<li>将 xxx 拷贝到运行的 tomcat 的 webapps 目录下</li>
+<li>访问: <a target="_blank" rel="noopener" href="http://localhost:8080/xxx">http://localhost:8080/xxx</a></li>
+</ol>
+</li>
+</ul>
+<h1 id="组件间通信"><a href="#组件间通信" class="headerlink" title="组件间通信"></a>组件间通信</h1><h2 id="props"><a href="#props" class="headerlink" title="props"></a>props</h2><p><a target="_blank" rel="noopener" href="https://www.baidupcs.com/rest/2.0/pcs/file?method=batchdownload&amp;app_id=250528&amp;zipcontent=%7B%22fs_id%22:%5B510549148196205%5D%7D&amp;sign=DCb740ccc5511e5e8fedcff06b081203:YgER+TxcaEMzSWRWesdEFzOlH+I=&amp;uid=4036931918&amp;time=1615895027&amp;dp-logid=559220838078483504&amp;dp-callid=0&amp;vuk=4036931918&amp;zipname=src_todos%20%E7%AD%891%E4%B8%AA%E6%96%87%E4%BB%B6.zip">todos源文件下载</a></p>
+<ol>
+<li>使用组件标签时<br><code>&lt;my-component name='tom' :age='3' :set-name='setName' /&gt;</code></li>
+<li>定义 MyComponent 时<br>在组件内声明所有的props<ol>
+<li>只指定名称<br><code>props: ['name', 'age', 'setName']</code></li>
+<li>指定名称和类型<div class="code-wrapper"><pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">props: {
+  name: String,
+  age: Number,
+  setNmae: Function
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+<li>指定名称/类型/必要性/默认值<div class="code-wrapper"><pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">props: {
+  name: {type: String, required: true, default:xxx},
+  age: {type: Number, required: true, default:xxx}
+}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+</ol>
+</li>
+</ol>
+<ul>
+<li>注意<ul>
+<li>此方式用于父组件向子组件传递数据</li>
+<li>所有标签属性都会成为组件对象的属性, 模板页面可以直接引用</li>
+<li>问题:<ul>
+<li>如果需要向非子后代传递数据必须多层逐层传递</li>
+<li>兄弟组件间也不能直接 props 通信, 必须借助父组件才可以</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="vue自定义事件"><a href="#vue自定义事件" class="headerlink" title="vue自定义事件"></a>vue自定义事件</h2><p><a target="_blank" rel="noopener" href="https://www.baidupcs.com/rest/2.0/pcs/file?method=batchdownload&amp;app_id=250528&amp;zipcontent=%7B%22fs_id%22:%5B411051570951492%5D%7D&amp;sign=DCb740ccc5511e5e8fedcff06b081203:wWKborYhac0WkseamHGH9jloe0s=&amp;uid=4036931918&amp;time=1615895014&amp;dp-logid=559217391567055477&amp;dp-callid=0&amp;vuk=4036931918&amp;zipname=src_todos_modify%20%E7%AD%891%E4%B8%AA%E6%96%87%E4%BB%B6.zip">todos 通信方式修改</a></p>
+<ol>
+<li>绑定事件监听<ol>
+<li>通过 v-on 绑定<div class="code-wrapper"><pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token comment">&lt;!-- 给TodoHeader标签对象绑定addTodo事件监听 --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>TodoHeader</span> <span class="token attr-name">@addTodo</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>addTodo<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></li>
+<li>通过 $on() <div class="code-wrapper"><pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">&lt;template&gt;
+  &lt;TodoHeader ref="header" /&gt;
+&lt;/template&gt;
+&lt;script&gt;
+  this.$refs.header.$on('addTodo', this.addTodo)
+&lt;/script&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+</ol>
+</li>
+<li>触发事件<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token comment">// 触发事件(只能在父组件中接收)</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$emit</span><span class="token punctuation">(</span><span class="token string">'addTodo'</span><span class="token punctuation">,</span> todo<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></li>
+</ol>
+<ul>
+<li>注意<ul>
+<li>此方式只用于子组件向父组件发送消息(数据)</li>
+<li>问题: 隔代组件或兄弟组件间通信此种方式不合适</li>
+</ul>
+</li>
+</ul>
+<h2 id="消息订阅与发布"><a href="#消息订阅与发布" class="headerlink" title="消息订阅与发布"></a>消息订阅与发布</h2><ul>
+<li>安装 PubSubJS 库 <code>npm i --save pubsub-js</code><br>绑定事件监听  —订阅消息<br>触发事件      —发布消息</li>
+</ul>
+<ol>
+<li>订阅消息 <code>PubSub.subscribe('msg', function(msg, data){})</code></li>
+<li>发布消息 <code>PubSub.publish('msg', data)</code></li>
+</ol>
+<ul>
+<li>注意<br>优点: 此方式可实现任意关系组件间通信(数据)</li>
+<li>总结: 事件的 2 个重要操作<ol>
+<li>绑定事件监听 (订阅消息)<br>目标: 标签元素 <code>&lt;button&gt;</code><br>事件名(类型): click/focus<br>回调函数: <code>function(event){}</code></li>
+<li>触发事件 (发布消息)<br>DOM 事件: 用户在浏览器上对应的界面上做对应的操作<br>自定义: 编码手动触发</li>
+</ol>
+</li>
+</ul>
+<h2 id="slot"><a href="#slot" class="headerlink" title="slot"></a>slot</h2><p>此方式用于父组件向子组件传递<strong>标签</strong>，而非数据。</p>
+<ol>
+<li>子组件 Child.vue<div class="code-wrapper"><pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>slot</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>xxx<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>不确定的标签结构 1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>slot</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>组件确定的标签结构<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>slot</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>yyy<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>不确定的标签结构 2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>slot</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+<li>父组件 Parent.vue<div class="code-wrapper"><pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>child</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">slot</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>xxx<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>xxx 对应的标签结构<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">slot</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>yyy<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>yyyy 对应的标签结构<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>child</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://www.baidupcs.com/rest/2.0/pcs/file?method=batchdownload&amp;app_id=250528&amp;zipcontent=%7B%22fs_id%22:%5B466857802587390%5D%7D&amp;sign=DCb740ccc5511e5e8fedcff06b081203:j9NJoc6yVNtIBzvtyaAU/BbWG8s=&amp;uid=4036931918&amp;time=1616390085&amp;dp-logid=8762562628998474716&amp;dp-callid=0&amp;vuk=4036931918&amp;zipname=src_todos_final%20%E7%AD%891%E4%B8%AA%E6%96%87%E4%BB%B6.zip">todos 源文件最终版</a></p>
+<h1 id="vue-ajax"><a href="#vue-ajax" class="headerlink" title="vue-ajax"></a>vue-ajax</h1><h2 id="vue-resource"><a href="#vue-resource" class="headerlink" title="vue-resource"></a>vue-resource</h2><p>vue 插件, 非官方库, vue1.x 使用广泛。<a target="_blank" rel="noopener" href="https://github.com/pagekit/vue-resource/blob/develop/docs/http.md">文档</a><br>下载 <code>npm install vue-resource --save</code></p>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token comment">// 引入模块</span>
+<span class="token keyword">import</span> VueResource <span class="token keyword">from</span> <span class="token string">'vue-resource'</span>
+<span class="token comment">// 声明使用插件</span>
+<span class="token comment">// 内部会给vm对象和组件对象添加一个属性：$http</span>
+Vue<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>VueResourcejs<span class="token punctuation">)</span>
+
+<span class="token comment">// 通过 vue/组件对象发送 ajax 请求</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>$http<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token string">'/someUrl'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">response</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token comment">// success callback</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>response<span class="token punctuation">.</span>data<span class="token punctuation">)</span> <span class="token comment">//返回结果数据</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token parameter">response</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token comment">// error callback</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>response<span class="token punctuation">.</span>statusText<span class="token punctuation">)</span> <span class="token comment">//错误信息</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h2 id="axios"><a href="#axios" class="headerlink" title="axios"></a>axios</h2><p>通用的 ajax 请求库, 官方推荐, vue2.x 使用广泛。<br>下载 <code>npm install axios --save</code></p>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token comment">// 引入模块</span>
+<span class="token keyword">import</span> axios <span class="token keyword">from</span> <span class="token string">'axios'</span>
+<span class="token comment">// 发送 ajax 请求</span>
+axios<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token parameter">response</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>response<span class="token punctuation">.</span>data<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">.</span><span class="token function">catch</span><span class="token punctuation">(</span><span class="token parameter">error</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>error<span class="token punctuation">.</span>message<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<p><a target="_blank" rel="noopener" href="https://www.baidupcs.com/rest/2.0/pcs/file?method=batchdownload&amp;app_id=250528&amp;zipcontent=%7B%22fs_id%22:%5B620939812726153%5D%7D&amp;sign=DCb740ccc5511e5e8fedcff06b081203:qF9ajP1kVj822bPGGpOIxqaWFbY=&amp;uid=4036931918&amp;time=1615981286&amp;dp-logid=8652826240762618758&amp;dp-callid=0&amp;vuk=4036931918&amp;zipname=src_users%20%E7%AD%891%E4%B8%AA%E6%96%87%E4%BB%B6.zip">搜索github用户 源码下载</a></p>
+<h1 id="UI-组件库"><a href="#UI-组件库" class="headerlink" title="UI 组件库"></a>UI 组件库</h1><ul>
+<li>Mint UI:<br>主页: <a target="_blank" rel="noopener" href="http://mint-ui.github.io/#!/zh-cn">http://mint-ui.github.io/#!/zh-cn</a><br>说明: 饿了么开源的基于 vue 的移动端 UI 组件库</li>
+<li>Elment<br>主页: <a target="_blank" rel="noopener" href="http://element-cn.eleme.io/#/zh-CN">http://element-cn.eleme.io/#/zh-CN</a><br>说明: 饿了么开源的基于 vue 的 PC 端 UI 组件库</li>
+</ul>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 下载 Mint UI</span>
+<span class="token function">npm</span> <span class="token function">install</span> --save mint-ui<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md"><span class="token comment">&lt;!-- 实现按需打包 --&gt;</span>
+<span class="token list punctuation">1.</span> 下载
+npm install --save-dev babel-plugin-component
+<span class="token list punctuation">2.</span> 修改 babel 配置
+"plugins": [
+    [
+      "component",
+      {
+        "libraryName": "mint-ui",
+        "style": true
+      }
+    ]
+  ]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p> mint-ui 组件分为 标签组件 与 非标签组件</p>
+<div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md"><span class="token comment">&lt;!-- 文件结构 --&gt;</span>
+|-- src
+  |-- App.vue
+  |-- main.js
+|-- index.html<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token comment">&lt;!-- index.html --&gt;</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>viewport<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no<span class="token punctuation">"</span></span> <span class="token punctuation">/&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>app<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token comment">&lt;!-- built files will be auto injected --&gt;</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://as.alipayobjects.com/g/component/fastclick/1.0.6/fastclick.js<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token string">'addEventListener'</span> <span class="token keyword">in</span> document<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      document<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'DOMContentLoaded'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        FastClick<span class="token punctuation">.</span><span class="token function">attach</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>window<span class="token punctuation">.</span>Promise<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      document<span class="token punctuation">.</span><span class="token function">writeln</span><span class="token punctuation">(</span><span class="token string">'&lt;script src = "https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js" '</span> <span class="token operator">+</span> <span class="token string">' &gt; '</span> <span class="token operator">+</span> <span class="token string">' &lt; '</span> <span class="token operator">+</span> <span class="token string">' / '</span> <span class="token operator">+</span> <span class="token string">'script &gt; '</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token comment">// main.js</span>
+<span class="token keyword">import</span> Vue <span class="token keyword">from</span> <span class="token string">'vue'</span>
+<span class="token keyword">import</span> App <span class="token keyword">from</span> <span class="token string">'./App.vue'</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Button <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'mint-ui'</span>
+
+<span class="token comment">// 注册成标签(全局)</span>
+Vue<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span>Button<span class="token punctuation">.</span>name<span class="token punctuation">,</span> Button<span class="token punctuation">)</span>
+
+<span class="token comment">/* eslint-disable no-new */</span>
+<span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  el<span class="token operator">:</span> <span class="token string">'#app'</span><span class="token punctuation">,</span>
+  components<span class="token operator">:</span> <span class="token punctuation">{</span> App <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  template<span class="token operator">:</span> <span class="token string">'&lt;App/&gt;'</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">// App.vue
+&lt;template&gt;
+  &lt;mt-button type="primary" @click="handleClick" style="width: 100%"&gt;Test&lt;/mt-button&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+import { Toast } from 'mint-ui'
+export default {
+  methods: {
+    handleClick() {
+      Toast('提示信息')
+    }
+  }
+}
+&lt;/script&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h1 id="vue-router"><a href="#vue-router" class="headerlink" title="vue-router"></a>vue-router</h1><p>官方提供的用来实现 SPA 的 vue 插件。<a target="_blank" rel="noopener" href="https://router.vuejs.org/zh/">文档</a><br>下载<code>npm install vue-router --save</code></p>
+<h2 id="路由组件"><a href="#路由组件" class="headerlink" title="路由组件"></a>路由组件</h2><ol>
+<li>VueRouter(): 用于创建路由器的构建函数<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">new</span> <span class="token class-name">VueRouter</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token comment">// 多个配置项</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></li>
+<li>路由配置<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js">routes<span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token punctuation">{</span> <span class="token comment">// 一般路由</span>
+    path<span class="token operator">:</span> <span class="token string">'/about'</span><span class="token punctuation">,</span>
+    component<span class="token operator">:</span> About
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span> <span class="token comment">// 自动跳转路由</span>
+    path<span class="token operator">:</span> <span class="token string">'/'</span><span class="token punctuation">,</span>
+    redirect<span class="token operator">:</span> <span class="token string">'/about'</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+<li>注册路由器<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">import</span> router <span class="token keyword">from</span> <span class="token string">'./router'</span>
+<span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  router
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+<li>使用路由组件标签<ul>
+<li><code>&lt;router-link&gt;</code>: 用来生成路由链接<br><code>&lt;router-link to="/xxx"&gt;Go to XXX&lt;/router-link&gt;</code></li>
+<li><code>&lt;router-view&gt;</code>: 用来显示当前路由组件界面<br><code>&lt;router-view&gt;&lt;/router-view&gt;</code></li>
+</ul>
+</li>
+</ol>
+<h2 id="向路由组件传递数据"><a href="#向路由组件传递数据" class="headerlink" title="向路由组件传递数据"></a>向路由组件传递数据</h2><ul>
+<li><p>路由传参(param)</p>
+<ol>
+<li>配置路由<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js">children<span class="token operator">:</span> <span class="token punctuation">[</span>
+  <span class="token punctuation">{</span>
+    path<span class="token operator">:</span> <span class="token string">'mdetail/:id'</span><span class="token punctuation">,</span>
+    component<span class="token operator">:</span> MessageDetail
+  <span class="token punctuation">}</span>
+<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+<li>路由路径<br><code>&lt;router-link :to="'/home/message/mdetail/'+m.id"&gt;{{m.title}}&lt;/router-link&gt;</code></li>
+<li>路由组件中读取请求参数<br><code>this.$route.params.id</code></li>
+</ol>
+</li>
+<li><p>路由传参(query)</p>
+<ol>
+<li>在地址的后面 写上 ？分隔</li>
+<li>通过 key=value&amp;key2=value 的方式添加参数</li>
+<li>组件中通过 <code>this.$route.query</code> 访问对应的 key 即可获取数据</li>
+</ol>
+</li>
+<li><p><router-view>属性携带数据<br><code>&lt;router-view :msg="msg"&gt;&lt;/router-view&gt;</code></router-view></p>
+</li>
+</ul>
+<h2 id="缓存路由组件对象"><a href="#缓存路由组件对象" class="headerlink" title="缓存路由组件对象"></a>缓存路由组件对象</h2><ul>
+<li>默认情况下, 被切换的路由组件对象会死亡释放, 再次回来时是重新创建的</li>
+<li>如果可以缓存路由组件对象, 可以提高用户体验<div class="code-wrapper"><pre class="line-numbers language-html" data-language="html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>keep-alive</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>router-view</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>router-view</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>keep-alive</span><span class="token punctuation">&gt;</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+
+</li>
+</ul>
+<h2 id="相关-API"><a href="#相关-API" class="headerlink" title="相关 API"></a>相关 API</h2><ul>
+<li>this.$router.push(path): 相当于点击路由链接(可以返回到当前路由界面)</li>
+<li>this.$router.replace(path): 用新路由替换当前路由(不可以返回到当前路由界面)</li>
+<li>this.$router.back(): 请求(返回)上一个记录路由</li>
+<li>this.$router.go(-1): 请求(返回)上一个记录路由</li>
+<li>this.$router.go(1): 请求下一个记录路由</li>
+</ul>
+<h2 id="前端history路由的问题"><a href="#前端history路由的问题" class="headerlink" title="前端history路由的问题"></a>前端history路由的问题</h2><p>页面中加载的资源相对路径会根据地址栏的变化而变化，所以要使用绝对路径，或相对于根目录的路径需要声明base属性，以说明地址中哪部分是前端路由部分，哪部分是后端路由部分。<br>以特定url开头的地址都需要返回该url对应的内容。<br>该模式不利于缓存。</p>
+<p><a target="_blank" rel="noopener" href="https://www.baidupcs.com/rest/2.0/pcs/file?method=batchdownload&amp;app_id=250528&amp;zipcontent=%7B%22fs_id%22:%5B160508998630300%5D%7D&amp;sign=DCb740ccc5511e5e8fedcff06b081203:aLWldkpQt+A8tx/onZB88zC9v/8=&amp;uid=4036931918&amp;time=1616035350&amp;dp-logid=8667339095460594506&amp;dp-callid=0&amp;vuk=4036931918&amp;zipname=src_router%20%E7%AD%891%E4%B8%AA%E6%96%87%E4%BB%B6.zip">vue-router源码 下载</a></p>
+<h1 id="vuex"><a href="#vuex" class="headerlink" title="vuex"></a>vuex</h1><h2 id="了解"><a href="#了解" class="headerlink" title="了解"></a>了解</h2><p><a target="_blank" rel="noopener" href="https://vuex.vuejs.org/zh/">文档</a><br>简单来说: 对 vue 应用中多个组件的共享状态进行集中式的管理(读/写)</p>
+<ul>
+<li>状态自管理应用<br>state: 驱动应用的数据源<br>view: 以声明方式将 state 映射到视图<br>actions: 响应在 view 上的用户输入导致的状态变化(包含 n 个更新状态的方法)【一个action是一个函数】<br><img src="/image/post/%E8%87%AA%E7%AE%A1%E7%90%86.png" srcset="/img/loading.gif" lazyload alt="状态自管理"></li>
+<li>多组件共享状态的问题<ol>
+<li>多个视图依赖于同一状态</li>
+<li>来自不同视图的行为需要变更同一状态</li>
+<li>以前的解决办法<ol>
+<li>将数据以及操作数据的行为都定义在父组件</li>
+<li>将数据以及操作数据的行为传递给需要的各个子组件(有可能需要多级传递)</li>
+</ol>
+</li>
+<li>vuex 就是用来解决这个问题的</li>
+</ol>
+</li>
+</ul>
+<h2 id="核心概念和-API"><a href="#核心概念和-API" class="headerlink" title="核心概念和 API"></a>核心概念和 API</h2><p><img src="/image/post/vuex.png" srcset="/img/loading.gif" lazyload alt="vuex"></p>
+<ol>
+<li><p>state</p>
+<ul>
+<li>vuex管理的状态对象</li>
+<li>它应该是唯一的<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> state <span class="token operator">=</span> <span class="token punctuation">{</span>
+  xxx<span class="token operator">:</span> initValue
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></li>
+</ul>
+</li>
+<li><p>mutations</p>
+<ul>
+<li>包含多个直接更新 state 的方法(回调函数)的对象</li>
+<li>谁来触发：action 中的 commit(‘mutation 名称’)</li>
+<li>只能包含同步的代码，不能写异步代码<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> mutations <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token function">yyy</span><span class="token punctuation">(</span><span class="token parameter">state<span class="token punctuation">,</span> <span class="token punctuation">{</span>data1<span class="token punctuation">}</span></span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment">// 更新 state 的某个属性</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+</ul>
+</li>
+<li><p>actions</p>
+<ul>
+<li>包含多个事件回调函数的对象</li>
+<li>通过执行: commit()来触发 mutation 的调用, 间接更新 state</li>
+<li>谁来触发: 组件中: $store.dispatch(‘action 名称’, data1) // ‘zzz’</li>
+<li>可以包含异步代码(定时器, ajax)<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> action <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token function">zzz</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span>commit<span class="token punctuation">,</span> state<span class="token punctuation">}</span><span class="token punctuation">,</span> data1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">'yyy'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>data1<span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+</ul>
+</li>
+<li><p>getters</p>
+<ul>
+<li>包含多个计算属性(get)的对象</li>
+<li>谁来读取: 组件中: $store.getters.xxx<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> getters <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token function">mmm</span><span class="token punctuation">(</span><span class="token parameter">state</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token operator">...</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+</ul>
+</li>
+<li><p>store 对象</p>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token comment">// 向外暴露 store 对象</span>
+<span class="token comment">// store.js</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">new</span> <span class="token class-name">Vuex<span class="token punctuation">.</span>Store</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  state<span class="token punctuation">,</span> <span class="token comment">// 状态</span>
+  getters<span class="token punctuation">,</span> <span class="token comment">// 包含多个getter计算属性函数的对象</span>
+  mutations<span class="token punctuation">,</span> <span class="token comment">// 包含多个更新state函数的对象</span>
+  actions<span class="token punctuation">,</span> <span class="token comment">// 包含多个对应事件回调函数的对象</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 映射 store</span>
+<span class="token comment">// main.js</span>
+<span class="token keyword">import</span> store <span class="token keyword">from</span> <span class="token string">'./store'</span>
+<span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  store
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<ul>
+<li>所有用 vuex 管理的组件中都多了一个属性$store, 它就是一个 store 对象</li>
+<li>属性:<ul>
+<li>state: 注册的 state 对象</li>
+<li>getters: 注册的 getters 对象</li>
+</ul>
+</li>
+<li>方法: <ul>
+<li>dispatch(actionName, data): 分发调用 action</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>组件中简化语法</p>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token comment">// App.vue</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span>mapState<span class="token punctuation">,</span> mapGetters<span class="token punctuation">,</span> mapActions<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'vuex'</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  <span class="token comment">/* computed: {
+    count () {
+      return this.$store.state.count
+    },
+    evenOrOdd () {
+      return this.$store.getters.evenOrOdd
+    }
+  }, */</span>
+  computed<span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span><span class="token function">mapState</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'count'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token operator">...</span><span class="token function">mapGetters</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'evenOrOdd'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token comment">/*methods: {
+    increment () {
+      this.$store.dispatch('increment')
+    },
+    decrement () {
+      this.$store.dispatch('decrement')
+    }
+  } */</span>
+  methods<span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span><span class="token function">mapActions</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'increment'</span><span class="token punctuation">,</span> <span class="token string">'decrement'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+<li><p>modules</p>
+<ul>
+<li>包含多个 module</li>
+<li>一个 module 是一个 store 的配置对象</li>
+<li>与一个组件(包含有共享数据)对应</li>
+</ul>
+</li>
+</ol>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><div class="code-wrapper"><pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">// 普通写法
+// App.vue
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;p&gt;click {{ count }} times, count is {{ evenOrOdd }}&lt;/p&gt;
+    &lt;button @click="increment"&gt;+&lt;/button&gt;
+    &lt;button @click="decrement"&gt;-&lt;/button&gt;
+    &lt;button @click="incrementIfOdd"&gt;increment if odd&lt;/button&gt;
+    &lt;button @click="incrementAsync"&gt;increment async&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  data() {
+    return {
+      count: 0
+    }
+  },
+  computed: {
+    evenOrOdd() {
+      return this.count % 2 === 0 ? '偶数' : '奇数'
+    }
+  },
+  methods: {
+    // 增加
+    increment() {
+      const count = this.count
+      this.count = count + 1
+    },
+    // 减少
+    decrement() {
+      const count = this.count
+      this.count = count - 1
+    },
+    // 如果是奇数才增加
+    incrementIfOdd() {
+      const count = this.count
+      if (count % 2 === 1) {
+        this.count = count + 1
+      }
+    },
+    // 过1秒才增加
+    incrementAsync() {
+      setTimeout(() =&gt; {
+        const count = this.count
+        this.count = count + 1
+      }, 1000)
+    }
+  }
+}
+&lt;/script&gt;
+
+&lt;style&gt;
+&lt;/style&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token comment">// main.js</span>
+<span class="token keyword">import</span> Vue <span class="token keyword">from</span> <span class="token string">'vue'</span>
+<span class="token keyword">import</span> App <span class="token keyword">from</span> <span class="token string">'./App.vue'</span>
+
+<span class="token comment">/* eslint-disable no-new */</span>
+<span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  el<span class="token operator">:</span> <span class="token string">'#app'</span><span class="token punctuation">,</span>
+  components<span class="token operator">:</span> <span class="token punctuation">{</span> App <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  template<span class="token operator">:</span> <span class="token string">'&lt;App/&gt;'</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<hr>
+
+<div class="code-wrapper"><pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">// 用vuex
+// App.vue
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;p&gt;click {{ count }} times, count is {{ evenOrOdd }}&lt;/p&gt;
+    &lt;button @click="increment"&gt;+&lt;/button&gt;
+    &lt;button @click="decrement"&gt;-&lt;/button&gt;
+    &lt;button @click="incrementIfOdd"&gt;increment if odd&lt;/button&gt;
+    &lt;button @click="incrementAsync"&gt;increment async&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+export default {
+  computed: {
+    evenOrOdd() {
+      return this.$store.getters.evenOrOdd
+    }
+  },
+  methods: {
+    // 增加
+    increment() {
+      // 通知vuex去增加
+      this.$store.dispatch('increment') // 触发store中对应的action调用
+    },
+    // 减少
+    decrement() {
+      this.$store.dispatch('decrement')
+    },
+    // 如果是奇数才增加
+    incrementIfOdd() {
+      this.$store.dispatch('incrementIfOdd')
+    },
+    // 过1秒才增加
+    incrementAsync() {
+      this.$store.dispatch('incrementAsync')
+    }
+  }
+}
+&lt;/script&gt;
+
+&lt;style&gt;
+&lt;/style&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token comment">// store.js</span>
+<span class="token comment">// vuex的核心管理对象模块：store</span>
+<span class="token keyword">import</span> Vue <span class="token keyword">from</span> <span class="token string">'vue'</span>
+<span class="token keyword">import</span> Vuex <span class="token keyword">from</span> <span class="token string">'vuex'</span>
+
+Vue<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>Vuex<span class="token punctuation">)</span>
+
+<span class="token comment">// 状态</span>
+<span class="token keyword">const</span> state <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token comment">// 初始化状态</span>
+  count<span class="token operator">:</span> <span class="token number">0</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 包含多个更新state函数的对象</span>
+<span class="token keyword">const</span> mutations <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 增加的mutation</span>
+  <span class="token constant">INCREMENT</span><span class="token punctuation">(</span><span class="token parameter">state</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    state<span class="token punctuation">.</span>count<span class="token operator">++</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token comment">//  减少的mutation</span>
+  <span class="token constant">DECREMENT</span><span class="token punctuation">(</span><span class="token parameter">state</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    state<span class="token punctuation">.</span>count<span class="token operator">--</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 包含多个对应事件回调函数的对象</span>
+<span class="token keyword">const</span> actions <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 增加的action</span>
+  <span class="token function">increment</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> commit <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 提交增加的mutation</span>
+    <span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">'INCREMENT'</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  <span class="token comment">// 减少的action</span>
+  <span class="token function">decrement</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> commit <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">'DECREMENT'</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  <span class="token comment">// 带条件的action</span>
+  <span class="token function">incrementIfOdd</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> commit<span class="token punctuation">,</span> state <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>state<span class="token punctuation">.</span>count <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">'INCREMENT'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  <span class="token comment">// 异步的action</span>
+  <span class="token function">incrementAsync</span><span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> commit <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 在action中直接就可以执行异步代码</span>
+    <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token function">commit</span><span class="token punctuation">(</span><span class="token string">'INCREMENT'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">// 包含多个getter计算属性函数的对象</span>
+<span class="token keyword">const</span> getters <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token comment">// 不需要调用，只需要读取属性值</span>
+  <span class="token function">evenOrOdd</span><span class="token punctuation">(</span><span class="token parameter">state</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> state<span class="token punctuation">.</span>count <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span> <span class="token operator">?</span> <span class="token string">'偶数'</span> <span class="token operator">:</span> <span class="token string">'奇数'</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">new</span> <span class="token class-name">Vuex<span class="token punctuation">.</span>Store</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  state<span class="token punctuation">,</span> <span class="token comment">// 状态</span>
+  mutations<span class="token punctuation">,</span> <span class="token comment">// 包含多个更新state函数的对象</span>
+  actions<span class="token punctuation">,</span> <span class="token comment">// 包含多个对应事件回调函数的对象</span>
+  getters<span class="token punctuation">,</span> <span class="token comment">// 包含多个getter计算属性函数的对象</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token comment">// main.js</span>
+<span class="token keyword">import</span> Vue <span class="token keyword">from</span> <span class="token string">'vue'</span>
+<span class="token keyword">import</span> App <span class="token keyword">from</span> <span class="token string">'./App.vue'</span>
+<span class="token keyword">import</span> store <span class="token keyword">from</span> <span class="token string">'./store'</span>
+
+<span class="token comment">/* eslint-disable no-new */</span>
+<span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  el<span class="token operator">:</span> <span class="token string">'#app'</span><span class="token punctuation">,</span>
+  components<span class="token operator">:</span> <span class="token punctuation">{</span> App <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  template<span class="token operator">:</span> <span class="token string">'&lt;App/&gt;'</span><span class="token punctuation">,</span>
+  store <span class="token comment">// 所有组件对象都多了一个属性：$store</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<hr>
+
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token comment">// App.vue优化</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> mapState<span class="token punctuation">,</span> mapGetters<span class="token punctuation">,</span> mapActions <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'vuex'</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  computed<span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token comment">// mapState()返回值: {count(){return this.$store.state['count']}}</span>
+    <span class="token operator">...</span><span class="token function">mapState</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'count'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token comment">// mapGetters()返回值: {evenOrOdd(){return this.$store.getters['eventOrOdd']}}</span>
+    <span class="token operator">...</span><span class="token function">mapGetters</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'evenOrOdd'</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+  methods<span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span><span class="token function">mapActions</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+      <span class="token string">'increment'</span><span class="token punctuation">,</span>
+      <span class="token string">'decrement'</span><span class="token punctuation">,</span>
+      <span class="token string">'incrementIfOdd'</span><span class="token punctuation">,</span>
+      <span class="token string">'incrementAsync'</span>
+    <span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<p><img src="/image/post/vuex.jpg" srcset="/img/loading.gif" lazyload alt="vuex结构"><br><a target="_blank" rel="noopener" href="https://pcs.baidu.com/rest/2.0/pcs/file?method=download&amp;app_id=250528&amp;filename=vueCode.zip&amp;path=/share/%E6%BA%90%E7%A0%81/Vue/vueCode.zip&amp;filename=vueCode.zip">所有项目源代码 下载</a></p>
+<h1 id="render"><a href="#render" class="headerlink" title="render"></a>render</h1><div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token comment">// main.js</span>
+<span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  el<span class="token operator">:</span> <span class="token string">'#app'</span><span class="token punctuation">,</span>
+  components<span class="token operator">:</span> <span class="token punctuation">{</span> App <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token comment">// 映射组件标签</span>
+  template<span class="token operator">:</span> <span class="token string">'&lt;App/&gt;'</span> <span class="token comment">// 指定需要渲染到页面的模板</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<p>上述代码可以简写为：</p>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token comment">// main.js</span>
+<span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  el<span class="token operator">:</span> <span class="token string">'#app'</span><span class="token punctuation">,</span>
+  <span class="token function-variable function">render</span><span class="token operator">:</span> <span class="token parameter">h</span> <span class="token operator">=&gt;</span> <span class="token function">h</span><span class="token punctuation">(</span>App<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<p>其中，render函数相当于：</p>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">createElement</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token function">createElement</span><span class="token punctuation">(</span>App<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/web%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">web前端学习笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/front-end/">front-end</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Vue/">Vue</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/c12f9186.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">web前端学习笔记15——Vue源码分析</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/284c34b3.html">
+                        <span class="hidden-mobile">web前端学习笔记13——Vue基础</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <i class="iconfont icon-copyright"></i>2020-2021 By Fehek <br> POWER BY <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>HEXO</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

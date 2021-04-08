@@ -1,0 +1,955 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/image/icon.png">
+  <link rel="icon" href="/image/icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Fehek">
+  <meta name="keywords" content="">
+  
+  <title>web前端学习笔记7——计算机网络 - my notes</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      
+        
+          
+          
+          
+        
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/themes/prism-tomorrow.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/plugins/line-numbers/prism-line-numbers.min.css" />
+      
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>ZONE OUT</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/image/post.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="计算机网络">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-01-18 09:50" pubdate>
+        2021年1月18日 上午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      35
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">计算机网络</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年4月8日 下午
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h1><table>
+<thead>
+<tr>
+<th align="center">名称</th>
+<th align="center">英语</th>
+<th align="center">范围</th>
+<th align="center">区域</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">广域网</td>
+<td align="center">WAN(Wide Area NetWork)</td>
+<td align="center">几十到几千公里</td>
+<td align="center">跨省、跨国</td>
+</tr>
+<tr>
+<td align="center">城域网</td>
+<td align="center">MAN(Metro Area NetWork)</td>
+<td align="center">5KM-50KM</td>
+<td align="center">城市间</td>
+</tr>
+<tr>
+<td align="center">局域网</td>
+<td align="center">LAN(Local Area NetWork)</td>
+<td align="center">1KM以内</td>
+<td align="center">城区内</td>
+</tr>
+</tbody></table>
+<h1 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h1><ul>
+<li>层次结构设计的基本原则：<br>各层之间是相互独立的<br>每一层要有足够的灵活性<br>各层之间完全解耦</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">OSI 七层模型</th>
+<th align="left">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">应用层</td>
+<td align="left">为计算机用户提供接口和服务</td>
+</tr>
+<tr>
+<td align="left">表示层</td>
+<td align="left">数据处理（编码解码、加密解密等）</td>
+</tr>
+<tr>
+<td align="left">会话层</td>
+<td align="left">管理（建立、维护、重连）通信会话</td>
+</tr>
+<tr>
+<td align="left">传输层</td>
+<td align="left">管理端到端的通信连接</td>
+</tr>
+<tr>
+<td align="left">网络层</td>
+<td align="left">数据路由（决定数据在网络的路径）</td>
+</tr>
+<tr>
+<td align="left">数据链路层</td>
+<td align="left">管理相邻节点之间的数据通信</td>
+</tr>
+<tr>
+<td align="left">物理层</td>
+<td align="left">数据通信的光电物理特性</td>
+</tr>
+</tbody></table>
+<p>OSI最终并没有成为广为使用的标准模型</p>
+<table>
+<thead>
+<tr>
+<th align="left">TCP/IP 四层模型</th>
+<th align="left">协议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">应用层</td>
+<td align="left">HTTP/FTP/SMTP/POP3…</td>
+</tr>
+<tr>
+<td align="left">传输层</td>
+<td align="left">TCP/UDP</td>
+</tr>
+<tr>
+<td align="left">网络层</td>
+<td align="left">IP/ICMP</td>
+</tr>
+<tr>
+<td align="left">网络接口层</td>
+<td align="left">Ethernet/ARP/RARP/PPP…</td>
+</tr>
+</tbody></table>
+<p><img src="/image/post/IP%E6%A8%A1%E5%9E%8B.png" srcset="/img/loading.gif" lazyload alt="IP模型"></p>
+<h1 id="网络接口层"><a href="#网络接口层" class="headerlink" title="网络接口层"></a>网络接口层</h1><h2 id="物理层"><a href="#物理层" class="headerlink" title="物理层"></a>物理层</h2><p><strong>性能指标</strong></p>
+<ul>
+<li><p>为什么拉的 100M 光纤，测试峰值只有12M/s?<br>网络常用单位为 Mbps，bps = bit/s<br>100M/s = 100Mbps = 100Mbit/s<br>100Mbit/s = (100/8)MB/s = 12.5MB/s</p>
+</li>
+<li><p>时延<br>发送时延 = 数据长度(bit) / 发送速率(bit/s)[受限于计算机网卡]<br>传播时延 = 传输路径距离 / 传播速率(bit/s)[受限于传播介质]<br>排队时延：数据包在网络设备中等待被处理的时间<br>处理时延：数据包到达设备或者目的机器被处理所需要的时间<br>总时延 = 发送时延 + 传播时延 + 排队时延 + 处理时延</p>
+</li>
+<li><p>往返时间RTT(Route-Trip Time)<br>数据报文在端到端通信中的来回一次的时间<br>通常使用 ping 命令查看 RTT</p>
+</li>
+</ul>
+<h2 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h2><h3 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h3><ol>
+<li><p>封装成帧<br>“帧”是数据链路层数据的基本单位<br>发送端在网络层的一段数据前后添加特定标记形成“帧”<br>接收端根据前后特定标记识别出“帧”<br><br>帧首部(SOH) | IP数据报（“帧”的数据）| 帧尾部(EOT)<br>帧首部和尾部是特定的控制字符（特定比特流）<br>SOH: 00000001<br>EOT: 00000100</p>
+</li>
+<li><p>透明传输<br>控制字符在帧数据中，要当做不存在去处理<br><br>数据里面恰好有这些比特流怎么办？<br>在前面加一个转义字符(ESC)</p>
+</li>
+<li><p>差错检测</p>
+</li>
+</ol>
+<ul>
+<li>奇偶校验码：出现偶数个错误，检测不到错误</li>
+<li>循环冗余校验码CRC：一种根据传输或保存的数据而产生固定位数校验码的方法，检测数据传输或者保存后可能出现的错误生成的数字计算出来并且附加到数据后面。<br>CRC的错误检测能力与位串的阶数r有关<br>数据链路层只进行数据的检测，不进行纠正<br>CRC可校验位串：<ol>
+<li>选择一个用于校验的多项式G(x)，并在数据尾部添加r个0</li>
+<li>将添加r个0后的数据，使用模“2”除法除以多项式的位串</li>
+<li>得到的余数填充在原数据r个0的位置得到可校验的位串<br>模“2”除法：是二进制下的除法；与算术除法类似，但除法不借位，实际是“异或”操作</li>
+</ol>
+</li>
+</ul>
+<p>e.g. 使用CRC计算101001的可校验位串<br>G(x) = x<sup>3</sup> + x<sup>2</sup> + 1<br>G(x) = 1 * x<sup>3</sup> + 1 * x<sup>2</sup> + 0 * x + 1<br>=&gt; 二进制位串：1101，最高阶3 =&gt; 原来的数尾部添加3个0，101001000<br>101001000 模“2”除法除以 1101 =&gt; 得到余数 001<br>余数填充在最后3位，101001000 =&gt; 可校验位串101001001<br>接收端接收的数据除以G(x)的位串（101001001 / 1101），余数为 0 则没有出错</p>
+<h3 id="MTU"><a href="#MTU" class="headerlink" title="MTU"></a>MTU</h3><p>最大传输单元MTU(Maximum Transmission Unit)<br>数据链路层的数据帧也不是无限大的，数据帧长度受MTU限制<br>数据帧过大或过小都会影响传输的效率，以太网MTU一般为1500字节</p>
+<p>路径MTU：路径MTU由链路中MTU的最小值决定（木桶效应）</p>
+<h3 id="MAC地址"><a href="#MAC地址" class="headerlink" title="MAC地址"></a>MAC地址</h3><p>MAC地址（物理地址、硬件地址）<br>每一个设备都拥有唯一的MAC地址<br>MAC地址共48位，使用十六进制表示<br>查看计算机的MAC地址：<code>ipconfig /all</code>，例 68-07-15-6F-54-F0</p>
+<h3 id="以太网协议"><a href="#以太网协议" class="headerlink" title="以太网协议"></a>以太网协议</h3><p>以太网(Ethernet)是一种使用广泛的<strong>局域网</strong>技术<br>以太网是一种应用于数据链路层的协议<br>使用以太网可以完成<strong>相邻设备</strong>的数据帧传输</p>
+<table>
+<thead>
+<tr>
+<th align="center">目的地址</th>
+<th align="center">源地址</th>
+<th align="center">类型</th>
+<th align="center">帧数据</th>
+<th align="center">CRC</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">6</td>
+<td align="center">6</td>
+<td align="center">2</td>
+<td align="center">46~1500</td>
+<td align="center">4</td>
+</tr>
+</tbody></table>
+<p>目标地址和源地址都是MAC地址，48位即6字节</p>
+<p>MAC地址会映射到具体接口，例如下面的MAC地址表</p>
+<table>
+<thead>
+<tr>
+<th align="center">MAC地址</th>
+<th align="center">硬件接口</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">68-07-15-6F-54-F0</td>
+<td align="center">接口1</td>
+</tr>
+<tr>
+<td align="center">68-07-15-6F-54-F1</td>
+<td align="center">接口2</td>
+</tr>
+<tr>
+<td align="center">68-07-15-6F-54-F2</td>
+<td align="center">接口4</td>
+</tr>
+<tr>
+<td align="center">…</td>
+<td align="center">…</td>
+</tr>
+</tbody></table>
+<p>A设备通过网卡发出数据帧<br>数据帧达到路由器，路由器取出前6字节<br>路由器匹配MAC地址表，找到对应的网络接口<br>路由器往该网络接口发送数据帧</p>
+<p>E(路由器)检查MAC地址表，发现没有C的信息<br>E将广播A的数据包到除A以外的端口<br>E将受到来自B、C的回应，并将地址记录</p>
+<p>它能实现相邻物理节点传输。<br>但是怎么跨设备传输呢？需要网络层才能解决。</p>
+<h1 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h1><h2 id="IP协议相关"><a href="#IP协议相关" class="headerlink" title="IP协议相关"></a>IP协议相关</h2><p>IP协议使得复杂的实际网络变为一个虚拟互连的网络<br>IP协议使得网络层可以屏蔽底层细节而专注网络层的数据转发<br>IP协议<strong>解决了在虚拟网络中数据报传输路径的问题</strong></p>
+<h3 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h3><p>IP地址长度为32位，常分成4个8位<br>IP地址常使用点分十进制来表示(0~255 . 0~255 . 0~255 . 0~255)，最多可以表示2<sup>32</sup> = 4294961296个IP地址</p>
+<h3 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h3><p><img src="/image/post/IP%E5%8D%8F%E8%AE%AE.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>版本：占4位，指的是IP协议的版本，通信双方的版本必须一致，当前主流版本是4，即IPv4，也有IPv6</li>
+<li>首部位长度：占4位，最大数值为15，单位是32位字（4个字节），IP首部最大长度为15 * 4 = 60字节</li>
+<li>服务类型（TOS）：表示当前的数据包是高优先级的，还是低优先级的。数据包是按照 TOS 被分配到3个波段（band0、band1、band2）里面的。</li>
+<li>总长度：占16位，最大数值为65535，表示的是IP数据总长度（IP首部+IP数据）<br>数据在数据链路层中的传输受最大传输单元 MTU 的限制，而 MTU 一般为为 1500 个字节，如果 IP 数据报的长度高于 MTU 的话，数据链路层将会把 IP 数据报进行 分片，即拆分成多个数据帧进行传输。</li>
+<li>标识：协议内部自身使用，不需要关注。</li>
+<li>标志：占3位，目前只有两位是有意义的，表示标识是否进行分片。</li>
+<li>片偏移：占 13 位，如果发生了分片，这里将会记录当前的数据帧保存的是第几个偏移的 IP 数据。</li>
+<li>TTL：占8位，表明IP数据报文在网络中的寿命，每经过一个设备，TTL减1，当TTL=0时，网络设备必须丢弃该报文。<br>当 IP 报文在网络中找不到终点的时候，避免 IP 数据在网络中无限进行传输，消耗带宽。</li>
+<li>协议：占8位，表明 IP 数据所携带的具体数据是什么协议的。<table>
+<thead>
+<tr>
+<th align="center">协议名</th>
+<th align="center">ICMP</th>
+<th align="center">IGMP</th>
+<th align="center"><strong>IP</strong></th>
+<th align="center">TCP</th>
+<th align="center">UDP</th>
+<th align="center">OSPF</th>
+<th align="center">…</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">字段值</td>
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center"><strong>4</strong></td>
+<td align="center">6</td>
+<td align="center">17</td>
+<td align="center">89</td>
+<td align="center">…</td>
+</tr>
+</tbody></table>
+</li>
+<li>首部校验和：占16位，校验 IP 首部是否有错，如果出错会进行丢弃。</li>
+<li>源 IP 地址：发送 IP 数据报文的 IP 地址。</li>
+<li>目的 IP 地址：数据报到达的 IP 的地址。</li>
+</ul>
+<h3 id="IP地址的转发"><a href="#IP地址的转发" class="headerlink" title="IP地址的转发"></a>IP地址的转发</h3><ul>
+<li><p>路由表<br>不同于 MAC 地址表是由一组一组的 MAC 地址与硬件接口组成的，路由表是由一组一组的 目的 IP 地址与 下一跳的 IP 地址组成的。<br>计算机或者路由器都拥有路由表。</p>
+<table>
+<thead>
+<tr>
+<th align="center">目的IP地址</th>
+<th align="center">下一跳IP地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">IP1</td>
+<td align="center">IP4</td>
+</tr>
+<tr>
+<td align="center">IP2</td>
+<td align="center">IP5</td>
+</tr>
+<tr>
+<td align="center">IP3</td>
+<td align="center">IP6</td>
+</tr>
+<tr>
+<td align="center">…</td>
+<td align="center">…</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>逐跳(hop-by-hop)：数据是从目的设备传输到下一个网络1，又从下一个网络1传输到路由器，又从路由器跳到下一个网络2，所以是一跳一跳，即 hop-by-hop。</p>
+</li>
+<li><p>MAC 地址与 IP 地址最大的区别</p>
+</li>
+</ul>
+<ol>
+<li>数据帧每一跳的 MAC 地址都在变化，而IP 数据报每一跳的 IP 地址始终不变。</li>
+<li>IP 地址具有远程定位功能，而 MAC 地址更像是身份证号，它的唯一性是为了组网时可以不用担心不同的网卡在一个网络里会产生冲突，从硬件角度保证不同的网卡有不同的标识。</li>
+<li>相比于 IP 地址，MAC 地址的通信范围比较小，局限在一个子网里。例如：从 192.168.0.1/24 访问 192.168.0.9/24 是可以用 MAC 地址的。</li>
+</ol>
+<h3 id="子网划分"><a href="#子网划分" class="headerlink" title="子网划分"></a>子网划分</h3><p><img src="/image/post/%E5%88%86%E7%B1%BB%E7%9A%84IP%E5%9C%B0%E5%9D%80.png" srcset="/img/loading.gif" lazyload></p>
+<table>
+<thead>
+<tr>
+<th align="center">-</th>
+<th align="center">最小网络号</th>
+<th align="center">最大网络号</th>
+<th align="center">子网数量</th>
+<th align="center">最小主机号</th>
+<th align="center">最大主机号</th>
+<th align="center">主机数量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">A</td>
+<td align="center">1</td>
+<td align="center">127(01111111)</td>
+<td align="center">2<sup>7</sup> - 2</td>
+<td align="center">0.0.1</td>
+<td align="center">255.255.254</td>
+<td align="center">2<sup>24</sup> - 2</td>
+</tr>
+<tr>
+<td align="center">B</td>
+<td align="center">128.1</td>
+<td align="center">191.255</td>
+<td align="center">2<sup>14</sup> - 1</td>
+<td align="center">0.1</td>
+<td align="center">255.254</td>
+<td align="center">2<sup>16</sup> - 2</td>
+</tr>
+<tr>
+<td align="center">C</td>
+<td align="center">192.0.1</td>
+<td align="center">223.255.255</td>
+<td align="center">2<sup>21</sup> - 1</td>
+<td align="center">1</td>
+<td align="center">254</td>
+<td align="center">2<sup>8</sup> - 2</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>特殊的主机号<br>主机号全0表示当前网络段，不可分配为特定主机<br>主机号为全1表示广播地址，向当前网络段所有主机发消息</p>
+</li>
+<li><p>特殊的网络号<br>A类地址网络段全0(00000000)表示特殊网络<br>A类地址网络段后7位全1(01111111:127)表示回环地址<br>B类地址网络段(10000000.00000000:128.0)是不可使用的<br>C类地址网络段(192.0.0)是不可使用的<br><br>本地回环地址(Loopback Address)：127.0.0.1，不属于任何一个有类别地址类。它代表设备的本地虚拟接口，所以默认被看作是永远不会废弃的接口。在 Windwos 操作系统中也有相似的定义，所以一般在安装网卡前就可以 ping 通这个本地回环地址。一般都会用来检查本地网络协议、基本数据接口等是否是正常的。</p>
+</li>
+<li><p>分类地址的补充<br>D 类地址：1110…..<br>E 类地址：1111…..<br>它们都仅用作特殊用途。</p>
+</li>
+</ul>
+<p><img src="/image/post/%E5%AD%90%E7%BD%91.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><p>子网掩码<br>IP &amp; 子网掩码 = 该 IP 对应的子网号<br>与 IP 地址一样，都是32位。<br>由连续的1和连续的0组成。<br>某一个子网的子网掩码具备网络号位数个连续的1。</p>
+</li>
+<li><p>无分类编址 CIDR<br><img src="/image/post/CIDR.png" srcset="/img/loading.gif" lazyload><br>CIDR 中没有 A、B、C 类网络号和子网划分的概念。<br>CIDR 将 网络前缀 相同的 IP 地址称为一个 CIDR 地址块。<br>网络前缀是任意位数的。<br>相比原来子网划分更加灵活。<br>CIDR 使用了斜线记法，例如：193.10.10.129/25 表示网络号为 25 位，主机号为 7位</p>
+</li>
+</ul>
+<h2 id="ARP与RARP"><a href="#ARP与RARP" class="headerlink" title="ARP与RARP"></a>ARP与RARP</h2><h3 id="ARP"><a href="#ARP" class="headerlink" title="ARP"></a>ARP</h3><p>地址解析协议（Address Resolution Protocol）<br>网络层IP32位地址 ——ARP协议——&gt; 数据链路层MAC48位地址</p>
+<ul>
+<li>ARP缓存表</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">IP地址</th>
+<th align="center">MAC地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">192.168.01.01</td>
+<td align="center">0d-56-33-50-fc-98</td>
+</tr>
+<tr>
+<td align="center">259.1.1.3</td>
+<td align="center">01-00-5e-39-ff-fa-7f</td>
+</tr>
+</tbody></table>
+<p>ARP缓存表是ARP协议和RARP协议运行的关键<br>ARP缓存表缓存了IP地址到硬件地址之间的映射关系<br>ARP缓存表中的记录并不是永久有效的，有一定的期限<br>查看ARP缓存表<code>arp -a</code></p>
+<table>
+<thead>
+<tr>
+<th align="center">类型<br>0806</th>
+<th align="center">APR请求/应答</th>
+<th align="center">PAD</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2</td>
+<td align="center">28</td>
+<td align="center">18</td>
+</tr>
+</tbody></table>
+<h3 id="RARP"><a href="#RARP" class="headerlink" title="RARP"></a>RARP</h3><p>逆地址解析协议（Reverse Address Resolution Protocol）<br>数据链路层MAC48位地址 ——RARP协议——&gt; 网络层IP32位地址</p>
+<table>
+<thead>
+<tr>
+<th align="center">类型<br>8035</th>
+<th align="center">RAPR请求/应答</th>
+<th align="center">PAD</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2</td>
+<td align="center">28</td>
+<td align="center">18</td>
+</tr>
+</tbody></table>
+<h2 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h2><p>网络地址转换，NAT(Network Address Translation)</p>
+<ul>
+<li>内网地址：内部机构使用，避免与外网地址重复<br>A 类：10.0.0.0~10.255.255.255（支持千万数量级设备）。<br>B 类：172.16.0.0~172.31.255.255（支持百万数据级设备）。<br>C 类：192.168.0.0~192.168.255.255（支持万数量级设备）。</li>
+<li>外网地址：全球范围使用，全球公网唯一</li>
+</ul>
+<p>可以将设备内网地址和端口号转换为外网地址与端口号<br>由于同时转换了 Port ，即进行了 端口映射，NAT 也可称为 NA(P)T</p>
+<h2 id="ICMP"><a href="#ICMP" class="headerlink" title="ICMP"></a>ICMP</h2><p>网络控制报文协议，ICMP(Internet Control Message Protocol)<br>主要用于辅助 IP 协议发送与接收数据，它可以报告错误信息或异常情况。</p>
+<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><p><img src="/image/post/ICMP.png" srcset="/img/loading.gif" lazyload><br>ICMP 协议被封装在 IP 数据报的数据之中，其也分为 报文首部与报文数据。如果需要使用 ICMP 协议，则需要在 IP 协议首部的8位协议中写入1，以表明 IP 数据所携带的具体数据是 ICMP 协议的。</p>
+<h3 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h3><p><img src="/image/post/ICMP%E5%B7%AE%E9%94%99%E6%8A%A5%E5%91%8A%E6%8A%A5%E6%96%87.png" srcset="/img/loading.gif" lazyload alt="ICMP差错报告报文"><br><img src="/image/post/ICMP%E8%AF%A2%E9%97%AE%E6%8A%A5%E6%96%87.png" srcset="/img/loading.gif" lazyload alt="ICMP询问报文"></p>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><ul>
+<li>Ping 应用</li>
+</ul>
+<ol>
+<li>Ping 回环地址 127.0.0.1，不通，说明计算机使用的协议栈有问题，需要重装系统或协议栈。</li>
+<li>Ping 网关地址（路由地址），内网 ping 192.168.0.1/ 192.168.1.1，通，说明本机到路由器的地址是通的。不通，则说明 WIFI、网线是有问题的。</li>
+<li>Ping 远端地址不通，则说明家中到 ISP 的网络之间是有故障的。这个时候就要从电信、联通、移动等 ISP 来排查问题了。</li>
+</ol>
+<ul>
+<li>Traceoute 应用<br>用于探测 IP 数据报在网络中走过的路径。<br>巧妙地应用了 ICMP 终点不可达差错报文与 TTL 机制，为了探测 IP 数据报文走过的路径，它会发送一个 UDP 数据包。将 TTL 设置为1，一旦遇到一个路由器，它就会牺牲了。接着返回一个 ICMP 包，就是网络差错包，类型是时间超时，这样就能知道一个路由器有多远。</li>
+</ul>
+<h1 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h1><p>在传输层重点解决的是两个设备它们直接是如何进行通信的。</p>
+<h2 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h2><ul>
+<li>进程与进程的通信<br>不同于在单个操作系统内使用的进程间通信（Unix 域套接字、共享内存），网络通信可以跨设备、跨网络进行通信。</li>
+<li>端口的概念<br>使用端口来标记不同的网络进程。<br>端口使用16比特位表示（0~65535）。<table>
+<thead>
+<tr>
+<th align="center">FTP</th>
+<th align="center">HTTP</th>
+<th align="center">HTTPS</th>
+<th align="center">DNS</th>
+<th align="center">TELNET</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">21</td>
+<td align="center">80</td>
+<td align="center">443</td>
+<td align="center">53</td>
+<td align="center">23</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2><p>用户数据报协议，UDP(User Datagram Protocol)<br>不会对数据报进行任何的处理，即不合并，也不拆分数据<br><img src="/image/post/UDP.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>报文结构<br><img src="/image/post/UDP%E6%8A%A5%E6%96%87%E7%BB%93%E6%9E%84.png" srcset="/img/loading.gif" lazyload><br>UDP 长度最小值为 8， 即仅包括 UDP 首部。<br>校验和是用来检测 UDP 的数据报在传输过程中是否出错。</li>
+<li>UDP 是无连接协议<br>UDP 不能保证可靠的交付数据<br>UDP 是面向报文传输的<br>UDP 没有拥塞控制<br>UDP 的首部开销很小</li>
+</ul>
+<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2><h3 id="TCP协议详解"><a href="#TCP协议详解" class="headerlink" title="TCP协议详解"></a>TCP协议详解</h3><ul>
+<li>TCP 是面向连接的协议<br>TCP 的一个连接有两端（点对点通信）<br>TCP 提供可靠的传输服务<br>TCP 协议提供全双工的通信<br>TCP 是面向字节流的协议</li>
+</ul>
+<p><img src="/image/post/TCP.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><p>序号<br>0 ~ 2<sup>32</sup> - 1，一个字节一个序号，数据首字节序号</p>
+</li>
+<li><p>确认号<br>0 ~ 2<sup>32</sup> - 1，一个字节一个序号，期望收到数据的首字节序号<br>确认号为N，则表示 N - 1 序号的数据都已经收到</p>
+</li>
+<li><p>数据偏移<br>占4位：0 ~ 15，单位为：32字 =&gt; 首部范围为20~60字节<br>数据偏移首部的距离，因为 TCP 选项的大小是不确定的，所以需要此数据项</p>
+</li>
+<li><p>TCP标记<br>占6位，每位都有不同的含义</p>
+<table>
+<thead>
+<tr>
+<th align="left">标记</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">URG</td>
+<td align="left">Urgent紧急位，URG = 1,表示紧急数据</td>
+</tr>
+<tr>
+<td align="left">ACK</td>
+<td align="left">Acknowledgement确认位，ACK = 1，确认号才生效</td>
+</tr>
+<tr>
+<td align="left">PSH</td>
+<td align="left">Push推送位，PSH = 1，表示需要尽快地把数据交付给应用层</td>
+</tr>
+<tr>
+<td align="left">RST</td>
+<td align="left">Reset重置位，RST = 1，重新建立连接</td>
+</tr>
+<tr>
+<td align="left">SYN</td>
+<td align="left">Synchronization同步位，SYN = 1表示连接请求报文</td>
+</tr>
+<tr>
+<td align="left">FIN</td>
+<td align="left">Finish终止位，FIN = 1表示释放连接</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>窗口<br>占16位：0 ~ 2 ^ 16 - 1<br>窗口指明允许对方发送的数据量。例如：确认号为501，窗口为1000，那么可以接收序号的范围为 501 ~ 1000。</p>
+</li>
+<li><p>紧急指针<br>紧急数据（URG = 1）<br>指定紧急数据在报文中的位置</p>
+</li>
+<li><p>TCP选项<br>最多40字节<br>支持未来的扩展</p>
+</li>
+</ul>
+<h3 id="可靠传输"><a href="#可靠传输" class="headerlink" title="可靠传输"></a>可靠传输</h3><ul>
+<li>停止等待协议<br><img src="/image/post/%E5%81%9C%E6%AD%A2%E7%AD%89%E5%BE%85%E5%8D%8F%E8%AE%AE_%E6%97%A0%E5%B7%AE%E9%94%99.png" srcset="/img/loading.gif" lazyload><br><img src="/image/post/%E5%81%9C%E6%AD%A2%E7%AD%89%E5%BE%85%E9%87%8D%E4%BC%A0_%E5%8F%91%E9%80%81%E4%B8%A2%E5%A4%B1.png" srcset="/img/loading.gif" lazyload alt="发送的消息在路上丢失了"><br><img src="/image/post/%E5%81%9C%E6%AD%A2%E7%AD%89%E5%BE%85%E9%87%8D%E4%BC%A0_%E7%A1%AE%E8%AE%A4%E4%B8%A2%E5%A4%B1.png" srcset="/img/loading.gif" lazyload alt="确认的消息在路上丢失了"><br><img src="/image/post/%E5%81%9C%E6%AD%A2%E7%AD%89%E5%BE%85%E9%87%8D%E4%BC%A0_%E7%A1%AE%E8%AE%A4%E5%BE%88%E4%B9%85.png" srcset="/img/loading.gif" lazyload><br>以上情况都通过超时重传来保证可靠传输<br>超时定时器：每发送一个消息，都需要设置一个定时器<ul>
+<li>停止等待协议是最简单的可靠传输协议</li>
+<li>停止等待协议对信道的利用效率不高</li>
+</ul>
+</li>
+<li>连续ARQ协议<br>ARQ（Automatic Repeat Request，自动重传请求协议）<ul>
+<li>累计确认<br><img src="/image/post/%E8%BF%9E%E7%BB%ADARQ_%E7%B4%AF%E8%AE%A1%E7%A1%AE%E8%AE%A4.png" srcset="/img/loading.gif" lazyload><br>只要我收到第5个消息的确认了，就表示第 1 ~ 5 个消息接收方都收到了。</li>
+<li>滑动窗口<br><img src="/image/post/%E8%BF%9E%E7%BB%ADARQ_%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3.png" srcset="/img/loading.gif" lazyload><br>窗口中的数据都可以发送。<br>通过移动窗口的方式来标识没有接收到确认的消息。<br>采用了累积确认的方式，并不需要对每一个消息都进行确认。</li>
+</ul>
+</li>
+<li>TCP 的可靠传输基于连续 ARQ 协议。<br>TCP 的滑动窗口以字节为单位。<br><img src="/image/post/TCP_%E5%8F%AF%E9%9D%A0%E4%BC%A0%E8%BE%93.png" srcset="/img/loading.gif" lazyload></li>
+<li>TCP协议的选择重传<br><img src="/image/post/TCP_%E9%80%89%E6%8B%A9%E9%87%8D%E4%BC%A0.png" srcset="/img/loading.gif" lazyload><br>选择重传需要指定需要重传的字节<br>每一个字节都有唯一的32位序号（4字节）<br>要重传的数据是存储在“TCP 选项”中，其中最多只能存储 10 个序号，即 5 个范围段的信息。<br>选择重传的是一个信息边界，即一段字节流，例如：传送 1000 ~ 1200，2000 ~ 3000 这个范围内的信息。</li>
+</ul>
+<h3 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h3><p>流量控制指的是让发送方发送速率不要太快。TCP 使用了滑动窗口来实现流量控制。</p>
+<ul>
+<li>滑动窗口<br>接收方可以调整滑动窗口的大小来控制发送方发送数据的效率。<br>当接收方将 rwnd 从0调整为1000并将这个信息发送给发送方时，消息丢失了，会导致发送方和接收方都会等待，形成一个死锁局面。</li>
+<li>坚持定时器<br>坚持定时器是使用滑动窗口进行流量控制的时候设置的。<br>当接收到窗口为0的消息，则启动坚持定时器。<br>坚持定时器每隔一段时间发送一个窗口探测报文。</li>
+</ul>
+<h1 id="网络攻击"><a href="#网络攻击" class="headerlink" title="网络攻击"></a>网络攻击</h1><p>XSS CSRF SQL Inject</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/web%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">web前端学习笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/front-end/">front-end</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Computer-Networks/">Computer Networks</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/a885f819.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">web前端学习笔记8——AJAX</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/7e41b4b8.html">
+                        <span class="hidden-mobile">web前端学习笔记6.5——JS简例</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <i class="iconfont icon-copyright"></i>2020-2021 By Fehek <br> POWER BY <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>HEXO</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

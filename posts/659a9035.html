@@ -1,0 +1,586 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/image/icon.png">
+  <link rel="icon" href="/image/icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="一些小改进。">
+  <meta name="author" content="Fehek">
+  <meta name="keywords" content="">
+  
+  <title>完善blog2 - my notes</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      
+        
+          
+          
+          
+        
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/themes/prism-tomorrow.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/plugins/line-numbers/prism-line-numbers.min.css" />
+      
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>ZONE OUT</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/image/post.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="完善blog2">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-04-30 11:40" pubdate>
+        2020年4月30日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      698 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      6
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">完善blog2</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年4月8日 下午
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p>一些小改进。</p>
+<span id="more"></span>
+
+<h1 id="修改永久链接"><a href="#修改永久链接" class="headerlink" title="修改永久链接"></a>修改永久链接</h1><p>安装插件</p>
+<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> hexo-abbrlink --save <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+<p>打开根目录下的 _config.yml文件，修改为</p>
+<div class="code-wrapper"><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># permalink: :year/:month/:day/:title/</span>
+<span class="token key atrule">permalink</span><span class="token punctuation">:</span> posts/<span class="token punctuation">:</span>abbrlink.html
+<span class="token key atrule">abbrlink</span><span class="token punctuation">:</span>
+  <span class="token key atrule">alg</span><span class="token punctuation">:</span> crc32  <span class="token comment"># 算法：crc16(default) and crc32</span>
+  <span class="token key atrule">rep</span><span class="token punctuation">:</span> hex    <span class="token comment"># 进制：dec(default) and hex</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h1 id="修改排序配置"><a href="#修改排序配置" class="headerlink" title="修改排序配置"></a>修改排序配置</h1><p>top值越高，排序越在前，不设置top值得博文按照时间顺序排序。<br>打开node_modules/hexo-generator-index/lib/generator.js文件，添加</p>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js">posts<span class="token punctuation">.</span>data <span class="token operator">=</span> posts<span class="token punctuation">.</span>data<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">a<span class="token punctuation">,</span> b</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span>top <span class="token operator">&amp;&amp;</span> b<span class="token punctuation">.</span>top<span class="token punctuation">)</span> <span class="token punctuation">{</span>                             <span class="token comment">// 两篇文章top都有定义</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span>top <span class="token operator">==</span> b<span class="token punctuation">.</span>top<span class="token punctuation">)</span> <span class="token keyword">return</span> b<span class="token punctuation">.</span>date <span class="token operator">-</span> a<span class="token punctuation">.</span>date<span class="token punctuation">;</span>   <span class="token comment">// 若top值一样则按照文章日期降序排</span>
+    <span class="token keyword">else</span> <span class="token keyword">return</span> b<span class="token punctuation">.</span>top <span class="token operator">-</span> a<span class="token punctuation">.</span>top<span class="token punctuation">;</span>                   <span class="token comment">// 否则按照top值降序排</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span>top <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>b<span class="token punctuation">.</span>top<span class="token punctuation">)</span> <span class="token punctuation">{</span>                       <span class="token comment">// 只有一篇文章top有定义，那么将有top的排在前面</span>
+    <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>a<span class="token punctuation">.</span>top <span class="token operator">&amp;&amp;</span> b<span class="token punctuation">.</span>top<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">else</span> <span class="token keyword">return</span> b<span class="token punctuation">.</span>date <span class="token operator">-</span> a<span class="token punctuation">.</span>date<span class="token punctuation">;</span>                    <span class="token comment">// 都没定义按照文章日期降序排</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<p>最终显示</p>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token string">'use strict'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> pagination <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'hexo-pagination'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">locals</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> config <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>config<span class="token punctuation">;</span>
+  <span class="token keyword">var</span> posts <span class="token operator">=</span> locals<span class="token punctuation">.</span>posts<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>config<span class="token punctuation">.</span>index_generator<span class="token punctuation">.</span>order_by<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  posts<span class="token punctuation">.</span>data <span class="token operator">=</span> posts<span class="token punctuation">.</span>data<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">a<span class="token punctuation">,</span> b</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span>top <span class="token operator">&amp;&amp;</span> b<span class="token punctuation">.</span>top<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span>top <span class="token operator">==</span> b<span class="token punctuation">.</span>top<span class="token punctuation">)</span> <span class="token keyword">return</span> b<span class="token punctuation">.</span>date <span class="token operator">-</span> a<span class="token punctuation">.</span>date<span class="token punctuation">;</span>
+          <span class="token keyword">else</span> <span class="token keyword">return</span> b<span class="token punctuation">.</span>top <span class="token operator">-</span> a<span class="token punctuation">.</span>top<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span>top <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>b<span class="token punctuation">.</span>top<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>a<span class="token punctuation">.</span>top <span class="token operator">&amp;&amp;</span> b<span class="token punctuation">.</span>top<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">else</span> <span class="token keyword">return</span> b<span class="token punctuation">.</span>date <span class="token operator">-</span> a<span class="token punctuation">.</span>date<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">var</span> paginationDir <span class="token operator">=</span> config<span class="token punctuation">.</span>pagination_dir <span class="token operator">||</span> <span class="token string">'page'</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token function">pagination</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">,</span> posts<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    perPage<span class="token operator">:</span> config<span class="token punctuation">.</span>index_generator<span class="token punctuation">.</span>per_page<span class="token punctuation">,</span>
+    layout<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'index'</span><span class="token punctuation">,</span> <span class="token string">'archive'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    format<span class="token operator">:</span> paginationDir <span class="token operator">+</span> <span class="token string">'/%d/'</span><span class="token punctuation">,</span>
+    data<span class="token operator">:</span> <span class="token punctuation">{</span>
+      __index<span class="token operator">:</span> <span class="token boolean">true</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<p>更新：hexo-generator-index 从 2.0.0 开始，已经支持文章置顶功能。可以直接在文章的front-matter区域里添加sticky: Number将文章置顶。数值越大，置顶的优先级越高。 </p>
+<h1 id="源文件备份"><a href="#源文件备份" class="headerlink" title="源文件备份"></a>源文件备份</h1><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">将source文件上传到仓库分支，便于不同电脑编辑
+在github上新建一个hexo分支，选择此分支分支为默认分支
+（这样每次同步的时候就不用指定分支）
+
+将其克隆到本地，因为默认分支已经设成了hexo，所以只克隆了hexo分支
+git clone git@github.com:Fehek/Fehek.github.io.git
+
+在克隆到本地的Fehek.github.io中，把除了.git 文件夹外的所有文件都删掉
+
+git add 
+git commit –m "XXX"
+git push
+上传完毕<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">更换电脑，安装git和nodejs后
+ssh-keygen -t rsa -C "youremail"    //设置ssh key，生成后填到github和coding上
+ssh -T git@github.com               //验证是否成功
+ssh -T git@git.coding.net           //没有coding账号可省略
+sudo npm install hexo-cli -g        //安装hexo  
+
+//在任意文件夹下克隆
+git clone git@………………                
+//在克隆文件夹下安装
+npm install                         
+npm install hexo-deployer-git --save  
+
+//生成及部署
+hexo g &amp;&amp; hexo d 
+
+//源文件上传
+git add .
+git commit –m "xxxx"
+git push  
+
+//已经编辑过的电脑有clone文件夹了，和远端同步
+git pull<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<h1 id="加入emoji-sunglasses"><a href="#加入emoji-sunglasses" class="headerlink" title="加入emoji:sunglasses:"></a>加入emoji<span class="github-emoji"><span>😎</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f60e.png?v8" srcset="/img/loading.gif" lazyload aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span></h1><p>下载插件 <code>npm install hexo-filter-github-emojis --save</code></p>
+<p>修改根目录下的_config.yml文件，启用插件</p>
+<div class="code-wrapper"><pre class="line-numbers language-yml" data-language="yml"><code class="language-yml"><span class="token key atrule">githubEmojis</span><span class="token punctuation">:</span> 
+  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">className</span><span class="token punctuation">:</span> github<span class="token punctuation">-</span>emoji
+  <span class="token key atrule">inject</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+  <span class="token key atrule">styles</span><span class="token punctuation">:</span>
+  customEmojis<span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/blog%E7%9B%B8%E5%85%B3/">blog相关</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/hexo-abbrlink/">hexo-abbrlink</a>
+                    
+                      <a class="hover-with-bg" href="/tags/blog-sorting/">blog sorting</a>
+                    
+                      <a class="hover-with-bg" href="/tags/upload-source-files/">upload source files</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/87f960c2.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Markdown语法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/129da0a3.html">
+                        <span class="hidden-mobile">完善blog1</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <i class="iconfont icon-copyright"></i>2020-2021 By Fehek <br> POWER BY <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>HEXO</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

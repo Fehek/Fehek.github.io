@@ -1,0 +1,570 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/image/icon.png">
+  <link rel="icon" href="/image/icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Fehek">
+  <meta name="keywords" content="">
+  
+  <title>搜索技巧 - my notes</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      
+        
+          
+          
+          
+        
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/themes/prism-tomorrow.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/plugins/line-numbers/prism-line-numbers.min.css" />
+      
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>ZONE OUT</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/image/post.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="搜索技巧">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-06-11 00:01" pubdate>
+        2020年6月11日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      441 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      3
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">搜索技巧</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年4月8日 下午
+                
+              </p>
+            
+            <div class="markdown-body">
+              <table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">双引号””</td>
+<td align="center">在搜索词上加双引号，代表完全匹配搜索</td>
+</tr>
+<tr>
+<td align="center">减号-</td>
+<td align="center">搜索不包含减号后面的词，例“谷歌 -百度”表示搜索结果包含“谷歌”这个词，不包含“百度”这个词</td>
+</tr>
+<tr>
+<td align="center">星号*</td>
+<td align="center">通配符搜索，例“搜索*巧”其中*号代表任何文字</td>
+</tr>
+<tr>
+<td align="center">OR</td>
+<td align="center">会得到分别与两个搜索词相关或者和两者都有关的结果。</td>
+</tr>
+<tr>
+<td align="center">site:</td>
+<td align="center">限定在某个网站内搜索</td>
+</tr>
+<tr>
+<td align="center">filetype:</td>
+<td align="center">搜索指定格式文件</td>
+</tr>
+<tr>
+<td align="center">related:</td>
+<td align="center">查找和搜索域名相关的网站</td>
+</tr>
+<tr>
+<td align="center">intitle:</td>
+<td align="center">限定搜索内容是网页标题包含的关键词</td>
+</tr>
+<tr>
+<td align="center">intext:</td>
+<td align="center">限定搜索内容是网页内文包含的关键词</td>
+</tr>
+<tr>
+<td align="center">inanchor:</td>
+<td align="center">限定搜索内容是网页中链接包含的关键词</td>
+</tr>
+<tr>
+<td align="center">inurl:</td>
+<td align="center">限定搜索内容是网址中包含的关键词</td>
+</tr>
+<tr>
+<td align="center">allintitle:</td>
+<td align="center">限定搜索内容是网页标题包含的关键词，可使用多个关键词</td>
+</tr>
+<tr>
+<td align="center">allintext:</td>
+<td align="center">限定搜索内容是网页内文包含的关键词，可使用多个关键词</td>
+</tr>
+<tr>
+<td align="center">allinanchor:</td>
+<td align="center">限定搜索内容是网页中链接包含的关键词，可使用多个关键词</td>
+</tr>
+<tr>
+<td align="center">allinurl:</td>
+<td align="center">限定搜索内容是网址中包含的关键词，可使用多个关键词</td>
+</tr>
+<tr>
+<td align="center">AROUND(X)</td>
+<td align="center">临近搜索，查找两个关键词的距离不超过X的网页</td>
+</tr>
+<tr>
+<td align="center">define:</td>
+<td align="center">查询谷歌内置词典，就是在搜索结果的卡片中展示词义，例<a target="_blank" rel="noopener" href="https://www.google.com/search?q=define:website&amp;oq=define:website&amp;aqs=chrome..69i57j69i58.8741j0j1&amp;sourceid=chrome&amp;ie=UTF-8">define:website</a></td>
+</tr>
+<tr>
+<td align="center">weather:</td>
+<td align="center">查阅指定地点的天气，结果会展示在天气小部件中，例<a target="_blank" rel="noopener" href="https://www.google.com/search?sxsrf=ALeKk00Scw1zKjpYiQUiUZbMAVhF26CcQg:1591810429202&amp;ei=fRnhXuHzC8mq0PEPm_KFgAQ&amp;q=weather:beijing&amp;oq=weather:beijing&amp;gs_lcp=CgZwc3ktYWIQAzoECCMQJzoECAAQQzoCCAA6BQgAEMsBUKvHBFj29gRg3PgEaABwAHgAgAHgB4gBoSuSAQsyLTYuMy4xLjEuMpgBAKABAaoBB2d3cy13aXo&amp;sclient=psy-ab&amp;ved=0ahUKEwihprr54_fpAhVJFTQIHRt5AUAQ4dUDCAw&amp;uact=5">weather:beijing</a></td>
+</tr>
+<tr>
+<td align="center">maps:</td>
+<td align="center">查询指定地点的地图结果，例<a target="_blank" rel="noopener" href="https://www.google.com/search?sxsrf=ALeKk03_3Bq-Cv72XZnmbM8zqTYUL3_qCw:1591810512124&amp;ei=0BnhXviMB9rK0PEPz76p6A8&amp;q=maps:beijing&amp;oq=maps:beijing&amp;gs_lcp=CgZwc3ktYWIQAzoECCMQJzoCCAA6BAgAEEM6BQgAEMsBUJfYAljO9AJguPcCaABwAHgBgAGrCogBvTaSAQsyLTIuNi42LTEuM5gBAKABAaoBB2d3cy13aXo&amp;sclient=psy-ab&amp;ved=0ahUKEwj4tP-g5PfpAhVaJTQIHU9fCv0Q4dUDCAw&amp;uact=5">maps:beijing</a></td>
+</tr>
+<tr>
+<td align="center">stocks:</td>
+<td align="center">查阅指定的股票信息，例<a target="_blank" rel="noopener" href="https://www.google.com/search?sxsrf=ALeKk02LXUPWoPzByISr65xsVETZeN8JKA:1591810717535&amp;ei=nRrhXuWjIKi00PEP0aCUoA0&amp;q=stocks:google&amp;oq=stocks:google&amp;gs_lcp=CgZwc3ktYWIQAzoECCMQJzoFCAAQywFQvuACWK2AA2DwhQNoAHAAeACAAegFiAHIGZIBBzMtOC42LTGYAQCgAQGqAQdnd3Mtd2l6&amp;sclient=psy-ab&amp;ved=0ahUKEwil5viC5ffpAhUoGjQIHVEQBdQQ4dUDCAw&amp;uact=5">stocks:google</a></td>
+</tr>
+<tr>
+<td align="center">in</td>
+<td align="center">单位换算，支持货币、长度、温度等的换算。例<a target="_blank" rel="noopener" href="https://www.google.com/search?q=$1+in+CNY&amp;oq=$1+in+CNY&amp;aqs=chrome.0.69i59j0l7.311j0j9&amp;sourceid=chrome&amp;ie=UTF-8">$1 in CNY</a></td>
+</tr>
+</tbody></table>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%AE%9E%E7%94%A8/">实用</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Search/">Search</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/41e65d2c.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">web前端学习笔记1——HTML</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/d50f6bf6.html">
+                        <span class="hidden-mobile">win10小技巧</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <i class="iconfont icon-copyright"></i>2020-2021 By Fehek <br> POWER BY <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>HEXO</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

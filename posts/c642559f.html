@@ -1,0 +1,904 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/image/icon.png">
+  <link rel="icon" href="/image/icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Fehek">
+  <meta name="keywords" content="">
+  
+  <title>web前端学习笔记11——NodeJS - my notes</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      
+        
+          
+          
+          
+        
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/themes/prism-tomorrow.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/plugins/line-numbers/prism-line-numbers.min.css" />
+      
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>ZONE OUT</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/image/post.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="NodeJS">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-02-24 21:06" pubdate>
+        2021年2月24日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      26
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">NodeJS</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年4月8日 下午
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><ul>
+<li>环境变量（windows系统中变量）<br>当我们在命令行窗口打开一个文件，或调用一个程序时<br>系统会首先在当前目录下寻找文件程序，如果找到了则直接打开<br>如果没有找到则会依次到环境变量path的路径中寻找，直到找到为止<br>如果没找到则报错<br>所以我们可以将一些经常需要访问的程序和文件的路径添加到path中，这样我们就可以在任意位置来访问这些文件和程序了</li>
+<li>进程和线程<br>进程就是一个一个的工作计划。<br>线程是计算机中最小的计量单位，负责执行进程中的程序。</li>
+</ul>
+<p><strong>JS是单线程，但是在后台拥有一个I/O线程池。</strong></p>
+<h1 id="node-js简介"><a href="#node-js简介" class="headerlink" title="node.js简介"></a>node.js简介</h1><p>Node.js是一个能够在服务器端运行JavaScript的开放源代码、跨平台JavaScript运行环境。<br>Node采用Google开发的V8引擎运行js代码，使用<strong>事件驱动</strong>、<strong>非阻塞</strong>和<strong>异步I/O模型</strong>等技术来提高性能，可优化应用程序的传输量和规模。</p>
+<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><p><a target="_blank" rel="noopener" href="http://nodejs.cn/api/modules.html">CommonJS模块</a><br>具体例子可见<a href="./383ae588.html">笔记8</a></p>
+<h2 id="包"><a href="#包" class="headerlink" title="包"></a>包</h2><ul>
+<li>CommonJS的包规范由包结构和包描述文件两个部分组成。</li>
+</ul>
+<p>包结构：用于组织包中的各种文件<br>包实际上就是一个压缩文件，解压以后还原为目录。符合规范的目录，应该包含如下文件：</p>
+<div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md">– package.json  描述文件
+– bin           可执行二进制文件
+– lib           js代码
+– doc           文档
+– test          单元测试<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<p>包描述文件：描述包的相关信息，以供外部读取分析<br>包描述文件用于表达非代码相关的信息，它是一个JSON格式的文件 – package.json，位于包的根目录下，是包的重要组成部分。</p>
+<h2 id="NPM"><a href="#NPM" class="headerlink" title="NPM"></a>NPM</h2><p>NPM(Node Package Manager)<br>对于Node而言，NPM帮助其完成了第三方模块的发布、安装和依赖等。借助NPM，Node与第三方模块之间形成了很好的一个生态系统。</p>
+<table>
+<thead>
+<tr>
+<th align="left">指令</th>
+<th align="left">操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">npm –v</td>
+<td align="left">查看npm的版本 包名</td>
+</tr>
+<tr>
+<td align="left">npm r/remove 包名</td>
+<td align="left">删除一个模块</td>
+</tr>
+<tr>
+<td align="left">npm i 包名 –save</td>
+<td align="left">安装包并添加到依赖中</td>
+</tr>
+<tr>
+<td align="left">npm install</td>
+<td align="left">下载当前项目所依赖的包</td>
+</tr>
+<tr>
+<td align="left">npm i 包名 –g</td>
+<td align="left">全局安装包（全局安装的包一般都是一些工具）</td>
+</tr>
+<tr>
+<td align="left">npm i 文件路径</td>
+<td align="left">从本地安装</td>
+</tr>
+<tr>
+<td align="left">npm i 包名 –registry=地址</td>
+<td align="left">从镜像源安装</td>
+</tr>
+<tr>
+<td align="left">npm config set registry 地址</td>
+<td align="left">设置镜像源</td>
+</tr>
+</tbody></table>
+<p>通过npm下载的包都放到node_modules文件夹中。<br>通过npm下载的包，直接通过包名引入即可。<br>node在使用模块名字来引入模块时，它会首先在当前目录的node_modules中寻找是否含有该模块，如果有则直接使用。<br>如果没有则去上一级目录的node_modules中寻找，如果有则直接使用。<br>如果没有则再去上一级目录寻找，直到找到为止。<br>直到找到磁盘的根目录，如果依然没有，则报错。</p>
+<h1 id="Buffer（缓冲区）"><a href="#Buffer（缓冲区）" class="headerlink" title="Buffer（缓冲区）"></a>Buffer（缓冲区）</h1><p><a target="_blank" rel="noopener" href="http://nodejs.cn/api/buffer.html#buffer">Buffer 文档</a></p>
+<ol>
+<li>Buffer的结构和数组很像，操作的方法也和数组类似</li>
+<li>数组中不能存储二进制的文件，而buffer就是专门用来存储二进制数据</li>
+<li>使用buffer不需要引入模块，直接使用即可</li>
+<li>在buffer中存储的都是二进制数据，但是在显示都是以16进制的形式显示。<br>buffer中每一个元素的范围是从 00 - ff / 0 - 255 / 00000000 - 11111111<br>buffer中的一个元素，占用内存一个字节(byte)</li>
+</ol>
+<ul>
+<li>使用Buffer保存字符串<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> str <span class="token operator">=</span> <span class="token string">"Hello 前端"</span> 
+<span class="token keyword">const</span> buf <span class="token operator">=</span> Buffer<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span>
+<span class="token comment">// 使用Buffer保存字符串</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>buf<span class="token punctuation">.</span>length<span class="token punctuation">)</span>
+<span class="token comment">// 占用内存的大小</span>
+<span class="token comment">// 12(5+1+3*2)</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>str<span class="token punctuation">.</span>length<span class="token punctuation">)</span> 
+<span class="token comment">//字符串的长度</span>
+<span class="token comment">// 8</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>buf<span class="token punctuation">)</span>
+<span class="token comment">// Buffer(12) [72, 101, 108, 108, 111, 32, 229, 137, 141, 231, 171, 175]</span>
+
+<span class="token keyword">const</span> buf2 <span class="token operator">=</span> Buffer<span class="token punctuation">.</span><span class="token function">from</span><span class="token punctuation">(</span><span class="token string">'我是文本'</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>buf2<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">//我是文本</span>
+<span class="token comment">// buf.toString() 将缓冲区中的数据转换为字符串</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+<li>创建指定大小的Buffer对象<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">const</span> buf <span class="token operator">=</span> Buffer<span class="token punctuation">.</span><span class="token function">alloc</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>
+<span class="token comment">// 创建一个长度为 10、以零填充的 Buffer</span>
+
+buf<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">255</span>
+<span class="token comment">// 会转换成16进制 ff</span>
+
+buf<span class="token punctuation">[</span><span class="token number">10</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span> <span class="token comment">//不会有改变</span>
+<span class="token comment">// Buffer的大小一旦确定，则不能修改</span>
+<span class="token comment">// Buffer实际上是对底层内存的直接操作</span>
+
+buf<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">256</span> <span class="token comment">//0</span>
+buf<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">556</span> <span class="token comment">//44</span>
+<span class="token comment">// 会舍弃8位之前的数字</span>
+<span class="token comment">// 556 = 0b1000101100，后8位为0b00101100 = 0x44</span>
+
+consol<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>buf<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment">//255</span>
+<span class="token comment">//只要数字在控制台或页面输出一定是10进制</span>
+consol<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>buf<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">//11111111</span>
+<span class="token comment">//转换成别的进制</span>
+
+<span class="token keyword">const</span> buf2 <span class="token operator">=</span> Buffer<span class="token punctuation">.</span><span class="token function">allocUnsafe</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>
+<span class="token comment">// 新创建的 Buffer 的内容是未知的，可能包含敏感数据(不清空数据)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+</li>
+</ul>
+<h1 id="fs（文件系统）"><a href="#fs（文件系统）" class="headerlink" title="fs（文件系统）"></a>fs（文件系统）</h1><p><a target="_blank" rel="noopener" href="http://nodejs.cn/api/fs.html">fs 文档</a><br>fs(File System)，文件系统。简单来说就是通过Node来操作系统中的文件。<br>服务器的本质就是将本地的文件发送给远程的客户端。</p>
+<ol>
+<li>要使用fs模块，首先需要对其进行加载 <code>const fs = require("fs")</code></li>
+<li>fs模块中所有的操作都有两种形式可供选择，同步(Sync)和异步(callback)。<br>同步文件系统会阻塞程序的执行，也就是除非操作完毕，否则不会向下执行代码。<br>异步文件系统不会阻塞程序的执行，而是在操作完成时，通过回调函数将结果返回。</li>
+</ol>
+<h2 id="同步文件"><a href="#同步文件" class="headerlink" title="同步文件"></a>同步文件</h2><h3 id="写入"><a href="#写入" class="headerlink" title="写入"></a>写入</h3><ol>
+<li>打开文件<div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md">fs.openSync(path[, flags, mode])
+<span class="token list punctuation">-</span> path 要打开文件的路径
+<span class="token list punctuation">-</span> flags 打开文件要做的操作的类型
+    r 只读的
+    w 可写的
+<span class="token list punctuation">-</span> mode 设置文件的操作权限，一般不传
+该方法会返回一个文件的描述符作为结果，可以通过该描述符来对文件进行各种操作<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+<li>向文件中写入内容<div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md">fs.writeSync(fd, string[, position[, encoding]])
+<span class="token list punctuation">-</span> fd 文件的描述符，通过openSync()获取
+<span class="token list punctuation">-</span> string 要写入的内容
+<span class="token list punctuation">-</span> position 写入的起始位置
+<span class="token list punctuation">-</span> encoding 写入的编码，默认utf-8<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+<li>保存并关闭文件<div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md">fs.closeSync(fd)
+<span class="token list punctuation">-</span> fd 要关闭文件的描述符<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
+
+</li>
+</ol>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 打开文件</span>
+<span class="token keyword">var</span> fd <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">openSync</span><span class="token punctuation">(</span><span class="token string">'hello.txt'</span><span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">)</span>
+<span class="token comment">// 向文件中写入内容</span>
+fs<span class="token punctuation">.</span><span class="token function">writeSync</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> <span class="token string">'今天天气真好。'</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+<span class="token comment">// 关闭文件</span>
+fs<span class="token punctuation">.</span><span class="token function">closeSync</span><span class="token punctuation">(</span>fd<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<h3 id="读取"><a href="#读取" class="headerlink" title="读取"></a>读取</h3><p><code>fs.readSync(fd, buffer, [options])</code></p>
+<h2 id="异步文件"><a href="#异步文件" class="headerlink" title="异步文件"></a>异步文件</h2><h3 id="写入-1"><a href="#写入-1" class="headerlink" title="写入"></a>写入</h3><ol>
+<li>打开文件<div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md">fs.open(path[, flags[, mode]], callback)
+异步调用的方法，结果都是通过回调函数的参数返回的
+回调函数两个参数
+err 错误对象，如果没有错误则为null
+fd 文件的描述符<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+<li>异步写入一个文件<div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md">fs.write(fd, string[, position[, encoding]], callback)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></li>
+<li>关闭文件<div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md">fs.close(fd, callback)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+
+</li>
+</ol>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 打开文件</span>
+fs<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span><span class="token string">'hello2.txt'</span><span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span> fd</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 判断是否出错</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 如果没有出错，则对文件进行写入操作</span>
+    fs<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> <span class="token string">'这是异步写入的内容'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'写入成功'</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      <span class="token comment">// 关闭文件</span>
+      fs<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span>fd<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'文件已关闭'</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'程序向下执行'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<h3 id="读取-1"><a href="#读取-1" class="headerlink" title="读取"></a>读取</h3><p><code>fs.read(fd, [options,] callback)</code></p>
+<h2 id="简单文件"><a href="#简单文件" class="headerlink" title="简单文件"></a>简单文件</h2><h3 id="写入-2"><a href="#写入-2" class="headerlink" title="写入"></a>写入</h3><div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md">fs.writeFile(file, data[, options], callback)
+fs.writeFileSync(file, data[, options])
+  <span class="token list punctuation">-</span> file 要操作的文件路径
+  <span class="token list punctuation">-</span> data 要写入的数据，可以是String或BUffer
+  <span class="token list punctuation">-</span> options 选项，可以对写入进行一些设置
+    <span class="token list punctuation">-</span> encoding <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">&gt;</span></span> | <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>null</span><span class="token punctuation">&gt;</span></span> 默认值: 'utf8'
+    <span class="token list punctuation">-</span> mode <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>integer</span><span class="token punctuation">&gt;</span></span> 默认值: 0o666
+    <span class="token list punctuation">-</span> flag <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">&gt;</span></span> 默认值: 'w'
+      r 只读  w 可写  a 追加
+  <span class="token list punctuation">-</span> callback 当写入完成以后执行的函数<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<p><a target="_blank" rel="noopener" href="http://nodejs.cn/api/fs.html#fs_file_system_flags">flag 标志</a></p>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 路径或者改为 C:/Users/fe/Desktop/nodejs/hello3.txt</span>
+fs<span class="token punctuation">.</span><span class="token function">writeFile</span><span class="token punctuation">(</span><span class="token string">'C:\\Users\\fe\\Desktop\\nodejs\\hello3.txt'</span><span class="token punctuation">,</span> <span class="token string">'这是通过writeFile写入的内容'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> flag<span class="token operator">:</span> <span class="token string">"w"</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'写入成功'</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<h3 id="读取-2"><a href="#读取-2" class="headerlink" title="读取"></a>读取</h3><div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md">fs.readFile(path[, options], callback)
+fs.readFileSync(path[, options])
+  <span class="token list punctuation">-</span> path 要读取的文件的路径
+  <span class="token list punctuation">-</span> options  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>Object</span><span class="token punctuation">&gt;</span></span> | <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">&gt;</span></span>
+    <span class="token list punctuation">-</span> encoding <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">&gt;</span></span> | <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>null</span><span class="token punctuation">&gt;</span></span> 默认值: null
+    <span class="token list punctuation">-</span> flag <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>string</span><span class="token punctuation">&gt;</span></span> 默认值: 'r'
+  <span class="token list punctuation">-</span> callback 回调函数，通过回调函数将读取到内容返回(err, data)
+    err 错误对象
+    data 读取到的数据，会返回一个Buffer<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span>
+fs<span class="token punctuation">.</span><span class="token function">readFile</span><span class="token punctuation">(</span><span class="token string">'a.jpg'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span> data</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 将data写入到文件中</span>
+    fs<span class="token punctuation">.</span><span class="token function">writeFile</span><span class="token punctuation">(</span><span class="token string">'hello.jpg'</span><span class="token punctuation">,</span> data<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'写入成功！'</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token comment">// 实现了复制操作</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h2 id="流式文件"><a href="#流式文件" class="headerlink" title="流式文件"></a>流式文件</h2><h3 id="写入-3"><a href="#写入-3" class="headerlink" title="写入"></a>写入</h3><p>同步、异步、简单文件的写入都不适合大文件的写入，性能较差，容易导致内存溢出。</p>
+<div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md">首先需要创建一个Writable对象
+  fs.createWriteStream(path[, options])
+    <span class="token list punctuation">-</span> path 文件路径
+    <span class="token list punctuation">-</span> options {encoding:"",mode:"",flag:""}
+打开了Writable文件流，就可以使用write()方法来写入它
+写入完成后，再调用end()方法来关闭流<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 创建一个可写流</span>
+<span class="token keyword">var</span> ws <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">createWriteStream</span><span class="token punctuation">(</span><span class="token string">'hello4.txt'</span><span class="token punctuation">)</span>
+<span class="token comment">// 可以通过监听流的open和close事件来监听流的打开和关闭</span>
+<span class="token comment">/*
+on(事件字符串, 回调函数)
+  - 可以为对象绑定一个事件
+once(事件字符串, 回调函数)
+  - 可以为对象绑定一个一次性的事件，该事件将会在触发一次以后自动失效
+*/</span>
+ws<span class="token punctuation">.</span><span class="token function">once</span><span class="token punctuation">(</span><span class="token string">'open'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'流打开了'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+ws<span class="token punctuation">.</span><span class="token function">once</span><span class="token punctuation">(</span><span class="token string">'close'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'流关闭了'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 通过ws向文件中输出内容</span>
+ws<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">'通过可写流写入文件的内容'</span><span class="token punctuation">)</span>
+ws<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">'今天天气真好'</span><span class="token punctuation">)</span>
+ws<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">'HELLO'</span><span class="token punctuation">)</span>
+ws<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span><span class="token string">'WORLD'</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 关闭流</span>
+ws<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token comment">// ws.end()</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<h3 id="读取-3"><a href="#读取-3" class="headerlink" title="读取"></a>读取</h3><p>流式文件读取也适用于一些比较大的文件，可以分多次将文件读取到内容中</p>
+<div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md">首先需要创建一个Readable流对象
+  fs.createReadStream(path[, options])
+    <span class="token list punctuation">-</span> path 文件路径
+    <span class="token list punctuation">-</span> options {encoding:"",mode:"",flag:""}
+打开Readable文件流以后，可以通过readable事件和read()请求，或通过data事件处理程序从它读出。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 创建一个可读流</span>
+<span class="token keyword">var</span> rs <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">createReadStream</span><span class="token punctuation">(</span><span class="token string">'ABC.mp3'</span><span class="token punctuation">)</span>
+<span class="token comment">// 创建一个可写流</span>
+<span class="token keyword">var</span> ws <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">createWriteStream</span><span class="token punctuation">(</span><span class="token string">'123.mp3'</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 监听流的开启和关闭</span>
+rs<span class="token punctuation">.</span><span class="token function">once</span><span class="token punctuation">(</span><span class="token string">'open'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'可读流打开了'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+rs<span class="token punctuation">.</span><span class="token function">once</span><span class="token punctuation">(</span><span class="token string">'close'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'可读流关闭了'</span><span class="token punctuation">)</span>
+  <span class="token comment">// 数据读取完毕，关闭可写流</span>
+  ws<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+ws<span class="token punctuation">.</span><span class="token function">once</span><span class="token punctuation">(</span><span class="token string">'open'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'可写流打开了'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+ws<span class="token punctuation">.</span><span class="token function">once</span><span class="token punctuation">(</span><span class="token string">'close'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'可写流关闭了'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 如果要读取一个可读流中的数据，必须要为可读流绑定一个data事件，data事件绑定文笔，它会自动开始读取数据</span>
+rs<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'data'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">data</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">// console.log(data)</span>
+  <span class="token comment">// 将读取到的数据写入到可写流中</span>
+  ws<span class="token punctuation">.</span><span class="token function">write</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token comment">// 复制一个大文件</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token comment">// 另一种写法</span>
+<span class="token keyword">var</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 创建一个可读流</span>
+<span class="token keyword">var</span> rs <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">createReadStream</span><span class="token punctuation">(</span><span class="token string">'ABC.mp3'</span><span class="token punctuation">)</span>
+<span class="token comment">// 创建一个可写流</span>
+<span class="token keyword">var</span> ws <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">createWriteStream</span><span class="token punctuation">(</span><span class="token string">'456.mp3'</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 监听流的开启和关闭</span>
+rs<span class="token punctuation">.</span><span class="token function">once</span><span class="token punctuation">(</span><span class="token string">'open'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'可读流打开了'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+rs<span class="token punctuation">.</span><span class="token function">once</span><span class="token punctuation">(</span><span class="token string">'close'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'可读流关闭了'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+ws<span class="token punctuation">.</span><span class="token function">once</span><span class="token punctuation">(</span><span class="token string">'open'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'可写流打开了'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+ws<span class="token punctuation">.</span><span class="token function">once</span><span class="token punctuation">(</span><span class="token string">'close'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'可写流关闭了'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">// pipe()可以将可读流中的内容，直接俄输出到可写流中</span>
+rs<span class="token punctuation">.</span><span class="token function">pipe</span><span class="token punctuation">(</span>ws<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h2 id="其它方法"><a href="#其它方法" class="headerlink" title="其它方法"></a>其它方法</h2><ul>
+<li><p>检查一个文件是否存在<br><code>fs.existsSync(path)</code></p>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token keyword">var</span> isExists <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">existsSync</span><span class="token punctuation">(</span><span class="token string">'a.mp3'</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>isExists<span class="token punctuation">)</span>
+<span class="token comment">// 存在输出 true，不存在输出 false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+</li>
+<li><p>获取文件信息<br><a target="_blank" rel="noopener" href="http://nodejs.cn/api/fs.html#fs_class_fs_stats">fs.Stats类 文档</a></p>
+<div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md">fs.stat(path[, options], callback)
+fs.statSync(path[, options])
+  会返回一个对象，这个对象中保存了当前对象状态的相关信息<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js">fs<span class="token punctuation">.</span><span class="token function">stat</span><span class="token punctuation">(</span><span class="token string">'ABC.mp3'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span> stat</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment">/*
+  isFile() 是否是一个文件
+  isDirectory() 是否是一个文件夹
+  */</span>
+  <span class="token comment">// console.log(stat.size)</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>stat<span class="token punctuation">.</span><span class="token function">isFile</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+</li>
+<li><p>删除文件</p>
+<div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md">fs.unlink(path, callback)
+fs.unlinkSync(path)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js">fs<span class="token punctuation">.</span><span class="token function">unlinkSync</span><span class="token punctuation">(</span><span class="token string">'hello.txt'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+</li>
+<li><p>列出文件</p>
+<div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md">fs.readdir(path[, options], callback)
+fs.readdirSync(path[, options])<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js">fs<span class="token punctuation">.</span><span class="token function">readdir</span><span class="token punctuation">(</span><span class="token string">'.'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">err<span class="token punctuation">,</span> files</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>files<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token comment">// files是一个字符串数组，每一个元素就是一个文件夹或文件的名字</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+</li>
+<li><p>截断文件</p>
+<div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md">fs.truncate(path, len, callback)
+fs.truncateSync(path, len)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js">fs<span class="token punctuation">.</span><span class="token function">truncateSync</span><span class="token punctuation">(</span><span class="token string">'hello2.txt'</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span>
+截断文件，将文件修改为指定大小<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
+</li>
+<li><p>建立目录</p>
+<div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md">fs.mkdir(path[, mode], callback)
+fs.mkdirSync(path[, mode])<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js">fs<span class="token punctuation">.</span><span class="token function">mkdirSync</span><span class="token punctuation">(</span><span class="token string">'hello'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+</li>
+<li><p>删除目录</p>
+<div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md">fs.rmdir(path, callback)
+fs.rmdirSync(path)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js">fs<span class="token punctuation">.</span><span class="token function">rmdirSync</span><span class="token punctuation">(</span><span class="token string">'hello'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+</li>
+<li><p>重命名文件和目录</p>
+<div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md">fs.rename(oldPath, newPath, callback)
+fs.renameSync(oldPath, newPath)
+  <span class="token list punctuation">-</span> oldPath 旧路径
+  <span class="token list punctuation">-</span> newPath 新路径
+  <span class="token list punctuation">-</span> callback 回调函数<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js">fs<span class="token punctuation">.</span><span class="token function">rename</span><span class="token punctuation">(</span><span class="token string">'hello3.txt'</span><span class="token punctuation">,</span> <span class="token string">'C:/Users/fe/Desktop/555.txt'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">err</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>err<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'修改成功！'</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token comment">// 也可以实现剪切功能</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+</li>
+<li><p>监视文件更改写入</p>
+<div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md">fs.watchFile(filename[, options], listener)
+  <span class="token list punctuation">-</span> filename 要监视的文件的名字
+  <span class="token list punctuation">-</span> options 配置选项
+    <span class="token list punctuation">-</span> bigint <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>boolean</span><span class="token punctuation">&gt;</span></span> 默认值: false
+    <span class="token list punctuation">-</span> persistent <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>boolean</span><span class="token punctuation">&gt;</span></span> 默认值: true
+    <span class="token list punctuation">-</span> interval <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>integer</span><span class="token punctuation">&gt;</span></span> 默认值: 5007 间隔时间
+  <span class="token list punctuation">-</span> listener 回调函数，当文件发生变化时，回调函数会执行。有两个参数：
+    curr 当前文件的状态
+    prev 修改前文件的状态
+      这两个对象都是status对象
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js">fs<span class="token punctuation">.</span><span class="token function">watchFile</span><span class="token punctuation">(</span><span class="token string">'hello4.txt'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> interval<span class="token operator">:</span> <span class="token number">1000</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token parameter">curr<span class="token punctuation">,</span> prev</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'修改前文件大小：'</span> <span class="token operator">+</span> prev<span class="token punctuation">.</span>size<span class="token punctuation">)</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'修改后文件大小：'</span> <span class="token operator">+</span> curr<span class="token punctuation">.</span>size<span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+</li>
+</ul>
+<h1 id="EventEmitter"><a href="#EventEmitter" class="headerlink" title="EventEmitter"></a>EventEmitter</h1><div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token comment">// EventEmitter类 实现</span>
+<span class="token keyword">class</span> <span class="token class-name">Eventer</span> <span class="token punctuation">{</span>
+  #eventListeners <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+
+  <span class="token function">on</span><span class="token punctuation">(</span><span class="token parameter">eventName<span class="token punctuation">,</span> handler</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token punctuation">(</span>eventName <span class="token keyword">in</span> <span class="token keyword">this</span><span class="token punctuation">.</span>#eventListeners<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>#eventListeners<span class="token punctuation">[</span>eventName<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">this</span><span class="token punctuation">.</span>#eventListeners<span class="token punctuation">[</span>eventName<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>handler<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">emit</span><span class="token punctuation">(</span><span class="token parameter">eventName<span class="token punctuation">,</span> <span class="token operator">...</span>args</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> handlers <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>#eventListeners<span class="token punctuation">[</span>eventName<span class="token punctuation">]</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>handlers <span class="token operator">&amp;&amp;</span> handlers<span class="token punctuation">.</span>length <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> handler <span class="token keyword">of</span> handlers<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">handler</span><span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> <span class="token operator">...</span>args<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">return</span> <span class="token boolean">true</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token boolean">false</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/web%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">web前端学习笔记</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/front-end/">front-end</a>
+                    
+                      <a class="hover-with-bg" href="/tags/NodeJS/">NodeJS</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/b1456509.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">web前端学习笔记12——数据库</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/4f3dd51e.html">
+                        <span class="hidden-mobile">web前端学习笔记10——Promise</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <i class="iconfont icon-copyright"></i>2020-2021 By Fehek <br> POWER BY <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>HEXO</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

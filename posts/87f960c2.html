@@ -1,0 +1,600 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/image/icon.png">
+  <link rel="icon" href="/image/icon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="Markdown语法及emoji输出">
+  <meta name="author" content="Fehek">
+  <meta name="keywords" content="">
+  
+  <title>Markdown语法 - my notes</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      
+        
+          
+          
+          
+        
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/themes/prism-tomorrow.min.css" />
+      
+      
+        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/plugins/line-numbers/prism-line-numbers.min.css" />
+      
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0">
+<style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>ZONE OUT</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/image/post.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Markdown语法">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-04-30 17:25" pubdate>
+        2020年4月30日 下午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      724 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      5
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Markdown语法</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2021年4月8日 下午
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p>Markdown语法及emoji输出</p>
+<span id="more"></span>
+
+<h1 id="Markdown语法"><a href="#Markdown语法" class="headerlink" title="Markdown语法"></a>Markdown语法</h1><h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h2><div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md">一级标题：#
+二级标题：##
+以此类推<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+
+<h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md">字体倾斜：*text*
+字体加粗：**text**
+斜体加粗：***text***
+加删除线：~~text~~ 
+新增. 发现text两边加中括号删除线不起作用，也可以用&lt;del&gt;text&lt;/del&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<h2 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h2><p>三个以上-或*<br>例如</p>
+<div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md">---
+----
+***
+****<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+<hr>
+<hr>
+<hr>
+<hr>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md">引用内容：&gt;　　　
+引用引用的内容：&gt;&gt;　
+以此类推<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+
+<h2 id="代码使用"><a href="#代码使用" class="headerlink" title="代码使用"></a>代码使用</h2><ul>
+<li>行内代码用两个反引号`kkkk`</li>
+<li>多行代码用两个三反引号，反引号要单独一行。<br>```C<br>int main()<br>{<br> printf(“Hello, World!”);<br> return 0;<br>}<br>```</li>
+</ul>
+<p>效果：<br>行内代码<code>kkkk</code><br>多行代码</p>
+<div class="code-wrapper"><pre class="line-numbers language-c" data-language="c"><code class="language-c"><span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+   <span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"Hello, World!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+
+<h2 id="空格与换行"><a href="#空格与换行" class="headerlink" title="空格与换行"></a>空格与换行</h2><p>缩进一个空格（半角空格）：添加<code>&amp;ensp;</code><br>缩进两个空格（全角空格）：添加<code>&amp;emsp;</code>或者使用全角空格<br>P.S.一个汉字占两个空格</p>
+<p>换行：<br><strong>1. <code>&amp;nbsp;</code></strong></p>
+<ul>
+<li>与文字同一行，会成为空格，下面的例子效果是空两格<div class="code-wrapper"><pre class="line-numbers language-html" data-language="html"><code class="language-html">text<span class="token entity named-entity" title="&nbsp;">&amp;nbsp;</span><span class="token entity named-entity" title="&nbsp;">&amp;nbsp;</span>text<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div></li>
+<li>与文字不同行，下面的例子效果是空一行<div class="code-wrapper"><pre class="line-numbers language-html" data-language="html"><code class="language-html">text
+<span class="token entity named-entity" title="&nbsp;">&amp;nbsp;</span><span class="token entity named-entity" title="&nbsp;">&amp;nbsp;</span>
+text<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></li>
+<li>与文字不同行，下面的例子效果是空两行<div class="code-wrapper"><pre class="line-numbers language-html" data-language="html"><code class="language-html">text
+<span class="token entity named-entity" title="&nbsp;">&amp;nbsp;</span>
+<span class="token entity named-entity" title="&nbsp;">&amp;nbsp;</span>
+text<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+</ul>
+<p><strong>2. <code>&lt;br /&gt;</code></strong></p>
+<ul>
+<li>与文字同一行，n个符号会打出n个空行，下面的例子效果是空两行<div class="code-wrapper"><pre class="line-numbers language-html" data-language="html"><code class="language-html">text<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span> <span class="token punctuation">/&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span> <span class="token punctuation">/&gt;</span></span>
+text<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div>
+或<div class="code-wrapper"><pre class="line-numbers language-html" data-language="html"><code class="language-html">text
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span> <span class="token punctuation">/&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span> <span class="token punctuation">/&gt;</span></span>text<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre></div></li>
+<li>与文字不同行，n个符号会打出n+1个空行，下面的例子效果是空三行（注意与&amp;nbsp;的差别）<div class="code-wrapper"><pre class="line-numbers language-html" data-language="html"><code class="language-html">text
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span> <span class="token punctuation">/&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span> <span class="token punctuation">/&gt;</span></span>
+text<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div></li>
+<li>与文字不同行且单独成行，n个符号会打出2n个空行，下面的例子效果是空四行<div class="code-wrapper"><pre class="line-numbers language-html" data-language="html"><code class="language-html">text
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span> <span class="token punctuation">/&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span> <span class="token punctuation">/&gt;</span></span>
+text<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div></li>
+</ul>
+<p><em><strong>为了方便，我一般用&amp;nbsp;，想空几行就在每个空行打一个&amp;nbsp;。</strong></em></p>
+<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><p>有序列表：<code>数字 + 点</code><br>无序列表：<code>- / + / * + 文字</code><br>嵌套只需要在符号前加 <code>Tab</code></p>
+<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><div class="code-wrapper"><pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">表头|表头|表头
+-|:-:|-:
+内容|内容|内容
+内容|内容|内容
+
+第二行分割表头和内容。
+-可以有一个或多个
+文字默认居左
+两边加：文字居中
+右边加：文字居右<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<p>例如</p>
+<div class="code-wrapper"><pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">姓名|分数|排行
+:-:|-|-:
+张三|56|2
+刘四|45|3
+李五|70|1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th align="center">姓名</th>
+<th>分数</th>
+<th align="right">排行</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">张三</td>
+<td>56</td>
+<td align="right">2</td>
+</tr>
+<tr>
+<td align="center">刘四</td>
+<td>45</td>
+<td align="right">3</td>
+</tr>
+<tr>
+<td align="center">李五</td>
+<td>70</td>
+<td align="right">1</td>
+</tr>
+</tbody></table>
+<h2 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h2><div class="code-wrapper"><pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"><span class="token url">![<span class="token content">图片alt</span>](图片地址 <span class="token string">"图片title"</span>)</span>
+
+图片alt是描述图片的关键词，可不写。当图片因为某种原因不能被显示时而出现的替代文字。
+图片title是图片的标题，可不写。当鼠标移到图片上时显示的内容。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div>
+<p>例如：</p>
+<div class="code-wrapper"><pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"><span class="token url">![<span class="token content">百度搜索</span>](https://www.baidu.com/img/bd_logo1.png <span class="token string">"百度"</span>)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+<p><img src="https://www.baidu.com/img/bd_logo1.png" srcset="/img/loading.gif" lazyload alt="百度搜索" title="百度"></p>
+<h2 id="插入链接"><a href="#插入链接" class="headerlink" title="插入链接"></a>插入链接</h2><div class="code-wrapper"><pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"><span class="token url">[<span class="token content">超链接名</span>](超链接地址 <span class="token string">"超链接title"</span>)</span>，title可加可不加<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+<p>例如：</p>
+<div class="code-wrapper"><pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown"><span class="token url">[<span class="token content">blog</span>](https://Fehek.xyz <span class="token string">"Fehek的博客"</span>)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+<p><a href="/https://Fehek.xyz" title="Fehek的博客">blog</a></p>
+<h1 id="输出emoji"><a href="#输出emoji" class="headerlink" title="输出emoji"></a>输出emoji</h1><div class="code-wrapper"><pre class="line-numbers language-markdown" data-language="markdown"><code class="language-markdown">:laughing: :smirk: :exclamation: :question: :octocat:<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+<p><span class="github-emoji"><span>😆</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f606.png?v8" srcset="/img/loading.gif" lazyload aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span> <span class="github-emoji"><span>😏</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f60f.png?v8" srcset="/img/loading.gif" lazyload aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span> <span class="github-emoji"><span>❗</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/2757.png?v8" srcset="/img/loading.gif" lazyload aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span> <span class="github-emoji"><span>❓</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/2753.png?v8" srcset="/img/loading.gif" lazyload aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span> <span class="github-emoji"><span> </span><img src="https://github.githubassets.com/images/icons/emoji/octocat.png?v8" srcset="/img/loading.gif" lazyload aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span><br>更多：<a target="_blank" rel="noopener" href="https://www.webfx.com/tools/emoji-cheat-sheet/">https://www.webfx.com/tools/emoji-cheat-sheet/</a><br><a target="_blank" rel="noopener" href="https://www.einsition.com/tools/emojicheatsheet">https://www.einsition.com/tools/emojicheatsheet</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%AE%9E%E7%94%A8/">实用</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Markdown-syntax/">Markdown syntax</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Emoji/">Emoji</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/fe694041.html">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">关于我所使用的软件，插件及网站</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/659a9035.html">
+                        <span class="hidden-mobile">完善blog2</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <i class="iconfont icon-copyright"></i>2020-2021 By Fehek <br> POWER BY <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>HEXO</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+    
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
