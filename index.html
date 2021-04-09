@@ -301,11 +301,23 @@
           
             
           
-          Vue3.0和2.0的区别
-支持Teleport，类似React.createPortal
-支持组合式API，类似React Hooks，但原理完全不同
-VCA的setup函数只运行一次，没有闭包陷阱。VCA是通过返回可监控对象来实现的更新，所以VCA没有useCallback, useMemo之类的函数
-React Hooks，组件实例每次更新都会运行一次组件对应的函数，每次运行对应的函数相应的
+          基本了解认识Vue3
+相关信息
+Vue3支持vue2的大多数特性
+更好的支持Typescript
+
+
+性能提升
+打包大小减少，初次渲染和更新渲染变快，内存减少54%
+使用Proxy代替defineProperty实现数据响应式
+重写虚拟DOM的实现和Tree-Shaking
+
+
+新增特性
+Composition (组合) API
+setup
+ref 和 reactive
+computed 和 wa
         </a>
       </p>
 

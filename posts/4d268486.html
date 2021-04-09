@@ -201,7 +201,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      217 字
+      626 字
     </span>
   
 
@@ -211,7 +211,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      4
        分钟
     </span>
   
@@ -249,12 +249,74 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月8日 下午
+                  本文最后更新于：2021年4月9日 上午
                 
               </p>
             
             <div class="markdown-body">
-              <h1 id="Vue3-0和2-0的区别"><a href="#Vue3-0和2-0的区别" class="headerlink" title="Vue3.0和2.0的区别"></a>Vue3.0和2.0的区别</h1><ul>
+              <h1 id="基本了解"><a href="#基本了解" class="headerlink" title="基本了解"></a>基本了解</h1><h2 id="认识Vue3"><a href="#认识Vue3" class="headerlink" title="认识Vue3"></a>认识Vue3</h2><ol>
+<li>相关信息<ul>
+<li>Vue3支持vue2的大多数特性</li>
+<li>更好的支持Typescript</li>
+</ul>
+</li>
+<li>性能提升<ul>
+<li>打包大小减少，初次渲染和更新渲染变快，内存减少54%</li>
+<li><strong>使用Proxy代替defineProperty实现数据响应式</strong></li>
+<li><strong>重写虚拟DOM的实现和Tree-Shaking</strong></li>
+</ul>
+</li>
+<li>新增特性<ul>
+<li><strong>Composition (组合) API</strong></li>
+<li>setup<ul>
+<li>ref 和 reactive</li>
+<li>computed 和 watch</li>
+<li>新的生命周期函数</li>
+<li>provide与inject</li>
+<li>…</li>
+</ul>
+</li>
+<li>新组件<ul>
+<li>Fragment - 文档碎片</li>
+<li>Teleport - 瞬移组件的位置</li>
+<li>Suspense - 异步加载组件的loading界面</li>
+</ul>
+</li>
+<li>其它API更新<ul>
+<li>全局API的修改</li>
+<li>将原来的全局API转移到应用对象</li>
+<li>模板语法变化</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h2><ol>
+<li>使用vue-cli<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">## 安装或者升级</span>
+<span class="token function">npm</span> <span class="token function">install</span> -g @vue/cli
+<span class="token comment">## 保证 vue cli 版本在 4.5.0 以上</span>
+vue --version
+<span class="token comment">## 创建项目</span>
+vue create my-project<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+接下来的步骤：<br>Please pick a preset - 选择 Manually select features<br>Check the features needed for your project - 选择上 TypeScript ，按空格是选择，回车是下一步<br>Choose a version of Vue.js that you want to start the project with - 选择 3.x (Preview)<br>之后全部回车</li>
+<li>使用vite<ul>
+<li>Vite 是一个 web 开发构建工具，由于其原生 ES 模块导入方式，可以实现闪电般的冷服务器启动。</li>
+<li>它做到了<strong>本地快速开发启动</strong>, 在生产环境下基于 Rollup 打包。<ul>
+<li>快速的冷启动，不需要等待打包操作；</li>
+<li>即时的热模块更新，替换性能和模块数量的解耦让更新飞起；</li>
+<li>真正的按需编译，不再等待整个应用编译完成，这是一个巨大的改变。</li>
+</ul>
+</li>
+<li>使用 npm<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">npm</span> init @vitejs/app <span class="token operator">&lt;</span>project-name<span class="token operator">&gt;</span>
+<span class="token builtin class-name">cd</span> <span class="token operator">&lt;</span>project-name<span class="token operator">&gt;</span>
+<span class="token function">npm</span> <span class="token function">install</span>
+<span class="token function">npm</span> run dev<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div>
+
+</li>
+</ul>
+</li>
+</ol>
+<h1 id=""><a href="#" class="headerlink" title=""></a></h1><h1 id="Vue3-0和2-0的区别"><a href="#Vue3-0和2-0的区别" class="headerlink" title="Vue3.0和2.0的区别"></a>Vue3.0和2.0的区别</h1><ul>
 <li>支持Teleport，类似React.createPortal</li>
 <li>支持组合式API，类似React Hooks，但原理完全不同<ul>
 <li>VCA的setup函数只运行一次，没有闭包陷阱。VCA是通过返回可监控对象来实现的更新，所以VCA没有useCallback, useMemo之类的函数</li>
