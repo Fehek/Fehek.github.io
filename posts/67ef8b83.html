@@ -30,17 +30,7 @@
     
     
       
-      
-        
-          
-          
-          
-        
-        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/themes/prism-tomorrow.min.css" />
-      
-      
-        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/plugins/line-numbers/prism-line-numbers.min.css" />
-      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/routeros.min.css" />
     
   
 
@@ -201,7 +191,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      360 字
+      356 字
     </span>
   
 
@@ -255,29 +245,9 @@
             
             <div class="markdown-body">
               <h1 id="换源"><a href="#换源" class="headerlink" title="换源"></a>换源</h1><p>在实际使用时，树莓派可能会出现下载慢的问题，主要原因是树莓派的服务器位于其他国家，为解决此问题可以选择我国的镜像站。如想对树莓派系统源与软件源进行修改，要先在终端找到源的位置，然后将用其它的国内源替换，之后保存确认退出。</p>
-<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">替换系统更新源，主要包括raspi-config、minecraftpi、树莓派桌面环境、内核固件驱动等少量软件。
-<span class="token function">sudo</span> <span class="token function">nano</span> /etc/apt/sources.list.d/raspi.list
-
-用 <span class="token comment"># 注释掉原文件内容，用以下内容取代：</span>
-deb http://mirrors.tuna.tsinghua.edu.cn/raspberrypi/ buster main ui
-deb-src http://mirrors.tuna.tsinghua.edu.cn/raspberrypi/ buster main ui
-
-Ctrl+O 保存，回车确认保存，Ctrl+X 退出<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
-<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">替换软件更新源
-<span class="token function">sudo</span> <span class="token function">nano</span> /etc/apt/sources.list
-
-用 <span class="token comment"># 注释掉原文件内容，用以下内容取代：</span>
-deb http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ buster main contrib non-free rpi
-deb-src http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ buster main contrib non-free rpi
-
-Ctrl+O 保存，回车确认保存，Ctrl+X 退出
-
-其他软件源
-中科大 http://mirrors.ustc.edu.cn/raspbian/raspbian/
-阿里云 http://mirrors.aliyun.com/raspbian/raspbian/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
-<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">更新系统及软件
-<span class="token function">sudo</span> <span class="token function">apt-get</span> update
-<span class="token function">sudo</span> <span class="token function">apt-get</span> upgrade<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">替换系统更新源，主要包括raspi-config、minecraftpi、树莓派桌面环境、内核固件驱动等少量软件。<br>sudo nano /etc/apt/sources.list.d/raspi.list<br><br>用 <span class="hljs-comment"># 注释掉原文件内容，用以下内容取代：</span><br>deb http://mirrors.tuna.tsinghua.edu.cn/raspberrypi/ buster main ui<br>deb-src http://mirrors.tuna.tsinghua.edu.cn/raspberrypi/ buster main ui<br><br>Ctrl+O 保存，回车确认保存，Ctrl+X 退出<br></code></pre></div></td></tr></tbody></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">替换软件更新源<br>sudo nano /etc/apt/sources.list<br><br>用 <span class="hljs-comment"># 注释掉原文件内容，用以下内容取代：</span><br>deb http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ buster main contrib non-free rpi<br>deb-src http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ buster main contrib non-free rpi<br><br>Ctrl+O 保存，回车确认保存，Ctrl+X 退出<br><br>其他软件源<br>中科大 http://mirrors.ustc.edu.cn/raspbian/raspbian/<br>阿里云 http://mirrors.aliyun.com/raspbian/raspbian/<br></code></pre></div></td></tr></tbody></table></figure>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">更新系统及软件<br>sudo apt-get update<br>sudo apt-get upgrade<br></code></pre></div></td></tr></tbody></table></figure>
 
 <h1 id="中文输入法"><a href="#中文输入法" class="headerlink" title="中文输入法"></a>中文输入法</h1><ul>
 <li>基于Fcitx输入法框架的google拼音输入法<br><code>sudo apt-get install fcitx fcitx-googlepinyin fcitx-module-cloudpinyin fcitx-sunpinyin</code></li>
@@ -437,8 +407,6 @@ Ctrl+O 保存，回车确认保存，Ctrl+X 退出
 
 
 
-  
-    
   
 
 

@@ -30,17 +30,7 @@
     
     
       
-      
-        
-          
-          
-          
-        
-        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/themes/prism-tomorrow.min.css" />
-      
-      
-        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/plugins/line-numbers/prism-line-numbers.min.css" />
-      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/routeros.min.css" />
     
   
 
@@ -201,7 +191,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      25 字
+      327 字
     </span>
   
 
@@ -211,7 +201,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      2
        分钟
     </span>
   
@@ -249,17 +239,25 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月8日 下午
+                  本文最后更新于：2021年4月11日 下午
                 
               </p>
             
             <div class="markdown-body">
               <ul>
 <li><p>for of 能不能遍历对象？<br>默认不能，可以让它能（生成器）</p>
+<figure class="highlight js"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-keyword">var</span> obj = {<br>  *[<span class="hljs-built_in">Symbol</span>.iterator] () {<br>    <span class="hljs-keyword">yield</span> <span class="hljs-number">1</span><br>    <span class="hljs-keyword">yield</span> <span class="hljs-number">2</span><br>  }<br>}<br></code></pre></div></td></tr></tbody></table></figure>
 </li>
 <li><p>事件循环？</p>
 </li>
+<li><p>配置<br>babel<br>preset<br>  plugin<br>解析语法树，遍历语法树，遍历过程插件处理语法树结点，代码生成</p>
+</li>
 </ul>
+<p>webpack<br>  loader<br>    用于将不支持的格式转换等价的js代码用以require或import<br>  plugin<br>    插件不是用来转换非js文件的，而是用提供额外功能的<br>      把转换好的入口文件自动填入一个index.html文件(WebpackHtmlPlugin)<br>      把转换结果压缩、混淆（WebpackUglify）<br>      将不同的打包文件中相同的模块抽出来(CommonChunksPlugin)<br>  有没有配置过webpack<br>    配置过简单的<br>  webpack什么原理<br>  作用：<br>    代码分隔  React.lazy(() =&gt; import(‘./Foo.js’))<br>    打包。<br>    还支持打包非js文件（与browserify的重要不同）<br>      如css，sass，less，png，svg</p>
+<ul>
+<li>HTTP<br>SPDY<br>HTTP2<br>二进制协议<br>支持header压缩（字典压缩）<br>必须使用安全连接<br>地址栏里显示的是<a target="_blank" rel="noopener" href="https://xxxx/">https://xxxx</a><br>支持分帧<br>  一个http2的会话中可以传输多个资源<br>支持server push<br>  客户端请求一个资源，服务器可以主动推送额外的资源<br>以上两点结合也话可以实现不再打包。<br>  Vite/Snowpack</li>
+</ul>
+<p>QUIC<br>  based on UDP<br>  极大的减少了安全http请求的握手次数</p>
 
             </div>
             <hr>
@@ -413,8 +411,6 @@
 
 
 
-  
-    
   
 
 

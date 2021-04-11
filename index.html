@@ -421,11 +421,14 @@ computed 和 wa
           
           
 for of 能不能遍历对象？默认不能，可以让它能（生成器）
+123456var obj = {  *[Symbol.iterator] () {    yield 1    yield 2  }}
 
 事件循环？
 
+配置babelpreset  plugin解析语法树，遍历语法树，遍历过程插件处理语法树结点，代码生成
 
 
+webpack  loader    用于将不支持的格式转换等价的js代码
         </a>
       </p>
 
@@ -482,8 +485,7 @@ for of 能不能遍历对象？默认不能，可以让它能（生成器）
 
 准备知识
 [].slice.call(lis): 将伪数组转换为真数组(本质是一个对象)
-node.nodeType: 得到节点类型&lt;body&gt;
-  &lt;div id="test"&gt;Test&lt
+node.nodeType: 得到节点类型12345678910111213141516171819202122232425&l
         </a>
       </p>
 
@@ -535,12 +537,7 @@ node.nodeType: 得到节点类型&lt;body&gt;
           
           创建模板项目vue-cli：官方提供的脚手架工具从 vuejs-templates 下载模板项目
 
-创建 vue 项目npm install -g vue-cli
-vue init webpack vue_demo  #名称不能包含大写
-# vue-router， unit tests 和 e2e tests 两个单元测试包暂时不需要，其余默认
-cd vue_demo
-npm run dev
-# 
+创建 vue 项目123456npm install -g vue-clivue init webpack vue_demo  #名称不能包含大写# vue-router， unit tests 和 e2e tests 两个单元测试包暂时不需要，其余默认cd vue_demonpm run dev#
         </a>
       </p>
 
@@ -598,8 +595,7 @@ npm run dev
 与其它前端 JS 框架的关联借鉴 angular 的模板和数据绑定技术借鉴 react 的组件化和虚拟DOM技术
 
 扩展插件
-vue-cli: vue 脚手架
-vue-res
+12345678vue-cli: vue 脚手架
         </a>
       </p>
 
@@ -833,8 +829,6 @@ CS模型(client/server)MiaraDBPostgreSQLOffice AccessSQLServerOceanDBOracle  MyS
 
 
 
-  
-    
   
 
 

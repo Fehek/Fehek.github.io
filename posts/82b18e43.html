@@ -30,17 +30,7 @@
     
     
       
-      
-        
-          
-          
-          
-        
-        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/themes/prism-tomorrow.min.css" />
-      
-      
-        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/plugins/line-numbers/prism-line-numbers.min.css" />
-      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/routeros.min.css" />
     
   
 
@@ -767,41 +757,8 @@
 <td align="center">用户需要时才加载到内存</td>
 </tr>
 </tbody></table>
-<h1 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h1><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">   u   g   o
-- --- --- ---
-
-第一个字符表示文件类型：
-a 二进制文件（包括不限于文本文件）；
-d 目录（文件夹）；
-| （软链接文件）
-
-u(user)  所有者
-g(group) 所属组
-o(other) 其他用户
-
-文件权限：
-r 查看文件内容；
-w 修改文件内容；
-x 执行运行文件
-
-文件夹权限：
-r 列出目录中文件列表（仅限名字）；
-w 在目录中创建、删除文件（包括修改文件名字）；
-x 可以进入目录（不能查看目录内容）
-
-可执行文件：
-linux一般是用来启动某个应用程序或者服务程序的shell脚本（或类型的脚本）
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
-<div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">修改权限：
-chmod [ugoa][+-=][rwx] [file]
-	a 表示ugo三者皆是
-	+ 表示增加权限；- 表示取消权限；= 表示设定权限
-
-chmod abc (-R) [file]
-	r=4，w=2，x=1
-	a、b、c各为一个数字,分别表示User、Group、Other的权限
-	如rwx属性是4+2+1=7；rw-属性是4+2=6；r-x属性是4+1=5
-	-R表示修改当前目录所有文件与子目录<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<h1 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h1><figure class="highlight brainfuck"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs brainfuck">   <span class="hljs-comment">u</span>   <span class="hljs-comment">g</span>   <span class="hljs-comment">o</span><br><span class="hljs-comment"></span><span class="hljs-literal">-</span> --<span class="hljs-literal">-</span> --<span class="hljs-literal">-</span> --<span class="hljs-literal">-</span><br><br><span class="hljs-comment">第一个字符表示文件类型：</span><br><span class="hljs-comment">a</span> <span class="hljs-comment">二进制文件（包括不限于文本文件）；</span><br><span class="hljs-comment">d</span> <span class="hljs-comment">目录（文件夹）；</span><br><span class="hljs-comment">|</span> <span class="hljs-comment">（软链接文件）</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">u(user)</span>  <span class="hljs-comment">所有者</span><br><span class="hljs-comment">g(group)</span> <span class="hljs-comment">所属组</span><br><span class="hljs-comment">o(other)</span> <span class="hljs-comment">其他用户</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">文件权限：</span><br><span class="hljs-comment">r</span> <span class="hljs-comment">查看文件内容；</span><br><span class="hljs-comment">w</span> <span class="hljs-comment">修改文件内容；</span><br><span class="hljs-comment">x</span> <span class="hljs-comment">执行运行文件</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">文件夹权限：</span><br><span class="hljs-comment">r</span> <span class="hljs-comment">列出目录中文件列表（仅限名字）；</span><br><span class="hljs-comment">w</span> <span class="hljs-comment">在目录中创建、删除文件（包括修改文件名字）；</span><br><span class="hljs-comment">x</span> <span class="hljs-comment">可以进入目录（不能查看目录内容）</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">可执行文件：</span><br><span class="hljs-comment">linux一般是用来启动某个应用程序或者服务程序的shell脚本（或类型的脚本）</span><br><span class="hljs-comment"></span><br></code></pre></div></td></tr></tbody></table></figure>
+<figure class="highlight inform7"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs inform7">修改权限：<br>chmod <span class="hljs-comment">[ugoa]</span><span class="hljs-comment">[+-=]</span><span class="hljs-comment">[rwx]</span> <span class="hljs-comment">[file]</span><br>	a 表示ugo三者皆是<br>	+ 表示增加权限；- 表示取消权限；= 表示设定权限<br><br>chmod abc (-R) <span class="hljs-comment">[file]</span><br>	r=4，w=2，x=1<br>	a、b、c各为一个数字,分别表示User、Group、Other的权限<br>	如rwx属性是4+2+1=7；rw-属性是4+2=6；r-x属性是4+1=5<br>	-R表示修改当前目录所有文件与子目录<br></code></pre></div></td></tr></tbody></table></figure>
 <table>
 <thead>
 <tr>
@@ -954,25 +911,7 @@ chmod abc (-R) [file]
 <td align="left">不保存退出</td>
 </tr>
 </tbody></table>
-<div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">另外，Ubuntu中vi出现方向键显示ABCD，且后退键不能删除
-解决方法：
-
-1.修改vimrc.tiny文件
-sudo su root                        //进入root权限
-vi /etc/vim/vimrc.tiny              //修改文件
-set compatible -&gt; set nocompatible  //改为非兼容模式
-set backspace=2                     //加入这句，解决backspace键问题
-
-2.安装vim full版本
-sudo apt-get remove vim-common      //卸载旧版的vi
-sudo apt-get install vim            //安装full版的vim
-
-其中，我运行过程中出现了
-E: dpkg 被中断，您必须手工运行 sudo dpkg --configure -a 解决此问题
-用以下几行命令解决
-sudo rm /var/lib/dpkg/updates/* 
-sudo apt-get update                 //更新软件列表
-sudo apt-get upgrade                //更新软件<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<figure class="highlight gams"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs gams">另外，Ubuntu中vi出现方向键显示ABCD，且后退键不能删除<br>解决方法：<br><br><span class="hljs-number">1.</span>修改vimrc.tiny文件<br>sudo su root                        <span class="hljs-comment">//进入root权限</span><br>vi /etc/vim/vimrc.tiny              <span class="hljs-comment">//修改文件</span><br><span class="hljs-keyword">set</span> compatible <span class="hljs-comment">-&gt; set nocompatible</span>  //改为非兼容模式<br><span class="hljs-keyword">set</span> <span class="hljs-comment">backspace=2</span>                     //加入这句，解决<span class="hljs-comment">backspace</span>键问题<br><br>2.安装vim <span class="hljs-comment">full</span>版本<br>sudo <span class="hljs-comment">apt-get remove vim-common</span>      //卸载旧版的<span class="hljs-comment">vi</span><br>sudo <span class="hljs-comment">apt-get install vim</span>            //安装<span class="hljs-comment">full</span>版的<span class="hljs-comment">vim</span><br><br>其中，我运行过程中出现了<br>E: dpkg 被中断，您必须手工运行<span class="hljs-comment"> sudo dpkg --configure -a</span> 解决此问题<br>用以下几行命令解决<br>sudo <span class="hljs-comment">rm</span> /var/<span class="hljs-comment">lib</span>/dpkg/<span class="hljs-comment">updates</span>/* <br>sudo apt-get update                 <span class="hljs-comment">//更新软件列表</span><br>sudo apt-get upgrade                <span class="hljs-comment">//更新软件</span><br></code></pre></div></td></tr></tbody></table></figure>
             </div>
             <hr>
             <div>
@@ -1123,8 +1062,6 @@ sudo apt-get upgrade                //更新软件<span aria-hidden="true" class
 
 
 
-  
-    
   
 
 

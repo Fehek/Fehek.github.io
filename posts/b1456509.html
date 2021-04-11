@@ -30,17 +30,7 @@
     
     
       
-      
-        
-          
-          
-          
-        
-        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/themes/prism-tomorrow.min.css" />
-      
-      
-        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/plugins/line-numbers/prism-line-numbers.min.css" />
-      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/routeros.min.css" />
     
   
 
@@ -201,7 +191,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      660 字
+      653 字
     </span>
   
 
@@ -211,7 +201,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      5
        分钟
     </span>
   
@@ -275,11 +265,7 @@
 <li>in<br><code>state = 'VA' or state = 'GA' or state = 'FL'</code>和<code>state in ('VA', 'FL', 'GA')</code>等价</li>
 <li>between<br><code>points &gt;= 1000 and points &lt;= 300</code>和<code>points between 1000 and 3000</code>等价</li>
 <li>like<br><code>last_name like '%y'</code> 筛选姓最后一个字母是y的人<br>% 任意字符数&nbsp;&nbsp;&nbsp;&nbsp;_ 单字符</li>
-<li>regexp 正则表达式<div class="code-wrapper"><pre class="line-numbers language-md" data-language="md"><code class="language-md">^       开头
-$       结尾
-|       逻辑或
-[abc]   abc其中一个或多个
-[a-f]   a-f中一个或多个<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<li>regexp 正则表达式<figure class="highlight md"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs md">^       开头<br>$       结尾<br>|       逻辑或<br>[abc]   abc其中一个或多个<br>[a-f]   a-f中一个或多个<br></code></pre></div></td></tr></tbody></table></figure>
 详情见<a href="./468b9935.html#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F">这里</a></li>
 <li>is null 为空的单元格</li>
 </ul>
@@ -290,71 +276,19 @@ $       结尾
 <li>limit<br><code>limit 10</code> 只展示前10项<br><code>limit 6，3</code> 略过前6项，展示3项</li>
 </ol>
 <h1 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h1><p>内连接join</p>
-<div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">from</span> a
-<span class="token keyword">join</span> b <span class="token keyword">on</span> a<span class="token punctuation">.</span>id <span class="token operator">=</span> b<span class="token punctuation">.</span>id
-<span class="token comment">-- 用相同id来合并a和b</span>
-<span class="token comment">-- join b using(id)</span>
-也可用<span class="token keyword">using</span>来连接，多个连接条件中间加<span class="token punctuation">,</span>
-
-<span class="token keyword">from</span> employees e
-<span class="token keyword">join</span> employees m
-  <span class="token keyword">on</span> e<span class="token punctuation">.</span>reports_to <span class="token operator">=</span> m<span class="token punctuation">.</span>employee_id
-<span class="token comment">-- 自连接 </span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql">from a<br>join b on a.id = b.id<br><span class="hljs-comment">-- 用相同id来合并a和b</span><br><span class="hljs-comment">-- join b using(id)</span><br>也可用using来连接，多个连接条件中间加,<br><br>from employees e<br>join employees m<br>  on e.reports_to = m.employee_id<br><span class="hljs-comment">-- 自连接 </span><br></code></pre></div></td></tr></tbody></table></figure>
 <p>外连接left join/right join</p>
-<div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">from</span> c
-<span class="token keyword">left</span> <span class="token keyword">join</span> o <span class="token keyword">on</span> c<span class="token punctuation">.</span>id <span class="token operator">=</span> o<span class="token punctuation">.</span>id
-<span class="token comment">-- 所有左表的记录被返回，不管条件正确还是错误</span>
-<span class="token comment">-- right join则是右表都被返回</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre></div>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql">from c<br>left join o on c.id = o.id<br><span class="hljs-comment">-- 所有左表的记录被返回，不管条件正确还是错误</span><br><span class="hljs-comment">-- right join则是右表都被返回</span><br></code></pre></div></td></tr></tbody></table></figure>
 <p>natural join<br>cross join<br>union 合并多个查询的结果</p>
-<div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">select</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-<span class="token keyword">from</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-<span class="token keyword">where</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-<span class="token keyword">union</span>
-<span class="token keyword">select</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-<span class="token keyword">from</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
-<span class="token keyword">where</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql">select...<br>from...<br>where...<br>union<br>select...<br>from...<br>where...<br></code></pre></div></td></tr></tbody></table></figure>
 
-<h1 id="行"><a href="#行" class="headerlink" title="行"></a>行</h1><div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 插入单行</span>
-<span class="token keyword">insert</span> <span class="token keyword">into</span> xxx<span class="token punctuation">(</span>addr<span class="token punctuation">,</span> n<span class="token punctuation">,</span> who<span class="token punctuation">)</span>
-<span class="token keyword">values</span><span class="token punctuation">(</span><span class="token keyword">default</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">'xxx'</span><span class="token punctuation">)</span>
-
-<span class="token comment">-- 插入多行</span>
-<span class="token keyword">insert</span> <span class="token keyword">into</span> xxx<span class="token punctuation">(</span>name<span class="token punctuation">)</span>
-<span class="token keyword">values</span><span class="token punctuation">(</span><span class="token string">'wwr'</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token string">'tn'</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token string">'io'</span><span class="token punctuation">)</span>
-
-<span class="token comment">-- 复制一张表</span>
-<span class="token keyword">create</span> <span class="token keyword">table</span> orders_archived <span class="token keyword">as</span>
-<span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> orders
-
-<span class="token comment">-- 更新行</span>
-<span class="token keyword">update</span> salary
- <span class="token keyword">set</span> gender <span class="token operator">=</span> f
-<span class="token keyword">where</span> id <span class="token operator">&gt;</span> <span class="token number">10</span>
-
-<span class="token comment">-- 删除行</span>
-<span class="token keyword">delete</span> <span class="token keyword">from</span> xxx
-<span class="token keyword">where</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<h1 id="行"><a href="#行" class="headerlink" title="行"></a>行</h1><figure class="highlight sql"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-comment">-- 插入单行</span><br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> xxx(addr, n, who)<br><span class="hljs-keyword">values</span>(<span class="hljs-keyword">default</span>, <span class="hljs-number">1</span>, <span class="hljs-string">'xxx'</span>)<br><br><span class="hljs-comment">-- 插入多行</span><br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> xxx(<span class="hljs-keyword">name</span>)<br><span class="hljs-keyword">values</span>(<span class="hljs-string">'wwr'</span>),(<span class="hljs-string">'tn'</span>),(<span class="hljs-string">'io'</span>)<br><br><span class="hljs-comment">-- 复制一张表</span><br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> orders_archived <span class="hljs-keyword">as</span><br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> orders<br><br><span class="hljs-comment">-- 更新行</span><br><span class="hljs-keyword">update</span> salary<br> <span class="hljs-keyword">set</span> gender = f<br><span class="hljs-keyword">where</span> <span class="hljs-keyword">id</span> &gt; <span class="hljs-number">10</span><br><br><span class="hljs-comment">-- 删除行</span><br><span class="hljs-keyword">delete</span> <span class="hljs-keyword">from</span> xxx<br>where...<br></code></pre></div></td></tr></tbody></table></figure>
 
 <h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><ul>
 <li>基本函数<br><code>max() min() avg() sum() count()</code> </li>
 <li><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/sql/sql_groupby.asp">group by</a> 分组</li>
 <li><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/sql/sql_having.asp">having</a></li>
-<li>case<div class="code-wrapper"><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 简单case函数</span>
-<span class="token keyword">case</span> gender
-  <span class="token keyword">when</span> <span class="token string">'1'</span> <span class="token keyword">then</span> <span class="token string">'f'</span>
-  <span class="token keyword">when</span> <span class="token string">'2'</span> <span class="token keyword">then</span> <span class="token string">'m'</span>
-  <span class="token keyword">else</span> <span class="token string">'NaN'</span> <span class="token keyword">end</span>
-
-<span class="token comment">-- case搜索函数</span>
-<span class="token keyword">case</span> <span class="token keyword">when</span> gender <span class="token operator">=</span> <span class="token string">'1'</span> <span class="token keyword">then</span> <span class="token string">'f'</span>
-     <span class="token keyword">when</span> gender <span class="token operator">=</span> <span class="token string">'2'</span> <span class="token keyword">then</span> <span class="token string">'m'</span>
-     <span class="token keyword">else</span> <span class="token string">'NaN'</span> <span class="token keyword">end</span>
-
-<span class="token comment">-- case函数只返回第一个符合条件的值，剩下的case部分将会被自动忽略</span>
-<span class="token comment">--下面这段sql，无法得到“第二类”这个结果</span>
-<span class="token keyword">case</span> <span class="token keyword">when</span> col_1 <span class="token operator">in</span> <span class="token punctuation">(</span><span class="token string">'a'</span><span class="token punctuation">,</span><span class="token string">'b'</span><span class="token punctuation">)</span> <span class="token keyword">then</span> <span class="token string">'第一类'</span>
-     <span class="token keyword">when</span> col_1 <span class="token operator">in</span> <span class="token punctuation">(</span><span class="token string">'a'</span><span class="token punctuation">)</span> <span class="token keyword">then</span> <span class="token string">'第二类'</span>
-     <span class="token keyword">else</span> <span class="token string">'其他'</span> <span class="token keyword">end</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<li>case<figure class="highlight sql"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-comment">-- 简单case函数</span><br>case gender<br>  when '1' then 'f'<br>  when '2' then 'm'<br>  else 'NaN' <span class="hljs-keyword">end</span><br><br><span class="hljs-comment">-- case搜索函数</span><br><span class="hljs-keyword">case</span> <span class="hljs-keyword">when</span> gender = <span class="hljs-string">'1'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'f'</span><br>     <span class="hljs-keyword">when</span> gender = <span class="hljs-string">'2'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'m'</span><br>     <span class="hljs-keyword">else</span> <span class="hljs-string">'NaN'</span> <span class="hljs-keyword">end</span><br><br><span class="hljs-comment">-- case函数只返回第一个符合条件的值，剩下的case部分将会被自动忽略</span><br><span class="hljs-comment">--下面这段sql，无法得到“第二类”这个结果</span><br><span class="hljs-keyword">case</span> <span class="hljs-keyword">when</span> col_1 <span class="hljs-keyword">in</span> (<span class="hljs-string">'a'</span>,<span class="hljs-string">'b'</span>) <span class="hljs-keyword">then</span> <span class="hljs-string">'第一类'</span><br>     <span class="hljs-keyword">when</span> col_1 <span class="hljs-keyword">in</span> (<span class="hljs-string">'a'</span>) <span class="hljs-keyword">then</span> <span class="hljs-string">'第二类'</span><br>     <span class="hljs-keyword">else</span> <span class="hljs-string">'其他'</span> <span class="hljs-keyword">end</span><br></code></pre></div></td></tr></tbody></table></figure>
 </li>
 </ul>
 
@@ -510,8 +444,6 @@ $       结尾
 
 
 
-  
-    
   
 
 

@@ -30,17 +30,7 @@
     
     
       
-      
-        
-          
-          
-          
-        
-        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/themes/prism-tomorrow.min.css" />
-      
-      
-        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/plugins/line-numbers/prism-line-numbers.min.css" />
-      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/routeros.min.css" />
     
   
 
@@ -201,7 +191,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      382 字
+      391 字
     </span>
   
 
@@ -267,11 +257,7 @@
 
 <br>
 
-<div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">#rectangle</span> <span class="token punctuation">{</span>
-  <span class="token property">width</span><span class="token punctuation">:</span> 100px<span class="token punctuation">;</span>
-  <span class="token property">height</span><span class="token punctuation">:</span> 100px<span class="token punctuation">;</span>
-  <span class="token property">background</span><span class="token punctuation">:</span> teal<span class="token punctuation">;</span>
-<span class="token punctuation">}</span> <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<figure class="highlight css"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-id">#rectangle</span> {<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">100px</span>;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">100px</span>;<br>  <span class="hljs-attribute">background</span>: teal;<br>} <br></code></pre></div></td></tr></tbody></table></figure>
 <h1 id="三角形"><a href="#三角形" class="headerlink" title="三角形"></a>三角形</h1><h2 id="等腰三角形"><a href="#等腰三角形" class="headerlink" title="等腰三角形"></a>等腰三角形</h2><ol>
 <li>上三角<style>
 #triangle-up {
@@ -289,15 +275,7 @@ border-bottom: 100px solid teal;
 
 </li>
 </ol>
-<div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">#triangle-up</span> <span class="token punctuation">{</span>
-   <span class="token property">width</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-   <span class="token property">height</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-   <span class="token comment">/*  三角形的高度  */</span>
-   <span class="token property">border-left</span><span class="token punctuation">:</span> 50px solid transparent<span class="token punctuation">;</span>
-   <span class="token property">border-right</span><span class="token punctuation">:</span> 50px solid transparent<span class="token punctuation">;</span>
-   <span class="token comment">/*  三角形的底长  */</span>
-   <span class="token property">border-bottom</span><span class="token punctuation">:</span> 100px solid teal<span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<figure class="highlight css"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-id">#triangle-up</span> {<br>   <span class="hljs-attribute">width</span>: <span class="hljs-number">0</span>;<br>   <span class="hljs-attribute">height</span>: <span class="hljs-number">0</span>;<br>   <span class="hljs-comment">/*  三角形的高度  */</span><br>   <span class="hljs-attribute">border-left</span>: <span class="hljs-number">50px</span> solid transparent;<br>   <span class="hljs-attribute">border-right</span>: <span class="hljs-number">50px</span> solid transparent;<br>   <span class="hljs-comment">/*  三角形的底长  */</span><br>   <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">100px</span> solid teal;<br>}<br></code></pre></div></td></tr></tbody></table></figure>
 
 <ol start="2">
 <li>下三角<style>
@@ -316,13 +294,7 @@ border-top: 100px solid teal;
 
 </li>
 </ol>
-<div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">#triangle-down</span> <span class="token punctuation">{</span>
-   <span class="token property">width</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-   <span class="token property">height</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-   <span class="token property">border-left</span><span class="token punctuation">:</span> 50px solid transparent<span class="token punctuation">;</span>
-   <span class="token property">border-right</span><span class="token punctuation">:</span> 50px solid transparent<span class="token punctuation">;</span>
-   <span class="token property">border-top</span><span class="token punctuation">:</span> 100px solid teal<span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<figure class="highlight css"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-id">#triangle-down</span> {<br>   <span class="hljs-attribute">width</span>: <span class="hljs-number">0</span>;<br>   <span class="hljs-attribute">height</span>: <span class="hljs-number">0</span>;<br>   <span class="hljs-attribute">border-left</span>: <span class="hljs-number">50px</span> solid transparent;<br>   <span class="hljs-attribute">border-right</span>: <span class="hljs-number">50px</span> solid transparent;<br>   <span class="hljs-attribute">border-top</span>: <span class="hljs-number">100px</span> solid teal;<br>}<br></code></pre></div></td></tr></tbody></table></figure>
 
 <ol start="3">
 <li>左三角<style>
@@ -341,13 +313,7 @@ border-right: 100px solid teal;
 
 </li>
 </ol>
-<div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">#triangle-left</span> <span class="token punctuation">{</span>
-   <span class="token property">width</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-   <span class="token property">height</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-   <span class="token property">border-top</span><span class="token punctuation">:</span> 50px solid transparent<span class="token punctuation">;</span>
-   <span class="token property">border-bottom</span><span class="token punctuation">:</span> 50px solid transparent<span class="token punctuation">;</span>
-   <span class="token property">border-right</span><span class="token punctuation">:</span> 100px solid teal<span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<figure class="highlight css"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-id">#triangle-left</span> {<br>   <span class="hljs-attribute">width</span>: <span class="hljs-number">0</span>;<br>   <span class="hljs-attribute">height</span>: <span class="hljs-number">0</span>;<br>   <span class="hljs-attribute">border-top</span>: <span class="hljs-number">50px</span> solid transparent;<br>   <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">50px</span> solid transparent;<br>   <span class="hljs-attribute">border-right</span>: <span class="hljs-number">100px</span> solid teal;<br>}<br></code></pre></div></td></tr></tbody></table></figure>
 
 <ol start="4">
 <li>右三角<style>
@@ -366,13 +332,7 @@ border-left: 100px solid teal;
 
 </li>
 </ol>
-<div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">#triangle-right</span> <span class="token punctuation">{</span>
-   <span class="token property">width</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-   <span class="token property">height</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-   <span class="token property">border-top</span><span class="token punctuation">:</span> 50px solid transparent<span class="token punctuation">;</span>
-   <span class="token property">border-bottom</span><span class="token punctuation">:</span> 50px solid transparent<span class="token punctuation">;</span>
-   <span class="token property">border-left</span><span class="token punctuation">:</span> 100px solid teal<span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<figure class="highlight css"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-id">#triangle-right</span> {<br>   <span class="hljs-attribute">width</span>: <span class="hljs-number">0</span>;<br>   <span class="hljs-attribute">height</span>: <span class="hljs-number">0</span>;<br>   <span class="hljs-attribute">border-top</span>: <span class="hljs-number">50px</span> solid transparent;<br>   <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">50px</span> solid transparent;<br>   <span class="hljs-attribute">border-left</span>: <span class="hljs-number">100px</span> solid teal;<br>}<br></code></pre></div></td></tr></tbody></table></figure>
 
 <h2 id="直角三角形"><a href="#直角三角形" class="headerlink" title="直角三角形"></a>直角三角形</h2><ol>
 <li>左上三角<style>
@@ -390,14 +350,7 @@ border-right: 100px solid transparent;
 
 </li>
 </ol>
-<div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">#triangle-topleft</span> <span class="token punctuation">{</span>
-   <span class="token property">width</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-   <span class="token property">height</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-   <span class="token comment">/*  三角形的高  */</span>
-   <span class="token property">border-top</span><span class="token punctuation">:</span> 120px solid teal<span class="token punctuation">;</span>
-   <span class="token comment">/*  三角形的上底  */</span>
-   <span class="token property">border-right</span><span class="token punctuation">:</span> 100px solid transparent<span class="token punctuation">;</span>     
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<figure class="highlight css"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-id">#triangle-topleft</span> {<br>   <span class="hljs-attribute">width</span>: <span class="hljs-number">0</span>;<br>   <span class="hljs-attribute">height</span>: <span class="hljs-number">0</span>;<br>   <span class="hljs-comment">/*  三角形的高  */</span><br>   <span class="hljs-attribute">border-top</span>: <span class="hljs-number">120px</span> solid teal;<br>   <span class="hljs-comment">/*  三角形的上底  */</span><br>   <span class="hljs-attribute">border-right</span>: <span class="hljs-number">100px</span> solid transparent;     <br>}<br></code></pre></div></td></tr></tbody></table></figure>
 
 <ol start="2">
 <li>右上三角<style>
@@ -415,12 +368,7 @@ border-left: 100px solid transparent;
 
 </li>
 </ol>
-<div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">#triangle-topright</span> <span class="token punctuation">{</span>
-   <span class="token property">width</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-   <span class="token property">height</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-   <span class="token property">border-top</span><span class="token punctuation">:</span> 120px solid teal<span class="token punctuation">;</span>
-   <span class="token property">border-left</span><span class="token punctuation">:</span> 100px solid transparent<span class="token punctuation">;</span>     
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<figure class="highlight css"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-id">#triangle-topright</span> {<br>   <span class="hljs-attribute">width</span>: <span class="hljs-number">0</span>;<br>   <span class="hljs-attribute">height</span>: <span class="hljs-number">0</span>;<br>   <span class="hljs-attribute">border-top</span>: <span class="hljs-number">120px</span> solid teal;<br>   <span class="hljs-attribute">border-left</span>: <span class="hljs-number">100px</span> solid transparent;     <br>}<br></code></pre></div></td></tr></tbody></table></figure>
 
 <ol start="3">
 <li>左下三角<style>
@@ -438,12 +386,7 @@ border-right: 100px solid transparent;
 
 </li>
 </ol>
-<div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">#triangle-bottomleft</span> <span class="token punctuation">{</span>
-   <span class="token property">width</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-   <span class="token property">height</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-   <span class="token property">border-bottom</span><span class="token punctuation">:</span> 120px solid teal<span class="token punctuation">;</span>
-   <span class="token property">border-right</span><span class="token punctuation">:</span> 100px solid transparent<span class="token punctuation">;</span>     
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<figure class="highlight css"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-id">#triangle-bottomleft</span> {<br>   <span class="hljs-attribute">width</span>: <span class="hljs-number">0</span>;<br>   <span class="hljs-attribute">height</span>: <span class="hljs-number">0</span>;<br>   <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">120px</span> solid teal;<br>   <span class="hljs-attribute">border-right</span>: <span class="hljs-number">100px</span> solid transparent;     <br>}<br></code></pre></div></td></tr></tbody></table></figure>
 
 <ol start="4">
 <li>右下三角<style>
@@ -461,12 +404,7 @@ border-left: 100px solid transparent;
 
 </li>
 </ol>
-<div class="code-wrapper"><pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">#triangle-bottomright</span> <span class="token punctuation">{</span>
-   <span class="token property">width</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-   <span class="token property">height</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
-   <span class="token property">border-bottom</span><span class="token punctuation">:</span> 120px solid teal<span class="token punctuation">;</span>
-   <span class="token property">border-left</span><span class="token punctuation">:</span> 100px solid transparent<span class="token punctuation">;</span>     
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<figure class="highlight css"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs css"><span class="hljs-selector-id">#triangle-bottomright</span> {<br>   <span class="hljs-attribute">width</span>: <span class="hljs-number">0</span>;<br>   <span class="hljs-attribute">height</span>: <span class="hljs-number">0</span>;<br>   <span class="hljs-attribute">border-bottom</span>: <span class="hljs-number">120px</span> solid teal;<br>   <span class="hljs-attribute">border-left</span>: <span class="hljs-number">100px</span> solid transparent;     <br>}<br></code></pre></div></td></tr></tbody></table></figure>
 
             </div>
             <hr>
@@ -620,8 +558,6 @@ border-left: 100px solid transparent;
 
 
 
-  
-    
   
 
 

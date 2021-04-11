@@ -30,17 +30,7 @@
     
     
       
-      
-        
-          
-          
-          
-        
-        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/themes/prism-tomorrow.min.css" />
-      
-      
-        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/plugins/line-numbers/prism-line-numbers.min.css" />
-      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/routeros.min.css" />
     
   
 
@@ -201,7 +191,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      477 字
+      473 字
     </span>
   
 
@@ -259,19 +249,7 @@
 <li>用<a target="_blank" rel="noopener" href="https://rufus.ie/">Rufus</a>将镜像文件导入microSD卡，插入树莓派。</li>
 </ul>
 <h1 id="激活WIFI"><a href="#激活WIFI" class="headerlink" title="激活WIFI"></a>激活WIFI</h1><p>在电脑上，进入已经烧录好系统的内存卡boot区，新建一个配置文件</p>
-<div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">文件名wpa_supplicant.conf
-
-country=CN
-ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-update_config=1
- 
-network={
-ssid="WiFi-A"		# ssid:网络的名称
-psk="123"		    # psk:密码
-key_mgmt=WPA-PSK	# WiFi 使用WPA/WPA2加密
-priority=1			# priority:连接优先级，数字越大优先级越高（不可以是负数）
-scan_ssid=0   		# scan_ssid:连接隐藏WiFi时需要指定该值为1
-}<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<figure class="highlight routeros"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs routeros">文件名wpa_supplicant.conf<br><br><span class="hljs-attribute">country</span>=CN<br><span class="hljs-attribute">ctrl_interface</span>=DIR=/var/run/wpa_supplicant <span class="hljs-attribute">GROUP</span>=netdev<br><span class="hljs-attribute">update_config</span>=1<br> <br>network={<br><span class="hljs-attribute">ssid</span>=<span class="hljs-string">"WiFi-A"</span>		# ssid:网络的名称<br><span class="hljs-attribute">psk</span>=<span class="hljs-string">"123"</span>		    # psk:密码<br><span class="hljs-attribute">key_mgmt</span>=WPA-PSK	# WiFi 使用WPA/WPA2加密<br><span class="hljs-attribute">priority</span>=1			# priority:连接优先级，数字越大优先级越高（不可以是负数）<br><span class="hljs-attribute">scan_ssid</span>=0   		# scan_ssid:连接隐藏WiFi时需要指定该值为1<br>}<br></code></pre></div></td></tr></tbody></table></figure>
 
 <h1 id="开启SSH"><a href="#开启SSH" class="headerlink" title="开启SSH"></a>开启SSH</h1><p>在内存卡 boot 区，新建建立一个名字为 ssh 的空白文件即可。注意要小写且不要有任何扩展名。<br>树莓派启动后会在检测到这个文件之后自动启用 ssh 服务，随后即可通过登录路由器找到树莓派的 IP 地址，通过 ssh 连接到树莓派了。</p>
 <h1 id="使用VNC"><a href="#使用VNC" class="headerlink" title="使用VNC"></a>使用VNC</h1><h2 id="查询树莓派IP"><a href="#查询树莓派IP" class="headerlink" title="查询树莓派IP"></a>查询树莓派IP</h2><ul>
@@ -439,8 +417,6 @@ scan_ssid=0   		# scan_ssid:连接隐藏WiFi时需要指定该值为1
 
 
 
-  
-    
   
 
 

@@ -268,12 +268,10 @@
 
 Samba
 安装samba软件 
-sudo apt-get install samba samba-common-bin -y
+1sudo apt-get install samba samba-common-bin -y
 
 配置 /etc/samba/smb.conf 文件
-sudo nano /etc/samba/smb.conf
-
-# 在文件末
+123456789101112131415161718sudo nano
         </a>
       </p>
 
@@ -332,8 +330,7 @@ sudo nano /etc/samba/smb.conf
             
           
           换源在实际使用时，树莓派可能会出现下载慢的问题，主要原因是树莓派的服务器位于其他国家，为解决此问题可以选择我国的镜像站。如想对树莓派系统源与软件源进行修改，要先在终端找到源的位置，然后将用其它的国内源替换，之后保存确认退出。
-替换系统更新源，主要包括raspi-config、minecraftpi、树莓派桌面环境、内核固件驱动等少量软件。
-sudo nano /etc/apt/sources.li
+12345678替换系统更新源，主要包括raspi-config、minecraftpi、树莓派桌面环境、内核固件驱动等少量软件。sudo nano /etc/apt/sou
         </a>
       </p>
 
@@ -394,10 +391,7 @@ sudo nano /etc/apt/sources.li
 用Rufus将镜像文件导入microSD卡，插入树莓派。
 
 激活WIFI在电脑上，进入已经烧录好系统的内存卡boot区，新建一个配置文件
-文件名wpa_supplicant.conf
-
-country=CN
-ctrl_interface=DIR=/va
+12345678910111213文件名wpa_supplicant.confcountry=CNctrl_int
         </a>
       </p>
 
@@ -612,10 +606,8 @@ cd ~
           
             
           
-          Windows Registry Editor Version 5.00
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout]
-"Scancode Map"=hex:00,00,00,00,00,00,00,00,03,00,00,00,2E,E0,3C,00,30,E0,3D,00,00,00,00,00
-将以
+          123Windows Registry Editor Version 5.00[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout]"Scancode Map"=hex:00,00,00,00,00,00,00,00,03,00,00,00,2E,E0,3C,00,30,E0,3D,00,00,00,00,00
+将
         </a>
       </p>
 
@@ -775,13 +767,9 @@ HTML5新增语义化标签article，section，aside，header，footer，nav，ma
           
             
           
-          路径及注释../               上一级目录
-../../            上两级目录
-&lt;!-- 注释内容 --&gt;  注释（快捷键Ctrl + /）
+          路径及注释123../               上一级目录../../            上两级目录&lt;!-- 注释内容 --&gt;  注释（快捷键Ctrl + /）
 
-标题&lt;h1&gt;......&lt;/h1&gt;    一级标题（就是Markdown里的#）
-&lt;h2&gt;......&lt;/h2&gt;    二级标题（##）
-&lt;h3&gt;......
+标题123456&lt;h1&gt;......&lt;/h1&gt;    一级标题（就是Markdown里的#）&lt;h2&gt;......&lt;/h2&gt;    二级标题（##）&lt;h3&gt;.
         </a>
       </p>
 
@@ -907,8 +895,6 @@ HTML5新增语义化标签article，section，aside，header，footer，nav，ma
 
 
 
-  
-    
   
 
 

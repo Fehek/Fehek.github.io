@@ -30,17 +30,7 @@
     
     
       
-      
-        
-          
-          
-          
-        
-        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/themes/prism-tomorrow.min.css" />
-      
-      
-        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/plugins/line-numbers/prism-line-numbers.min.css" />
-      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/routeros.min.css" />
     
   
 
@@ -201,7 +191,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      158 字
+      159 字
     </span>
   
 
@@ -255,26 +245,7 @@
             
             <div class="markdown-body">
               <p>添加APlayer播放器</p>
-<div class="code-wrapper"><pre class="line-numbers language-ejs" data-language="ejs"><code class="language-ejs"><span class="token comment">&lt;!-- 在\theme\fluid\layout\layout.ejs里添加 --&gt;</span>
-<span class="token comment">&lt;!-- 引用依赖 --&gt;</span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span> 
-  <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>https://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token script"></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
-
-<span class="token comment">&lt;!-- 我使用的APlayer本体 --&gt;</span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>aplayer<span class="token punctuation">"</span></span> 
-  <span class="token attr-name">data-id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>445994750<span class="token punctuation">"</span></span> 
-  <span class="token attr-name">data-server</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>netease<span class="token punctuation">"</span></span> 
-  <span class="token attr-name">data-type</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>playlist<span class="token punctuation">"</span></span> 
-  <span class="token attr-name">data-fixed</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span> 
-  <span class="token attr-name">data-autoplay</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>false<span class="token punctuation">"</span></span> 
-  <span class="token attr-name">data-order</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>random<span class="token punctuation">"</span></span> 
-  <span class="token attr-name">data-volume</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>0.7<span class="token punctuation">"</span></span> 
-  <span class="token attr-name">data-theme</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>#cc543a<span class="token punctuation">"</span></span> 
-  <span class="token attr-name">data-preload</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>auto<span class="token punctuation">"</span></span> <span class="token punctuation">&gt;</span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
-<span class="token comment">&lt;!--如果将本体放在body里面导致页面加载出现问题，请尝试放到body体后面--&gt;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs ejs">&lt;!-- 在\theme\fluid\layout\layout.ejs里添加 --&gt;<br>&lt;!-- 引用依赖 --&gt;<br>&lt;link rel="stylesheet" <br>  href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"&gt;<br>&lt;script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"&gt;&lt;/script&gt;<br>&lt;script src="https://cdn.jsdelivr.net/npm/meting@1.2.0/dist/Meting.min.js"&gt;&lt;/script&gt;<br><br>&lt;!-- 我使用的APlayer本体 --&gt;<br>&lt;div class="aplayer" <br>  data-id="445994750" <br>  data-server="netease" <br>  data-type="playlist" <br>  data-fixed="true" <br>  data-autoplay="false" <br>  data-order="random" <br>  data-volume="0.7" <br>  data-theme="#cc543a" <br>  data-preload="auto" &gt;<br>  &lt;/div&gt;<br>&lt;!--如果将本体放在body里面导致页面加载出现问题，请尝试放到body体后面--&gt;<br></code></pre></div></td></tr></tbody></table></figure>
 
             </div>
             <hr>
@@ -420,8 +391,6 @@
 
 
 
-  
-    
   
 
 

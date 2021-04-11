@@ -30,17 +30,7 @@
     
     
       
-      
-        
-          
-          
-          
-        
-        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/themes/prism-tomorrow.min.css" />
-      
-      
-        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/plugins/line-numbers/prism-line-numbers.min.css" />
-      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/routeros.min.css" />
     
   
 
@@ -201,7 +191,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      698 字
+      696 字
     </span>
   
 
@@ -258,106 +248,20 @@
 <span id="more"></span>
 
 <h1 id="修改永久链接"><a href="#修改永久链接" class="headerlink" title="修改永久链接"></a>修改永久链接</h1><p>安装插件</p>
-<div class="code-wrapper"><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">npm</span> <span class="token function">install</span> hexo-abbrlink --save <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></div>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs bash">$ npm install hexo-abbrlink --save <br></code></pre></div></td></tr></tbody></table></figure>
 <p>打开根目录下的 _config.yml文件，修改为</p>
-<div class="code-wrapper"><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># permalink: :year/:month/:day/:title/</span>
-<span class="token key atrule">permalink</span><span class="token punctuation">:</span> posts/<span class="token punctuation">:</span>abbrlink.html
-<span class="token key atrule">abbrlink</span><span class="token punctuation">:</span>
-  <span class="token key atrule">alg</span><span class="token punctuation">:</span> crc32  <span class="token comment"># 算法：crc16(default) and crc32</span>
-  <span class="token key atrule">rep</span><span class="token punctuation">:</span> hex    <span class="token comment"># 进制：dec(default) and hex</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<figure class="highlight yaml"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs yaml"><span class="hljs-comment"># permalink: :year/:month/:day/:title/</span><br><span class="hljs-attr">permalink:</span> <span class="hljs-string">posts/:abbrlink.html</span><br><span class="hljs-attr">abbrlink:</span><br>  <span class="hljs-attr">alg:</span> <span class="hljs-string">crc32</span>  <span class="hljs-comment"># 算法：crc16(default) and crc32</span><br>  <span class="hljs-attr">rep:</span> <span class="hljs-string">hex</span>    <span class="hljs-comment"># 进制：dec(default) and hex</span><br></code></pre></div></td></tr></tbody></table></figure>
 
 <h1 id="修改排序配置"><a href="#修改排序配置" class="headerlink" title="修改排序配置"></a>修改排序配置</h1><p>top值越高，排序越在前，不设置top值得博文按照时间顺序排序。<br>打开node_modules/hexo-generator-index/lib/generator.js文件，添加</p>
-<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js">posts<span class="token punctuation">.</span>data <span class="token operator">=</span> posts<span class="token punctuation">.</span>data<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">a<span class="token punctuation">,</span> b</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-<span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span>top <span class="token operator">&amp;&amp;</span> b<span class="token punctuation">.</span>top<span class="token punctuation">)</span> <span class="token punctuation">{</span>                             <span class="token comment">// 两篇文章top都有定义</span>
-    <span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span>top <span class="token operator">==</span> b<span class="token punctuation">.</span>top<span class="token punctuation">)</span> <span class="token keyword">return</span> b<span class="token punctuation">.</span>date <span class="token operator">-</span> a<span class="token punctuation">.</span>date<span class="token punctuation">;</span>   <span class="token comment">// 若top值一样则按照文章日期降序排</span>
-    <span class="token keyword">else</span> <span class="token keyword">return</span> b<span class="token punctuation">.</span>top <span class="token operator">-</span> a<span class="token punctuation">.</span>top<span class="token punctuation">;</span>                   <span class="token comment">// 否则按照top值降序排</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span>top <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>b<span class="token punctuation">.</span>top<span class="token punctuation">)</span> <span class="token punctuation">{</span>                       <span class="token comment">// 只有一篇文章top有定义，那么将有top的排在前面</span>
-    <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>a<span class="token punctuation">.</span>top <span class="token operator">&amp;&amp;</span> b<span class="token punctuation">.</span>top<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">else</span> <span class="token keyword">return</span> b<span class="token punctuation">.</span>date <span class="token operator">-</span> a<span class="token punctuation">.</span>date<span class="token punctuation">;</span>                    <span class="token comment">// 都没定义按照文章日期降序排</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<figure class="highlight js"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js">posts.data = posts.data.sort(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) </span>{<br><span class="hljs-keyword">if</span>(a.top &amp;&amp; b.top) {                             <span class="hljs-comment">// 两篇文章top都有定义</span><br>    <span class="hljs-keyword">if</span>(a.top == b.top) <span class="hljs-keyword">return</span> b.date - a.date;   <span class="hljs-comment">// 若top值一样则按照文章日期降序排</span><br>    <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> b.top - a.top;                   <span class="hljs-comment">// 否则按照top值降序排</span><br>}<br><span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(a.top &amp;&amp; !b.top) {                       <span class="hljs-comment">// 只有一篇文章top有定义，那么将有top的排在前面</span><br>    <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>}<br><span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(!a.top &amp;&amp; b.top) {<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>}<br><span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> b.date - a.date;                    <span class="hljs-comment">// 都没定义按照文章日期降序排</span><br>});<br></code></pre></div></td></tr></tbody></table></figure>
 <p>最终显示</p>
-<div class="code-wrapper"><pre class="line-numbers language-js" data-language="js"><code class="language-js"><span class="token string">'use strict'</span><span class="token punctuation">;</span>
-
-<span class="token keyword">var</span> pagination <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'hexo-pagination'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-module<span class="token punctuation">.</span><span class="token function-variable function">exports</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">locals</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">var</span> config <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>config<span class="token punctuation">;</span>
-  <span class="token keyword">var</span> posts <span class="token operator">=</span> locals<span class="token punctuation">.</span>posts<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>config<span class="token punctuation">.</span>index_generator<span class="token punctuation">.</span>order_by<span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  posts<span class="token punctuation">.</span>data <span class="token operator">=</span> posts<span class="token punctuation">.</span>data<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">a<span class="token punctuation">,</span> b</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span>top <span class="token operator">&amp;&amp;</span> b<span class="token punctuation">.</span>top<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          <span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span>top <span class="token operator">==</span> b<span class="token punctuation">.</span>top<span class="token punctuation">)</span> <span class="token keyword">return</span> b<span class="token punctuation">.</span>date <span class="token operator">-</span> a<span class="token punctuation">.</span>date<span class="token punctuation">;</span>
-          <span class="token keyword">else</span> <span class="token keyword">return</span> b<span class="token punctuation">.</span>top <span class="token operator">-</span> a<span class="token punctuation">.</span>top<span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-      <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>a<span class="token punctuation">.</span>top <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>b<span class="token punctuation">.</span>top<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-      <span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>a<span class="token punctuation">.</span>top <span class="token operator">&amp;&amp;</span> b<span class="token punctuation">.</span>top<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-      <span class="token keyword">else</span> <span class="token keyword">return</span> b<span class="token punctuation">.</span>date <span class="token operator">-</span> a<span class="token punctuation">.</span>date<span class="token punctuation">;</span>
-  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-
-  <span class="token keyword">var</span> paginationDir <span class="token operator">=</span> config<span class="token punctuation">.</span>pagination_dir <span class="token operator">||</span> <span class="token string">'page'</span><span class="token punctuation">;</span>
-
-  <span class="token keyword">return</span> <span class="token function">pagination</span><span class="token punctuation">(</span><span class="token string">''</span><span class="token punctuation">,</span> posts<span class="token punctuation">,</span> <span class="token punctuation">{</span>
-    perPage<span class="token operator">:</span> config<span class="token punctuation">.</span>index_generator<span class="token punctuation">.</span>per_page<span class="token punctuation">,</span>
-    layout<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'index'</span><span class="token punctuation">,</span> <span class="token string">'archive'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
-    format<span class="token operator">:</span> paginationDir <span class="token operator">+</span> <span class="token string">'/%d/'</span><span class="token punctuation">,</span>
-    data<span class="token operator">:</span> <span class="token punctuation">{</span>
-      __index<span class="token operator">:</span> <span class="token boolean">true</span>
-    <span class="token punctuation">}</span>
-  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<figure class="highlight js"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-meta">'use strict'</span>;<br><br><span class="hljs-keyword">var</span> pagination = <span class="hljs-built_in">require</span>(<span class="hljs-string">'hexo-pagination'</span>);<br><br><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">locals</span>) </span>{<br>  <span class="hljs-keyword">var</span> config = <span class="hljs-built_in">this</span>.config;<br>  <span class="hljs-keyword">var</span> posts = locals.posts.sort(config.index_generator.order_by);<br><br>  posts.data = posts.data.sort(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) </span>{<br>      <span class="hljs-keyword">if</span>(a.top &amp;&amp; b.top) {<br>          <span class="hljs-keyword">if</span>(a.top == b.top) <span class="hljs-keyword">return</span> b.date - a.date;<br>          <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> b.top - a.top;<br>      }<br>      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(a.top &amp;&amp; !b.top) {<br>          <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>;<br>      }<br>      <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(!a.top &amp;&amp; b.top) {<br>          <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>      }<br>      <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> b.date - a.date;<br>  });<br><br>  <span class="hljs-keyword">var</span> paginationDir = config.pagination_dir || <span class="hljs-string">'page'</span>;<br><br>  <span class="hljs-keyword">return</span> pagination(<span class="hljs-string">''</span>, posts, {<br>    perPage: config.index_generator.per_page,<br>    layout: [<span class="hljs-string">'index'</span>, <span class="hljs-string">'archive'</span>],<br>    format: paginationDir + <span class="hljs-string">'/%d/'</span>,<br>    data: {<br>      __index: <span class="hljs-literal">true</span><br>    }<br>  });<br>};<br></code></pre></div></td></tr></tbody></table></figure>
 <p>更新：hexo-generator-index 从 2.0.0 开始，已经支持文章置顶功能。可以直接在文章的front-matter区域里添加sticky: Number将文章置顶。数值越大，置顶的优先级越高。 </p>
-<h1 id="源文件备份"><a href="#源文件备份" class="headerlink" title="源文件备份"></a>源文件备份</h1><div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">将source文件上传到仓库分支，便于不同电脑编辑
-在github上新建一个hexo分支，选择此分支分支为默认分支
-（这样每次同步的时候就不用指定分支）
-
-将其克隆到本地，因为默认分支已经设成了hexo，所以只克隆了hexo分支
-git clone git@github.com:Fehek/Fehek.github.io.git
-
-在克隆到本地的Fehek.github.io中，把除了.git 文件夹外的所有文件都删掉
-
-git add 
-git commit –m "XXX"
-git push
-上传完毕<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
-<div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">更换电脑，安装git和nodejs后
-ssh-keygen -t rsa -C "youremail"    //设置ssh key，生成后填到github和coding上
-ssh -T git@github.com               //验证是否成功
-ssh -T git@git.coding.net           //没有coding账号可省略
-sudo npm install hexo-cli -g        //安装hexo  
-
-//在任意文件夹下克隆
-git clone git@………………                
-//在克隆文件夹下安装
-npm install                         
-npm install hexo-deployer-git --save  
-
-//生成及部署
-hexo g &amp;&amp; hexo d 
-
-//源文件上传
-git add .
-git commit –m "xxxx"
-git push  
-
-//已经编辑过的电脑有clone文件夹了，和远端同步
-git pull<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<h1 id="源文件备份"><a href="#源文件备份" class="headerlink" title="源文件备份"></a>源文件备份</h1><figure class="highlight stylus"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs stylus">将source文件上传到仓库分支，便于不同电脑编辑<br>在github上新建一个hexo分支，选择此分支分支为默认分支<br>（这样每次同步的时候就不用指定分支）<br><br>将其克隆到本地，因为默认分支已经设成了hexo，所以只克隆了hexo分支<br>git clone git@github<span class="hljs-selector-class">.com</span>:Fehek/Fehek<span class="hljs-selector-class">.github</span><span class="hljs-selector-class">.io</span>.git<br><br>在克隆到本地的Fehek<span class="hljs-selector-class">.github</span>.io中，把除了<span class="hljs-selector-class">.git</span> 文件夹外的所有文件都删掉<br><br>git add <br>git commit –m <span class="hljs-string">"XXX"</span><br>git push<br>上传完毕<br></code></pre></div></td></tr></tbody></table></figure>
+<figure class="highlight awk"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs awk">更换电脑，安装git和nodejs后<br>ssh-keygen -t rsa -C <span class="hljs-string">"youremail"</span>    <span class="hljs-regexp">//</span>设置ssh key，生成后填到github和coding上<br>ssh -T git@github.com               <span class="hljs-regexp">//</span>验证是否成功<br>ssh -T git@git.coding.net           <span class="hljs-regexp">//</span>没有coding账号可省略<br>sudo npm install hexo-cli -g        <span class="hljs-regexp">//</span>安装hexo  <br><br><span class="hljs-regexp">//</span>在任意文件夹下克隆<br>git clone git@………………                <br><span class="hljs-regexp">//</span>在克隆文件夹下安装<br>npm install                         <br>npm install hexo-deployer-git --save  <br><br><span class="hljs-regexp">//</span>生成及部署<br>hexo g &amp;&amp; hexo d <br><br><span class="hljs-regexp">//</span>源文件上传<br>git add .<br>git commit –m <span class="hljs-string">"xxxx"</span><br>git push  <br><br><span class="hljs-regexp">//</span>已经编辑过的电脑有clone文件夹了，和远端同步<br>git pull<br></code></pre></div></td></tr></tbody></table></figure>
 <h1 id="加入emoji-sunglasses"><a href="#加入emoji-sunglasses" class="headerlink" title="加入emoji:sunglasses:"></a>加入emoji<span class="github-emoji"><span>😎</span><img src="https://github.githubassets.com/images/icons/emoji/unicode/1f60e.png?v8" srcset="/img/loading.gif" lazyload aria-hidden="true" onerror="this.parent.classList.add('github-emoji-fallback')"></span></h1><p>下载插件 <code>npm install hexo-filter-github-emojis --save</code></p>
 <p>修改根目录下的_config.yml文件，启用插件</p>
-<div class="code-wrapper"><pre class="line-numbers language-yml" data-language="yml"><code class="language-yml"><span class="token key atrule">githubEmojis</span><span class="token punctuation">:</span> 
-  <span class="token key atrule">enable</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
-  <span class="token key atrule">className</span><span class="token punctuation">:</span> github<span class="token punctuation">-</span>emoji
-  <span class="token key atrule">inject</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
-  <span class="token key atrule">styles</span><span class="token punctuation">:</span>
-  customEmojis<span class="token punctuation">:</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></div>
+<figure class="highlight yml"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs yml"><span class="hljs-attr">githubEmojis:</span> <br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">className:</span> <span class="hljs-string">github-emoji</span><br>  <span class="hljs-attr">inject:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">styles:</span><br>  <span class="hljs-attr">customEmojis:</span><br></code></pre></div></td></tr></tbody></table></figure>
 
             </div>
             <hr>
@@ -513,8 +417,6 @@ git pull<span aria-hidden="true" class="line-numbers-rows"><span></span><span></
 
 
 
-  
-    
   
 
 

@@ -30,17 +30,7 @@
     
     
       
-      
-        
-          
-          
-          
-        
-        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/themes/prism-tomorrow.min.css" />
-      
-      
-        <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.22.0/plugins/line-numbers/prism-line-numbers.min.css" />
-      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/routeros.min.css" />
     
   
 
@@ -254,9 +244,7 @@
               </p>
             
             <div class="markdown-body">
-              <div class="code-wrapper"><pre class="line-numbers language-none"><code class="language-none">Windows Registry Editor Version 5.00
-[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Keyboard Layout]
-"Scancode Map"=hex:00,00,00,00,00,00,00,00,03,00,00,00,2E,E0,3C,00,30,E0,3D,00,00,00,00,00<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre></div>
+              <figure class="highlight mathematica"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs mathematica"><span class="hljs-variable">Windows</span> <span class="hljs-variable">Registry</span> <span class="hljs-variable">Editor</span> <span class="hljs-built_in">Version</span> <span class="hljs-number">5.00</span><br><span class="hljs-punctuation">[</span><span class="hljs-type">HKEY_LOCAL</span><span class="hljs-type">_MACHINE</span>\<span class="hljs-variable">SYSTEM</span>\<span class="hljs-variable">CurrentControlSet</span>\<span class="hljs-built_in">Control</span>\<span class="hljs-variable">Keyboard</span> <span class="hljs-variable">Layout</span><span class="hljs-punctuation">]</span><br><span class="hljs-string">"Scancode Map"</span><span class="hljs-operator">=</span><span class="hljs-variable">hex</span><span class="hljs-operator">:</span><span class="hljs-number">00</span><span class="hljs-operator">,</span><span class="hljs-number">00</span><span class="hljs-operator">,</span><span class="hljs-number">00</span><span class="hljs-operator">,</span><span class="hljs-number">00</span><span class="hljs-operator">,</span><span class="hljs-number">00</span><span class="hljs-operator">,</span><span class="hljs-number">00</span><span class="hljs-operator">,</span><span class="hljs-number">00</span><span class="hljs-operator">,</span><span class="hljs-number">00</span><span class="hljs-operator">,</span><span class="hljs-number">03</span><span class="hljs-operator">,</span><span class="hljs-number">00</span><span class="hljs-operator">,</span><span class="hljs-number">00</span><span class="hljs-operator">,</span><span class="hljs-number">00</span><span class="hljs-operator">,</span><span class="hljs-number">2</span><span class="hljs-built_in">E</span><span class="hljs-operator">,</span><span class="hljs-variable">E0</span><span class="hljs-operator">,</span><span class="hljs-number">3</span><span class="hljs-built_in">C</span><span class="hljs-operator">,</span><span class="hljs-number">00</span><span class="hljs-operator">,</span><span class="hljs-number">30</span><span class="hljs-operator">,</span><span class="hljs-variable">E0</span><span class="hljs-operator">,</span><span class="hljs-number">3</span><span class="hljs-built_in">D</span><span class="hljs-operator">,</span><span class="hljs-number">00</span><span class="hljs-operator">,</span><span class="hljs-number">00</span><span class="hljs-operator">,</span><span class="hljs-number">00</span><span class="hljs-operator">,</span><span class="hljs-number">00</span><span class="hljs-operator">,</span><span class="hljs-number">00</span><br></code></pre></div></td></tr></tbody></table></figure>
 <p>将以上文本保存为 reg 格式<br>重启电脑，F2 变为降低音量，F3 变为增大音量<br>如要恢复原本键位，将hex:后内容删除再次修改注册表重启即可。</p>
 <p>其中，2E,E0表示音量降低；3C,00表示F2键；30,E0表示增大音量；3D,00表示F3键，若要改成其它键位，参照下表。</p>
 <table>
@@ -468,8 +456,6 @@
 
 
 
-  
-    
   
 
 
