@@ -191,7 +191,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.6k 字
+      3.8k 字
     </span>
   
 
@@ -201,7 +201,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      22
+      33
        分钟
     </span>
   
@@ -239,7 +239,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月11日 晚上
+                  本文最后更新于：2021年4月12日 晚上
                 
               </p>
             
@@ -374,21 +374,88 @@
 
 </li>
 </ul>
-<h2 id="计算属性与监视"><a href="#计算属性与监视" class="headerlink" title="计算属性与监视"></a>计算属性与监视</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;fieldset&gt;<br>    &lt;legend&gt;姓名操作&lt;/legend&gt;<br>    姓氏：&lt;input type="text" placeholder="请输入姓氏" v-model="user.firstName" /&gt;&lt;br /&gt;<br>    名字：&lt;input type="text" placeholder="请输入名字" v-model="user.lastName" /&gt;&lt;br /&gt;<br>  &lt;/fieldset&gt;<br>  &lt;fieldset&gt;<br>    &lt;legend&gt;计算属性和监视的演示&lt;/legend&gt;<br>    姓名：&lt;input type="text" placeholder="显示姓名" v-model="fullName1" /&gt;&lt;br /&gt;<br>    姓名：&lt;input type="text" placeholder="显示姓名" v-model="fullName2" /&gt;&lt;br /&gt;<br>    姓名：&lt;input type="text" placeholder="显示姓名" v-model="fullName3" /&gt;&lt;br /&gt;<br>  &lt;/fieldset&gt;<br>&lt;/template&gt;<br><br>&lt;script lang="ts"&gt;<br>import { computed, defineComponent, reactive, ref, watch, watchEffect } from 'vue'<br>export default defineComponent({<br>  name: 'App',<br>  // 定义一个响应式对象<br>  setup() {<br>    const user = reactive({<br>      firstName: '李',<br>      lastName: '小明'<br>    })<br>    // 计算属性的函数中如果只传入一个回调函数，表示的是get<br>    // 返回的是一个Ref类型的对象<br>    const fullName1 = computed(() =&gt; {<br>      return user.firstName + '_' + user.lastName<br>    })<br><br>    const fullName2 = computed({<br>      get() {<br>        return user.firstName + '_' + user.lastName<br>      },<br>      set(val: string) {<br>        const names = val.split('_')<br>        user.firstName = names[0]<br>        user.lastName = names[1]<br>      }<br>    })<br><br>    const fullName3 = ref('')<br>    watch(user,({ firstName, lastName }) =&gt; {<br>        fullName3.value = firstName + '_' + lastName<br>      }, { immediate: true, deep: true }<br>      // immediate 默认会执行一次watch; deep 深度监视<br>    )<br><br>    // 监视，不需要配置immediate，本身默认就会执行一次<br>    // watchEffect(() =&gt; {<br>    //   fullName3.value = user.firstName + '_' + user.lastName<br>    // })<br><br>    // 当使用watch监视非相应式数据时，需要使用回调函数的形式<br>    watch([() =&gt; user.firstName, () =&gt; user.lastName, fullName3], () =&gt; {<br>      console.log('===')<br>    })<br><br>    return { user, fullName1, fullName2, fullName3 }<br>  }<br>})<br>&lt;/script&gt;<br><br></code></pre></div></td></tr></tbody></table></figure>
+<h2 id="计算属性与监视"><a href="#计算属性与监视" class="headerlink" title="计算属性与监视"></a>计算属性与监视</h2><figure class="highlight plain"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;fieldset&gt;<br>    &lt;legend&gt;姓名操作&lt;/legend&gt;<br>    姓氏：&lt;input type="text" placeholder="请输入姓氏" v-model="user.firstName" /&gt;&lt;br /&gt;<br>    名字：&lt;input type="text" placeholder="请输入名字" v-model="user.lastName" /&gt;&lt;br /&gt;<br>  &lt;/fieldset&gt;<br>  &lt;fieldset&gt;<br>    &lt;legend&gt;计算属性和监视的演示&lt;/legend&gt;<br>    姓名：&lt;input type="text" placeholder="显示姓名" v-model="fullName1" /&gt;&lt;br /&gt;<br>    姓名：&lt;input type="text" placeholder="显示姓名" v-model="fullName2" /&gt;&lt;br /&gt;<br>    姓名：&lt;input type="text" placeholder="显示姓名" v-model="fullName3" /&gt;&lt;br /&gt;<br>  &lt;/fieldset&gt;<br>&lt;/template&gt;<br><br>&lt;script lang="ts"&gt;<br>import { computed, defineComponent, reactive, ref, watch, watchEffect } from 'vue'<br>export default defineComponent({<br>  name: 'App',<br>  // 定义一个响应式对象<br>  setup() {<br>    const user = reactive({<br>      firstName: '李',<br>      lastName: '小明'<br>    })<br>    // 计算属性的函数中如果只传入一个回调函数，表示的是get<br>    // 返回的是一个Ref类型的对象<br>    const fullName1 = computed(() =&gt; {<br>      return user.firstName + '_' + user.lastName<br>    })<br><br>    const fullName2 = computed({<br>      get() {<br>        return user.firstName + '_' + user.lastName<br>      },<br>      set(val: string) {<br>        const names = val.split('_')<br>        user.firstName = names[0]<br>        user.lastName = names[1]<br>      }<br>    })<br><br>    const fullName3 = ref('')<br>    watch(user,({ firstName, lastName }) =&gt; {<br>        fullName3.value = firstName + '_' + lastName<br>      }, { immediate: true, deep: true }<br>      // immediate 默认会执行一次watch; deep 深度监视<br>    )<br><br>    // 监视，不需要配置immediate，本身默认就会执行一次<br>    // watchEffect(() =&gt; {<br>    //   fullName3.value = user.firstName + '_' + user.lastName<br>    // })<br><br>    // 当使用watch监视非相应式数据时，需要使用回调函数的形式<br>    watch([() =&gt; user.firstName, () =&gt; user.lastName, fullName3], () =&gt; {<br>      console.log('===')<br>    })<br><br>    return { user, fullName1, fullName2, fullName3 }<br>  }<br>})<br>&lt;/script&gt;<br></code></pre></div></td></tr></tbody></table></figure>
 
+<h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><p><img src="https://v3.cn.vuejs.org/images/lifecycle.svg" srcset="/img/loading.gif" lazyload alt="vue3生命周期"><br><img src="https://cn.vuejs.org/images/lifecycle.png" srcset="/img/loading.gif" lazyload alt="vue2生命周期"></p>
+<ul>
+<li>与 2.x 版本生命周期相对应的组合式 API<ul>
+<li><del>beforeCreate</del> -&gt; 使用 setup()</li>
+<li><del>created</del> -&gt; 使用 setup()</li>
+<li>beforeMount -&gt; onBeforeMount</li>
+<li>mounted -&gt; onMounted</li>
+<li>beforeUpdate -&gt; onBeforeUpdate</li>
+<li>updated -&gt; onUpdated</li>
+<li>beforeDestroy -&gt; onBeforeUnmount</li>
+<li>destroyed -&gt; onUnmounted</li>
+<li>errorCaptured -&gt; onErrorCaptured</li>
+</ul>
+</li>
+</ul>
+<h2 id="自定义hook函数"><a href="#自定义hook函数" class="headerlink" title="自定义hook函数"></a>自定义hook函数</h2><ul>
+<li>使用Vue3的组合API封装的可复用的功能函数</li>
+<li>自定义hook的作用类似于vue2中的mixin技术</li>
+<li>自定义Hook的优势: 很清楚复用功能代码的来源, 更清楚易懂</li>
+</ul>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 目录 --&gt;</span><br>|-- src<br>  |-- App.vue<br>  |-- hooks<br>    |-- useMousePosition.ts<br></code></pre></div></td></tr></tbody></table></figure>
+<figure class="highlight ts"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs ts"><span class="hljs-comment">// 需求：用户在页面中点击页面，把点击的位置的横坐标收集起来并展示出来</span><br><span class="hljs-comment">// useMousePosition.ts</span><br><span class="hljs-keyword">import</span> { onBeforeUnmount, onMounted, ref } <span class="hljs-keyword">from</span> <span class="hljs-string">'vue'</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{<br>  <span class="hljs-keyword">const</span> x = ref(-<span class="hljs-number">1</span>)<br>  <span class="hljs-keyword">const</span> y = ref(-<span class="hljs-number">1</span>)<br>  <span class="hljs-comment">// 点击事件的回调函数</span><br>  <span class="hljs-keyword">const</span> clickHandler = <span class="hljs-function">(<span class="hljs-params">event: MouseEvent</span>) =&gt;</span> {<br>    x.value = event.pageX<br>    y.value = event.pageY<br>  }<br>  <span class="hljs-comment">// 页面已经加载完毕了，再进行点击操作</span><br>  <span class="hljs-comment">// 页面加载完毕的生命周期组合API</span><br>  onMounted(<span class="hljs-function">() =&gt;</span> {<br>    <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'click'</span>, clickHandler)<br>  })<br>  onBeforeUnmount(<span class="hljs-function">() =&gt;</span> {<br>    <span class="hljs-built_in">window</span>.removeEventListener(<span class="hljs-string">'click'</span>, clickHandler)<br>  })<br>  <span class="hljs-keyword">return</span> { x, y }<br>}<br></code></pre></div></td></tr></tbody></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs vue">// App.vue<br>&lt;template&gt;<br>  &lt;h2&gt;自定义hook函数操作&lt;/h2&gt;<br>  &lt;h2&gt;x:{{x}}, y:{{y}}&lt;/h2&gt;<br>&lt;/template&gt;<br><br>&lt;script lang="ts"&gt;<br>import { defineComponent } from 'vue'<br>import useMousePosition from './hooks/useMousePosition'<br>export default defineComponent({<br>  name: 'App',<br>  setup() {<br>    const { x, y } = useMousePosition()<br>    return { x, y }<br>  }<br>})<br>&lt;/script&gt;<br></code></pre></div></td></tr></tbody></table></figure>
 
+<h2 id="toRefs"><a href="#toRefs" class="headerlink" title="toRefs"></a>toRefs</h2><p>把一个响应式对象转换成普通对象，该普通对象的每个 property 都是一个 ref<br>应用: 当从合成函数返回响应式对象时，toRefs 非常有用，这样消费组件就可以在不丢失响应式的情况下对返回的对象进行分解使用</p>
+<p>问题: reactive 对象取出的所有属性值都是非响应式的<br>解决: 利用 toRefs 可以将一个响应式 reactive 对象的所有原始属性转换为响应式的 ref 属性</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;h2&gt;toRefs使用&lt;/h2&gt;<br>  &lt;h3&gt;foo: {{foo}}&lt;/h3&gt;<br>  &lt;h3&gt;bar: {{bar}}&lt;/h3&gt;<br>&lt;/template&gt;<br><br>&lt;script lang="ts"&gt;<br>import { reactive, toRefs } from 'vue'<br>export default {<br>  setup() {<br>    const state = reactive({<br>      foo: 'a',<br>      bar: 'b'<br>    })<br>    const stateAsRefs = toRefs(state)<br>    setInterval(() =&gt; {<br>      state.foo += '++'<br>      state.bar += '++'<br>    }, 1000)<br><br>    return {<br>      // ...state,<br>      ...stateAsRefs<br>    }<br>  }<br>}<br>&lt;/script&gt;<br></code></pre></div></td></tr></tbody></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs vue">&lt;template&gt;<br>  &lt;h2&gt;toRefs使用&lt;/h2&gt;<br>  &lt;h3&gt;foo2: {{foo2}}&lt;/h3&gt;<br>  &lt;h3&gt;bar2: {{bar2}}&lt;/h3&gt;<br>&lt;/template&gt;<br><br>&lt;script lang="ts"&gt;<br>import { reactive, toRefs } from 'vue'<br>export default {<br>  setup() {<br>    return { foo2, bar2 }<br>  }<br>}<br>const { foo2, bar2 } = useRef()<br>function useRef() {<br>  const state = reactive({<br>    foo2: 'a',<br>    bar2: 'b'<br>  })<br>  setInterval(() =&gt; {<br>    state.foo2 += '++'<br>    state.bar2 += '++'<br>  }, 1000)<br>  return toRefs(state)<br>}<br>&lt;/script&gt;<br></code></pre></div></td></tr></tbody></table></figure>
 
+<h2 id="ref获取元素"><a href="#ref获取元素" class="headerlink" title="ref获取元素"></a>ref获取元素</h2><p>利用ref函数获取组件中的标签元素</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs vue">// 功能需求: 让输入框自动获取焦点<br>&lt;template&gt;<br>  &lt;h2&gt;ref获取焦点&lt;/h2&gt;<br>  &lt;input type="text"&gt;---<br>  &lt;input type="text" ref="inputRef"&gt;<br>&lt;/template&gt;<br><br>&lt;script lang="ts"&gt;<br>import { onMounted, ref } from 'vue'<br>export default {<br>  setup() {<br>    // 默认是空的，页面加载完毕，说明组件已经存在了，获取文本框元素<br>    const inputRef = ref&lt;HTMLElement | null&gt;(null)<br>    // 页面加载后的生命周期组合API<br>    onMounted(() =&gt; {<br>      inputRef.value &amp;&amp; inputRef.value.focus()<br>    })<br>    return { inputRef }<br>  }<br>}<br>&lt;/script&gt;<br></code></pre></div></td></tr></tbody></table></figure>
 
-
-
-
-
-
-
-
-
-
-
+<h1 id="Composition-API-其它部分"><a href="#Composition-API-其它部分" class="headerlink" title="Composition API 其它部分"></a>Composition API 其它部分</h1><h2 id="shallowReactive-与-shallowRef"><a href="#shallowReactive-与-shallowRef" class="headerlink" title="shallowReactive 与 shallowRef"></a>shallowReactive 与 shallowRef</h2><ul>
+<li>shallowReactive : 只处理了对象内最外层属性的响应式(也就是浅响应式)</li>
+<li>shallowRef: 只处理了value的响应式, 不进行对象的reactive处理</li>
+<li>什么时候用浅响应式呢?<ul>
+<li>一般情况下使用ref和reactive即可</li>
+<li>如果有一个对象数据, 结构比较深, 但变化时只是外层属性变化 =&gt; shallowReactive</li>
+<li>如果有一个对象数据, 后面会产生新的对象来替换 =&gt; shallowRef</li>
+</ul>
+</li>
+</ul>
+<h2 id="readonly-与-shallowReadonly"><a href="#readonly-与-shallowReadonly" class="headerlink" title="readonly 与 shallowReadonly"></a>readonly 与 shallowReadonly</h2><ul>
+<li>readonly:<ul>
+<li>深度只读数据。</li>
+<li>获取一个对象 (响应式或纯对象) 或 ref 并返回原始代理的只读代理。</li>
+<li>只读代理是深层的：访问的任何嵌套 property 也是只读的。</li>
+</ul>
+</li>
+<li>shallowReadonly<ul>
+<li>浅只读数据。</li>
+<li>创建一个代理，使其自身的 property 为只读，但不执行嵌套对象的深度只读转换。</li>
+</ul>
+</li>
+<li>应用场景:<ul>
+<li>在某些特定情况下, 可能不希望对数据进行更新的操作, 那就可以包装生成一个只读代理对象来读取数据, 而不能修改或删除。</li>
+</ul>
+</li>
+</ul>
+<h2 id="toRaw-与-markRaw"><a href="#toRaw-与-markRaw" class="headerlink" title="toRaw 与 markRaw"></a>toRaw 与 markRaw</h2><ul>
+<li>toRaw<ul>
+<li>返回由 reactive 或 readonly 方法转换成响应式代理的普通对象。</li>
+<li>这是一个还原方法，可用于临时读取，访问不会被代理/跟踪，写入时也不会触发界面更新。</li>
+</ul>
+</li>
+<li>markRaw<ul>
+<li>标记一个对象，使其永远不会转换为代理。返回对象本身。</li>
+</ul>
+</li>
+<li>应用场景:<ul>
+<li>有些值不应被设置为响应式的，例如复杂的第三方类实例或 Vue 组件对象。</li>
+<li>当渲染具有不可变数据源的大列表时，跳过代理转换可以提高性能。</li>
+</ul>
+</li>
+</ul>
+<h2 id="toRef"><a href="#toRef" class="headerlink" title="toRef"></a>toRef</h2><ul>
+<li>为源响应式对象上的某个属性创建一个 ref对象, 二者内部操作的是同一个数据值, 更新时二者是同步的</li>
+<li>区别ref: 拷贝了一份新的数据值单独操作, 更新时相互不影响</li>
+<li>应用: 当要将 某个prop 的 ref 传递给复合函数时，toRef 很有用</li>
+</ul>
 <h1 id="Vue3-0和2-0的区别"><a href="#Vue3-0和2-0的区别" class="headerlink" title="Vue3.0和2.0的区别"></a>Vue3.0和2.0的区别</h1><ul>
 <li>支持Teleport，类似React.createPortal</li>
 <li>支持组合式API，类似React Hooks，但原理完全不同<ul>
