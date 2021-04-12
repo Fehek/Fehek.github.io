@@ -29,7 +29,6 @@ npm run dev
   |-- dev-server.js : 通过 express 启动后台服务器
 |-- config: webpack 相关的配置文件夹(基本不需要修改)
   |-- index.js: 指定的后台服务的端口号和静态资源文件夹
-|-- node_modules
 |-- src : 源码文件夹
   |-- components: vue 组件及其相关资源文件夹
   |-- App.vue: 应用根主组件
@@ -42,6 +41,7 @@ npm run dev
 |-- index.html: 主页面文件
 |-- package.json: 应用包配置文件
 |-- README.md: 应用描述说明的 readme 文件
+|-- node_modules
 ```
 
 # 基本使用
