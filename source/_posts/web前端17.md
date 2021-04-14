@@ -555,7 +555,134 @@ export default {
 ## toRef
 - 为源响应式对象上的某个属性创建一个 ref对象, 二者内部操作的是同一个数据值, 更新时二者是同步的
 - 区别ref: 拷贝了一份新的数据值单独操作, 更新时相互不影响
-- 应用: 当要将 某个prop 的 ref 传递给复合函数时，toRef 很有用
+- 应用: 当要将 某个prop 的 ref 传递给复合函数时，toRef 很有用`const a = fn(toRef(props, 'foo'))`
+```js
+const state = reactive({
+  foo: 1,
+  bar: 2
+})
+const foo = toRef(state, 'foo')
+const foo2 = ref(state.foo)
+```
+
+## customRef
+创建一个自定义的 ref，并对其依赖项跟踪和更新触发进行显式控制
+```vue
+// 需求: 使用 customRef 实现 debounce 的示例
+<template>
+  <h2>debounce示例</h2>
+  <input v-model="keyword" placeholder="搜索关键字" />
+  <p>{{keyword}}</p>
+</template>
+
+<script lang="ts">
+import { ref, customRef } from 'vue'
+export default {
+  setup() {
+    const keyword = useDebouncedRef('', 500)
+    console.log(keyword)
+    return { keyword }
+  }
+}
+
+// 实现函数防抖的自定义ref
+function useDebouncedRef<T>(value: T, delay = 200) {
+  let timeout: number
+  return customRef((track, trigger) => {
+    return {
+      get() {
+        // 告诉Vue追踪数据
+        track()
+        return value
+      },
+      set(newValue: T) {
+        clearTimeout(timeout)
+        timeout = setTimeout(() => {
+          value = newValue
+          // 告诉Vue去触发界面更新
+          trigger()
+        }, delay)
+      }
+    }
+  })
+}
+</script>
+```
+
+## provide 与 inject
+provide和inject提供依赖注入，功能类似 2.x 的provide/inject
+可以不经过父级组件，直接向孙子组件传输数据
+```vue
+// App.vue
+<template>
+  <h2>provide 与 inject</h2>
+  <p>当前颜色：{{color}}</p>
+  <button @click="color='red'">red</button>
+  <button @click="color='yellow'">yellow</button>
+  <button @click="color='green'">green</button>
+  <hr />
+  <Son />
+</template>
+
+<script lang="ts">
+import { defineComponent, ref, provide } from 'vue'
+import Son from './components/Son.vue'
+export default defineComponent({
+  name: 'App',
+  components: { Son },
+  setup() {
+    const color = ref('red')
+    // 提供数据
+    provide('color', color)
+    return { color }
+  }
+})
+</script>
+```
+```vue
+components/Son.vue
+<template>
+  <h3>Son子级组件</h3>
+  <hr />
+  <GrandSon />
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+import GrandSon from './GrandSon.vue'
+export default defineComponent({
+  name: 'Son',
+  components: { GrandSon }
+})
+</script>
+```
+```vue
+components/GrandSon.vue
+<template>
+  <h3 :style="{color}">GrandSon孙子组件</h3>
+</template>
+
+<script lang="ts">
+import { defineComponent, inject } from 'vue'
+export default defineComponent({
+  name: 'GrandSon',
+  setup() {
+    const color = inject('color')
+    return { color }
+  }
+})
+</script>
+```
+
+## 响应式数据的判断
+- isRef: 检查一个值是否为一个 ref 对象
+- isReactive: 检查一个对象是否是由 reactive 创建的响应式代理
+- isReadonly: 检查一个对象是否是由 readonly 创建的只读代理
+- isProxy: 检查一个对象是否是由 reactive 或者 readonly 方法创建的代理
+
+# 手写组合API
+
+
 
 
 
