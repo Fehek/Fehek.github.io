@@ -191,7 +191,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.8k 字
+      4.3k 字
     </span>
   
 
@@ -201,7 +201,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      33
+      38
        分钟
     </span>
   
@@ -239,7 +239,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月12日 晚上
+                  本文最后更新于：2021年4月14日 下午
                 
               </p>
             
@@ -454,9 +454,25 @@
 <h2 id="toRef"><a href="#toRef" class="headerlink" title="toRef"></a>toRef</h2><ul>
 <li>为源响应式对象上的某个属性创建一个 ref对象, 二者内部操作的是同一个数据值, 更新时二者是同步的</li>
 <li>区别ref: 拷贝了一份新的数据值单独操作, 更新时相互不影响</li>
-<li>应用: 当要将 某个prop 的 ref 传递给复合函数时，toRef 很有用</li>
+<li>应用: 当要将 某个prop 的 ref 传递给复合函数时，toRef 很有用<code>const a = fn(toRef(props, 'foo'))</code><figure class="highlight js"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-keyword">const</span> state = reactive({<br>  foo: <span class="hljs-number">1</span>,<br>  bar: <span class="hljs-number">2</span><br>})<br><span class="hljs-keyword">const</span> foo = toRef(state, <span class="hljs-string">'foo'</span>)<br><span class="hljs-keyword">const</span> foo2 = ref(state.foo)<br></code></pre></div></td></tr></tbody></table></figure>
+
+</li>
 </ul>
-<h1 id="Vue3-0和2-0的区别"><a href="#Vue3-0和2-0的区别" class="headerlink" title="Vue3.0和2.0的区别"></a>Vue3.0和2.0的区别</h1><ul>
+<h2 id="customRef"><a href="#customRef" class="headerlink" title="customRef"></a>customRef</h2><p>创建一个自定义的 ref，并对其依赖项跟踪和更新触发进行显式控制</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs vue">// 需求: 使用 customRef 实现 debounce 的示例<br>&lt;template&gt;<br>  &lt;h2&gt;debounce示例&lt;/h2&gt;<br>  &lt;input v-model="keyword" placeholder="搜索关键字" /&gt;<br>  &lt;p&gt;{{keyword}}&lt;/p&gt;<br>&lt;/template&gt;<br><br>&lt;script lang="ts"&gt;<br>import { ref, customRef } from 'vue'<br>export default {<br>  setup() {<br>    const keyword = useDebouncedRef('', 500)<br>    console.log(keyword)<br>    return { keyword }<br>  }<br>}<br><br>// 实现函数防抖的自定义ref<br>function useDebouncedRef&lt;T&gt;(value: T, delay = 200) {<br>  let timeout: number<br>  return customRef((track, trigger) =&gt; {<br>    return {<br>      get() {<br>        // 告诉Vue追踪数据<br>        track()<br>        return value<br>      },<br>      set(newValue: T) {<br>        clearTimeout(timeout)<br>        timeout = setTimeout(() =&gt; {<br>          value = newValue<br>          // 告诉Vue去触发界面更新<br>          trigger()<br>        }, delay)<br>      }<br>    }<br>  })<br>}<br>&lt;/script&gt;<br></code></pre></div></td></tr></tbody></table></figure>
+
+<h2 id="provide-与-inject"><a href="#provide-与-inject" class="headerlink" title="provide 与 inject"></a>provide 与 inject</h2><p>provide和inject提供依赖注入，功能类似 2.x 的provide/inject<br>可以不经过父级组件，直接向孙子组件传输数据</p>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs vue">// App.vue<br>&lt;template&gt;<br>  &lt;h2&gt;provide 与 inject&lt;/h2&gt;<br>  &lt;p&gt;当前颜色：{{color}}&lt;/p&gt;<br>  &lt;button @click="color='red'"&gt;red&lt;/button&gt;<br>  &lt;button @click="color='yellow'"&gt;yellow&lt;/button&gt;<br>  &lt;button @click="color='green'"&gt;green&lt;/button&gt;<br>  &lt;hr /&gt;<br>  &lt;Son /&gt;<br>&lt;/template&gt;<br><br>&lt;script lang="ts"&gt;<br>import { defineComponent, ref, provide } from 'vue'<br>import Son from './components/Son.vue'<br>export default defineComponent({<br>  name: 'App',<br>  components: { Son },<br>  setup() {<br>    const color = ref('red')<br>    // 提供数据<br>    provide('color', color)<br>    return { color }<br>  }<br>})<br>&lt;/script&gt;<br></code></pre></div></td></tr></tbody></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs vue">components/Son.vue<br>&lt;template&gt;<br>  &lt;h3&gt;Son子级组件&lt;/h3&gt;<br>  &lt;hr /&gt;<br>  &lt;GrandSon /&gt;<br>&lt;/template&gt;<br><br>&lt;script lang="ts"&gt;<br>import { defineComponent } from 'vue'<br>import GrandSon from './GrandSon.vue'<br>export default defineComponent({<br>  name: 'Son',<br>  components: { GrandSon }<br>})<br>&lt;/script&gt;<br></code></pre></div></td></tr></tbody></table></figure>
+<figure class="highlight plain"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs vue">components/GrandSon.vue<br>&lt;template&gt;<br>  &lt;h3 :style="{color}"&gt;GrandSon孙子组件&lt;/h3&gt;<br>&lt;/template&gt;<br><br>&lt;script lang="ts"&gt;<br>import { defineComponent, inject } from 'vue'<br>export default defineComponent({<br>  name: 'GrandSon',<br>  setup() {<br>    const color = inject('color')<br>    return { color }<br>  }<br>})<br>&lt;/script&gt;<br></code></pre></div></td></tr></tbody></table></figure>
+
+<h2 id="响应式数据的判断"><a href="#响应式数据的判断" class="headerlink" title="响应式数据的判断"></a>响应式数据的判断</h2><ul>
+<li>isRef: 检查一个值是否为一个 ref 对象</li>
+<li>isReactive: 检查一个对象是否是由 reactive 创建的响应式代理</li>
+<li>isReadonly: 检查一个对象是否是由 readonly 创建的只读代理</li>
+<li>isProxy: 检查一个对象是否是由 reactive 或者 readonly 方法创建的代理</li>
+</ul>
+<h1 id="手写组合API"><a href="#手写组合API" class="headerlink" title="手写组合API"></a>手写组合API</h1><h1 id="Vue3-0和2-0的区别"><a href="#Vue3-0和2-0的区别" class="headerlink" title="Vue3.0和2.0的区别"></a>Vue3.0和2.0的区别</h1><ul>
 <li>支持Teleport，类似React.createPortal</li>
 <li>支持组合式API，类似React Hooks，但原理完全不同<ul>
 <li>VCA的setup函数只运行一次，没有闭包陷阱。VCA是通过返回可监控对象来实现的更新，所以VCA没有useCallback, useMemo之类的函数</li>
