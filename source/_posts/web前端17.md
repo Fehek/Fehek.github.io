@@ -1017,12 +1017,17 @@ function isProxy (obj) {
 - .sync修改符已移除, 由v-model代替
 - v-if优先v-for解析
 
-# 综合使用
+# Vue2和Vue3
+- 2020年9月发布的正式版
+- Vue3支持大多数Vue2的特性
+- Vue中设计了一套强大的组合API代替了Vue2中的option API，复用性更强了
+- 更好地支持TS
+- **最主要：Vue3中使用了 Proxy 配合 Reflect 代替了Vue2中 `Object.defineProperty()` 方法实现数据的响应式（数据代理）**
+- 重写了虚拟DOM，速度更快了
+- 新的组件：Fragment(片段) / Teleport(瞬移) / Suspense(不确定)
+- 设计了一个新的脚手架工具，vite
 
-
-
-
-# Vue3.0和2.0的区别
+# Vue3和React
 - 支持Teleport，类似React.createPortal
 - 支持组合式API，类似React Hooks，但原理完全不同
     - VCA的setup函数只运行一次，没有闭包陷阱。VCA是通过返回可监控对象来实现的更新，所以VCA没有useCallback, useMemo之类的函数
