@@ -191,7 +191,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.9k 字
+      6k 字
     </span>
   
 
@@ -201,7 +201,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      53
+      54
        分钟
     </span>
   
@@ -239,7 +239,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月16日 下午
+                  本文最后更新于：2021年4月17日 晚上
                 
               </p>
             
@@ -524,7 +524,17 @@
 <li>.sync修改符已移除, 由v-model代替</li>
 <li>v-if优先v-for解析</li>
 </ul>
-<h1 id="综合使用"><a href="#综合使用" class="headerlink" title="综合使用"></a>综合使用</h1><h1 id="Vue3-0和2-0的区别"><a href="#Vue3-0和2-0的区别" class="headerlink" title="Vue3.0和2.0的区别"></a>Vue3.0和2.0的区别</h1><ul>
+<h1 id="Vue2和Vue3"><a href="#Vue2和Vue3" class="headerlink" title="Vue2和Vue3"></a>Vue2和Vue3</h1><ul>
+<li>2020年9月发布的正式版</li>
+<li>Vue3支持大多数Vue2的特性</li>
+<li>Vue中设计了一套强大的组合API代替了Vue2中的option API，复用性更强了</li>
+<li>更好地支持TS</li>
+<li><strong>最主要：Vue3中使用了 Proxy 配合 Reflect 代替了Vue2中 <code>Object.defineProperty()</code> 方法实现数据的响应式（数据代理）</strong></li>
+<li>重写了虚拟DOM，速度更快了</li>
+<li>新的组件：Fragment(片段) / Teleport(瞬移) / Suspense(不确定)</li>
+<li>设计了一个新的脚手架工具，vite</li>
+</ul>
+<h1 id="Vue3和React"><a href="#Vue3和React" class="headerlink" title="Vue3和React"></a>Vue3和React</h1><ul>
 <li>支持Teleport，类似React.createPortal</li>
 <li>支持组合式API，类似React Hooks，但原理完全不同<ul>
 <li>VCA的setup函数只运行一次，没有闭包陷阱。VCA是通过返回可监控对象来实现的更新，所以VCA没有useCallback, useMemo之类的函数</li>
