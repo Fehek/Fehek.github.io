@@ -21,11 +21,11 @@ Markdown语法及emoji输出
 
 ## 字体
 ```md
+加删除线：~~text~~
+PS. text两边加中括号删除线不起作用，也可以用<del>text</del>
 字体倾斜：*text*
 字体加粗：**text**
 斜体加粗：***text***
-加删除线：~~text~~ 
-新增. 发现text两边加中括号删除线不起作用，也可以用<del>text</del>
 ```
 
 ## 分割线
@@ -51,13 +51,13 @@ Markdown语法及emoji输出
 ```
 
 ## 代码使用
-+ 行内代码用两个反引号\`kkkk\`
++ 行内代码用两个反引号 \`kkkk\`
 + 多行代码用两个三反引号，反引号要单独一行。
 \`\`\`C
 int main()
 {
-   printf("Hello, World!");
-   return 0;
+&nbsp;&nbsp;&nbsp;&nbsp;printf("Hello, World!");
+&nbsp;&nbsp;&nbsp;&nbsp;return 0;
 }
 \`\`\`
 
@@ -72,56 +72,13 @@ int main()
 }
 ```
 
-
 ## 空格与换行
 缩进一个空格（半角空格）：添加`&ensp;`
 缩进两个空格（全角空格）：添加`&emsp;`或者使用全角空格
 P.S.一个汉字占两个空格
 
-换行：
-**1. `&nbsp;`**
-- 与文字同一行，会成为空格，下面的例子效果是空两格
-```html
-text&nbsp;&nbsp;text
-```
-- 与文字不同行，下面的例子效果是空一行
-```html
-text
-&nbsp;&nbsp;
-text
-```
-- 与文字不同行，下面的例子效果是空两行
-```html
-text
-&nbsp;
-&nbsp;
-text
-```
-**2. `<br />`**
-- 与文字同一行，n个符号会打出n个空行，下面的例子效果是空两行
-```html
-text<br /><br />
-text
-```
-或
-```html
-text
-<br /><br />text
-```
-- 与文字不同行，n个符号会打出n+1个空行，下面的例子效果是空三行（注意与\&nbsp;的差别）
-```html
-text
-<br /><br />
-text
-```
-- 与文字不同行且单独成行，n个符号会打出2n个空行，下面的例子效果是空四行
-```html
-text
-<br />
-<br />
-text
-```
-***为了方便，我一般用\&nbsp;，想空几行就在每个空行打一个\&nbsp;。***
+换行：`<br />`
+
 
 ## 列表
 有序列表：`数字 + 点`
@@ -174,9 +131,9 @@ text
 ```
 例如：
 ```markdown
-[blog](https://Fehek.xyz "Fehek的博客")
+[blog](https://fehek.xyz "Fehek的博客")
 ```
-[blog](/https://Fehek.xyz "Fehek的博客")
+[blog](https://fehek.xyz "Fehek的博客")
 
 # 输出emoji
 ```markdown
