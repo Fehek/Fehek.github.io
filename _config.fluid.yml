@@ -67,7 +67,7 @@ code:
       # 在下方链接页面右侧的圆形按钮挑选 style 填入，也可以直接填入 css 链接
       # Select the style button on the right side of the link page, you can also set the CSS link
       # See: https://prismjs.com/
-      style: "TOMORROW NIGHT"
+      style: "default"
 
       # 设为 true 高亮将本地静态生成（并只支持部分 prismjs 插件），设为 false 高亮将在浏览器通过 js 生成
       # If true, it will be generated locally (but some prismjs plugins are not supported). If false, it will be generated via JS in the browser
@@ -273,13 +273,6 @@ lazyload:
 # Icon library, which includes many social icons, does not include those theme dependent, so your can modify link by yourself. See: https://hexo.fluid-dev.com/docs/en/icon/
 iconfont: //at.alicdn.com/t/font_1736178_kmeydafke9r.css
 
-# 主题版本相关
-# Theme version
-version:
-  # 每次生成页面后，检测主题是否为最新版本
-  # If true, check whether Fluid is the latest version after hexo generate
-  check: false
-
 
 #---------------------------
 # 页头
@@ -315,7 +308,7 @@ navbar:
     - { key: "category", link: "/categories/", icon: "iconfont icon-category-fill" }
     - { key: "tag", link: "/tags/", icon: "iconfont icon-tags-fill" }
     - { key: "about", link: "/about/", icon: "iconfont icon-user-fill" }
-    # - { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }
+    #- { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }
 
 # 搜索功能，基于 hexo-generator-search 插件，若已安装其他搜索插件请关闭此功能，以避免生成多余的索引文件
 # Search feature, based on hexo-generator-search. If you have installed other search plugins, please disable this feature to avoid generating redundant index files
@@ -382,15 +375,13 @@ footer:
     <br>
     POWER BY <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>HEXO</span></a>
   '
-    # <i class="iconfont icon-love"></i>
-    # <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a>
 
   # 展示网站的 PV、UV 统计数
   # Display website PV and UV statistics
   statistics:
     enable: false
 
-    # 统计数据来源，如果使用 leancloud 需要设置 `web_analytics: leancloud` 中的参数；如果使用 busuanzi 可能会有请求失败的情况
+    # 统计数据来源，使用 leancloud 需要设置 `web_analytics: leancloud` 中的参数；使用 busuanzi 不需要额外设置，但是有时不稳定，另外本地运行时 busuanzi 显示统计数据很大属于正常现象，部署后会正常
     # Data source. If use leancloud, you need to set the parameter in `web_analytics: leancloud`
     # Options: busuanzi | leancloud
     source: "busuanzi"
@@ -533,7 +524,7 @@ post:
       format: "{} 分钟"
       # 每分钟阅读多少字，如果是技术文章，建议降低
       # Words read per minute
-      words: 150
+      words: 100
 
     # 浏览量计数
     # Number of visits
@@ -590,6 +581,9 @@ post:
   # Zoom feature of images
   image_zoom:
     enable: true
+    # 放大后图片链接替换规则，可用于将压缩图片链接替换为原图片链接，如 ['-slim', ''] 是将链接中 `-slim` 移除；如果想使用正则请使用 `re:` 前缀，如 ['re:\\d{3,4}\\/\\d{3,4}\\/', '']
+    # The image url replacement when zooming, the feature can be used to replace the compressed image to the original image, eg: ['-slim', ''] removes `-slim` from the image url when zooming; if you want to use regular, use prefix `re:`, eg: ['re:\\d{3,4}\\/\\d{3,4}\\/','']
+    img_url_replace: ['', '']
 
   # 脚注语法，会在文章底部生成脚注，如果 Markdown 渲染器本身支持，则建议关闭，否则可能会冲突
   # Support footnote syntax, footnotes will be generated at the bottom of the post page. If the Markdown renderer itself supports it, please disable it, otherwise it may conflict
@@ -709,8 +703,8 @@ valine:
   serverURLs:
 
 # Waline
-# 一款从 Valine 衍生的带后端的评论插件
-# A comment plugin with backend derived from Valine
+# 从 Valine 衍生而来，额外增加了服务端和多种功能
+# Derived from Valine, with self-hosted service and new features
 # See: https://waline.js.org/
 waline:
   serverURL: ''
@@ -744,8 +738,8 @@ livere:
   uid: ''
 
 # Remark42
-# 需要自己运行后端服务
-# Need to run the backend service yourself
+# 需要自托管服务端
+# Based on self-hosted service
 # See: https://remark42.com
 remark42:
   host:
@@ -940,15 +934,15 @@ static_prefix:
 
   github_markdown: https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/
 
-  jquery: https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/
+  jquery: https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/
 
   bootstrap: https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/
 
-  highlightjs: https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/
+  highlightjs: https://cdn.jsdelivr.net/npm/highlight.js@10.6.0/
 
-  prismjs: https://cdn.jsdelivr.net/npm/prismjs@1.22.0/
+  prismjs: https://cdn.jsdelivr.net/npm/prismjs@1.23.0/
 
-  tocbot: https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/
+  tocbot: https://cdn.jsdelivr.net/npm/tocbot@4.12.2/dist/
 
   typed: https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/
 
@@ -958,21 +952,21 @@ static_prefix:
 
   mathjax: https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/
 
-  katex: https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/
+  katex: https://cdn.jsdelivr.net/npm/katex@0.13.0/dist/
 
   busuanzi: https://busuanzi.ibruce.info/busuanzi/2.3/
 
-  clipboard: https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/
+  clipboard: https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/
 
-  mermaid: https://cdn.jsdelivr.net/npm/mermaid@8.8.3/dist/
+  mermaid: https://cdn.jsdelivr.net/npm/mermaid@8.9.2/dist/
 
   valine: https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/
 
   waline: https://cdn.jsdelivr.net/npm/@waline/client@0.14.8/dist/
 
-  gitalk: https://cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/
+  gitalk: https://cdn.jsdelivr.net/npm/gitalk@1.7.2/dist/
 
-  disqusjs: https://cdn.jsdelivr.net/npm/disqusjs@1.0/dist/
+  disqusjs: https://cdn.jsdelivr.net/npm/disqusjs@1.3.0/dist/
 
   twikoo: https://cdn.jsdelivr.net/npm/twikoo@1.3.0/dist/
 
