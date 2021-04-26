@@ -44,7 +44,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.10","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -132,13 +132,13 @@
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
                 class="iconfont icon-search"></i>&nbsp;</a>
           </li>
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
+            <a class="nav-link" target="_self">&nbsp;<i
                 class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
           </li>
         
@@ -194,11 +194,13 @@
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/posts/d50f6bf6.html">win10小技巧</a>
+        <a href="/posts/d50f6bf6.html" target="_blank">
+          win10小技巧
+        </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/posts/d50f6bf6.html">
+        <a href="/posts/d50f6bf6.html" target="_blank">
           
           
             
@@ -250,11 +252,13 @@
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/posts/e79721a0.html">Windows常用快捷键</a>
+        <a href="/posts/e79721a0.html" target="_blank">
+          Windows常用快捷键
+        </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/posts/e79721a0.html">
+        <a href="/posts/e79721a0.html" target="_blank">
           
           
             
@@ -352,11 +356,13 @@ Shi
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/posts/6e0f9c11.html">截屏的正确姿势</a>
+        <a href="/posts/6e0f9c11.html" target="_blank">
+          截屏的正确姿势
+        </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/posts/6e0f9c11.html">
+        <a href="/posts/6e0f9c11.html" target="_blank">
           
           
             
@@ -441,11 +447,13 @@ Win + Shift + S
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/posts/87f960c2.html">Markdown语法</a>
+        <a href="/posts/87f960c2.html" target="_blank">
+          Markdown语法
+        </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/posts/87f960c2.html">
+        <a href="/posts/87f960c2.html" target="_blank">
           
           
             
@@ -491,11 +499,13 @@ Win + Shift + S
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/posts/659a9035.html">完善blog2</a>
+        <a href="/posts/659a9035.html" target="_blank">
+          完善blog2
+        </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/posts/659a9035.html">
+        <a href="/posts/659a9035.html" target="_blank">
           
           
             
@@ -543,11 +553,13 @@ Win + Shift + S
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/posts/129da0a3.html">完善blog1</a>
+        <a href="/posts/129da0a3.html" target="_blank">
+          完善blog1
+        </a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/posts/129da0a3.html">
+        <a href="/posts/129da0a3.html" target="_blank">
           
           
             
@@ -662,9 +674,8 @@ Win + Shift + S
   </script>
 
 
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" ></script>
 <script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
 <script  src="/js/events.js" ></script>
 <script  src="/js/plugins.js" ></script>
 
@@ -687,7 +698,7 @@ Win + Shift + S
 
 
 
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
 
 
 
