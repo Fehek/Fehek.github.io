@@ -941,11 +941,11 @@
   
   
   <entry>
-    <title>Windows安装及激活</title>
+    <title>Windows下载及安装</title>
     <link href="/posts/c371e681.html"/>
     <url>/posts/c371e681.html</url>
     
-    <content type="html"><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>进入<a href="https://www.microsoft.com/zh-cn/software-download/windows10">微软官网</a>下载Windows系统，但是不能直接下载ISO镜像。<br>可以按 F12 键调出开发人员工具窗口，选择 console，点击右上角的三个点，在 More tools 里选择 Network condition，然后在 User agent 下去掉勾选 Select automatically，根据浏览器选择一个 Android Mobile，按 F5 刷新，即可以进入移动端显示的页面，直接下载ISO镜像。</p><h1 id="激活"><a href="#激活" class="headerlink" title="激活"></a>激活</h1><p>我用的是 HWIDGen ，是一个数字永久激活工具，网上可以搜到汉化版本。<br>顺便一提，office激活用 KMSpico 超级好用，一键激活。</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><p>进入<a href="https://www.microsoft.com/zh-cn/software-download/windows10">微软官网</a>下载Windows系统，但是不能直接下载ISO镜像。<br>可以按 F12 键调出开发人员工具窗口，选择左上角第二个图标，按 F5 刷新，即可以进入移动端显示的页面，直接下载ISO镜像。</p><h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>使用<a href="https://rufus.ie/zh/">Rufus</a>将系统文件写入U盘，启动电脑时进入BIOS，选择U盘方式，即可进入安装引导模式。</p><!-- # 激活使用 HWIDGen ，是一个数字永久激活工具，网上可以搜到汉化版本。 -->]]></content>
     
     
     <categories>
@@ -958,8 +958,6 @@
     <tags>
       
       <tag>Windows</tag>
-      
-      <tag>Office</tag>
       
     </tags>
     
