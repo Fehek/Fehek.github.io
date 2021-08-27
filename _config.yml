@@ -108,7 +108,7 @@ theme: fluid
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repository: https://github.com/Fehek/Fehek.github.io
+  repository: https://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@github.com/Fehek/Fehek.github.io.git
   branch: main
 
 githubEmojis:

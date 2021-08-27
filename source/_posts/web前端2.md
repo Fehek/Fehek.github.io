@@ -70,6 +70,7 @@ color:white|设定字体颜色
 
 # 选择器
 ## 选择器类别
+### 基础选择器
 一个空的div，默认宽度100%，高度为0
 标签内部的叫行内样式，style内部的叫内部样式
 - ID选择器（#box）
@@ -81,7 +82,6 @@ color:white|设定字体颜色
 - 通用选择器（\*）
 针对页面上所有的标签生效
 - 属性选择器
-
 写法|含义
 :-|:-
 [attr]|存在某种属性
@@ -94,8 +94,7 @@ color:white|设定字体颜色
 [attr operator value i]|添加一个用空格隔开的字母 i（或 I），匹配属性值时忽略大小写
 [attr operator value s]|添加一个用空格隔开的字母 s（或 S），匹配属性值时区分大小写
 
-- 伪类选择器
-
+### 伪类选择器
 位置伪类|例子|含义
 :-|:-|:-
 :first-child|p:first-child|选择任意元素的第一个p子元素
@@ -117,6 +116,7 @@ color:white|设定字体颜色
 :focus|获得焦点(Tab键)的链接（处于活动状态也会获得焦点）
 :hover|光标悬浮在链接上时
 :active|光标按下时
+
 由于链接可能同时处于多种状态，按照link、visited、focus、hover、active（缩写为LVFHA）或者LVHFA来定义。
 
 其它伪类|意义
@@ -126,8 +126,7 @@ color:white|设定字体颜色
 ::selection|应用于文档中被用户高亮的部分
 [:target](https://developer.mozilla.org/zh-CN/docs/Web/CSS/:target)|选择一个ID与当前URL片段匹配的元素
 
-- 组合器
-
+### 组合器
 写法|含义
 :-|:-
 元素1`␣`元素2|后代选择器。择由元素1作为祖先元素的所有元素2（不要求是父子关系）
@@ -144,6 +143,7 @@ color:white|设定字体颜色
 ID选择器|#box{...}|100
 行内样式|<...style="...">|1000
 重要|!important|权重最大
+
 注：权重值仅作参考，并不表示实际值。
 如果两个元素的权重完全相同，在样式表中后出现的一个会表示出来。
 继承来的样式没有优先级。
@@ -283,7 +283,7 @@ color: #FF9700|rgb转化成16进制
 [transition-duration](https://developer.mozilla.org/zh-CN/docs/Web/CSS/transition-duration)|过渡时间
 [transition-timng-function](https://developer.mozilla.org/zh-CN/docs/Web/CSS/transition-timing-function)|[缓动](https://developers.google.com/web/fundamentals/design-and-ux/animations/the-basics-of-easing?hl=zh-cn)：linear线性变化，steps [number]跳跃变化，ease-out缓出，ease-in缓进，ease-in-out缓进缓出。
 [transition-delay](https://developer.mozilla.org/zh-CN/docs/Web/CSS/transition-delay)|延迟时间
-[transition](https://developer.mozilla.org/zh-CN/docs/Web/CSS/transition)|`<transition-property> | <transition-duration> | <transition-timng-function> | <transition-delay> `
+[transition](https://developer.mozilla.org/zh-CN/docs/Web/CSS/transition)|`<transition-property> \| <transition-duration> \| <transition-timng-function> \| <transition-delay>`
 
 ## 动画
 属性|意义
@@ -296,7 +296,7 @@ color: #FF9700|rgb转化成16进制
 [animation-direction](https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-direction)|播放方向
 [animation-fill-mode](https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-fill-mode)|动画在执行之前和之后如何将样式应用于其目标
 [animation-play-state](https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation-play-state)|动画是否运行或者暂停
-[animation](https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation)|`@keyframes name | duration | timing-function | delay | iteration-count | direction | fill-mode | play-state`
+[animation](https://developer.mozilla.org/zh-CN/docs/Web/CSS/animation)|`@keyframes name \| duration \| timing-function \| delay \| iteration-count \| direction \| fill-mode \| play-state`
 
 ## 变换
 属性|意义
@@ -565,7 +565,26 @@ clear: left/right/both;（只对块级元素起作用）
 `position: absolute/fixed;`
 `overflow: hidden;（除了visible的值）`
 `float: left;(不是none)`
-`.clearfix:after{display: block; clear: both; content: "";}`
+
+为父级元素 添加 .clearfix 类可以很容易地清除内部的浮动。还可以作为 mixin 使用。
+```html
+<div class="clearfix">...</div>
+```
+```css
+ /* Mixin itself */
+@mixin clearfix() {
+  &::after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+}
+
+ /* 作为 mixin 使用 */
+.element {
+  @include clearfix;
+}
+```
 
 ## [flex](https://developer.mozilla.org/zh-CN/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox)布局
 display： flex/inline-flex
@@ -577,8 +596,8 @@ display： flex/inline-flex
 - 折行
 [flex-wrap](https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex-wrap): nowrap/wrap/wrap-reverse;
 - 简写
-flex-flow: \<flex-direction> || \<flex-wrap>
-<hr>
+flex-flow: `<flex-direction> || <flex-wrap>`
+<hr />
 
 - 一行或一列的元素在主轴方向上的摆放
 [justify-content](https://developer.mozilla.org/zh-CN/docs/Web/CSS/justify-content): center/start/end/space-around/space-between;
@@ -588,7 +607,7 @@ flex-flow: \<flex-direction> || \<flex-wrap>
 [justify-items](https://developer.mozilla.org/zh-CN/docs/Web/CSS/justify-items): stretch/start/end/center;
 - 行里的元素在交叉轴方向上的垂直对齐
 [align-items](https://developer.mozilla.org/zh-CN/docs/Web/CSS/align-items): stretch/center/start/end;
-<hr>
+<hr />
 
 - 设置在子元素上
 	- 某个元素自己的排列方式
@@ -596,7 +615,8 @@ flex-flow: \<flex-direction> || \<flex-wrap>
 [justify-self](https://developer.mozilla.org/zh-CN/docs/Web/CSS/justify-self): stretch/center/start/end;
 	- flex子元素的展示顺序
 [order](https://developer.mozilla.org/zh-CN/docs/Web/CSS/order): 5
-<hr>
+
+<hr />
 
 - 每一行主轴方向上多余的空间分配权重，这个属性不会改变元素在不同行的分布
 [flex-grow](https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex-grow)
@@ -773,10 +793,10 @@ div{
 :-|:-
 [column-count](https://developer.mozilla.org/zh-CN/docs/Web/CSS/column-count)|元素的列数
 [column-width](https://developer.mozilla.org/zh-CN/docs/Web/CSS/column-width)|每列的宽度
-[columns](https://developer.mozilla.org/zh-CN/docs/Web/CSS/columns)|`<'column-width'> || <'column-count'>`
+[columns](https://developer.mozilla.org/zh-CN/docs/Web/CSS/columns)|`<'column-width'> \|\| <'column-count'>`
 [column-fill](https://developer.mozilla.org/zh-CN/docs/Web/CSS/column-fill)|如何对列进行填充
 [column-gap](https://developer.mozilla.org/zh-CN/docs/Web/CSS/column-gap)|元素列之间的间隔
-[column-rule](https://developer.mozilla.org/zh-CN/docs/Web/CSS/column-rule)|`<'column-rule-width'> || <'column-rule-style'> || <'column-rule-color'>`
+[column-rule](https://developer.mozilla.org/zh-CN/docs/Web/CSS/column-rule)|`<'column-rule-width'> \|\| <'column-rule-style'> \|\| <'column-rule-color'>`
 [break-inside](https://developer.mozilla.org/zh-CN/docs/Web/CSS/break-inside)|多列布局页面下的内容盒子如何中断【更符合想要效果h1,h2{[column-span](https://developer.mozilla.org/zh-CN/docs/Web/CSS/column-span): all;}】
 
 ## 文字换行
