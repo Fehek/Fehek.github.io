@@ -43,7 +43,7 @@ banner_img:
 
 # 判断质数
 ```js
-  var idPrime = function (n) {
+  var isPrime = function (n) {
     if (n < 2)
       return false
     for (var i = 2; i <= Math.sqrt(n); i++) {

@@ -79,7 +79,7 @@ var tmp = Number(null); //0
 var tmp = Number(undefined); //NaN
 
 var tmp = parseInt("20a"); //20
-var tmp = parseInt(true); //3
+var tmp = parseInt(true); //NaN
 
 var tmp = parseFloat("10.33"); //10.33
 alert(typof tmp); //number
@@ -104,11 +104,11 @@ var tmp = -1 / 0; //-Infinity 无穷小
 只能操作一个值的运算符，叫做一元运算符。
 `x+=a`简写`x=x+a`，`x-=a`简写`x=x-a`，`x*=a`简写`x=x*a`，`x/=a`简写`x=x/a`
 + `a++;`&nbsp;&nbsp;&nbsp;&nbsp;++后置，先取a的值，然后再进行+1操作。
-+ `++a;`&nbsp;&nbsp;&nbsp;&nbsp;++后置，先进行+1操作，然后再取a的值。
++ `++a;`&nbsp;&nbsp;&nbsp;&nbsp;++前置，先进行+1操作，然后再取a的值。
 ```js
 var a = 5;
 alert(a++); //5
-alert(a); //5
+alert(a); //6
 
 var a = 5;
 alert(++a); //6
