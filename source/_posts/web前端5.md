@@ -881,10 +881,10 @@ console.log(a, b)
 ## 剩余参数
 `...`能表示剩余参数，它将这些剩余参数打包成一个数组
 ```js
-const team = ["Yukina", "Sayo", "Lisa", "Ako", "Linko"]
+const team = ["Yukina", "Sayo", "Lisa", "Ako", "Rinko"]
 const [vo, gt, ...members] = team
 console.log(vo, gt, members)
-// Yukina Sayo ["Lisa", "Ako", "Linko"]
+// Yukina Sayo ["Lisa", "Ako", "Rinko"]
 ```
 ```js
 function numbers(...nums) {

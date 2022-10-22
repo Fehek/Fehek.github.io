@@ -374,7 +374,7 @@ banner_img:
 // 冒泡排序法
   var bubbleSort = function (nums) {
     // 外层每趟循环，找出一个最大的数
-    for (let i = 0; i < nums.length; i++) {
+    for (let i = 0; i < nums.length - 1; i++) {
       // 判断每次是否需要交换
       for (let j = 0; j < nums.length - 1 - i; j++) {
         if (nums[j] > nums[j + 1]) {
@@ -383,7 +383,7 @@ banner_img:
           // ES5 交换两个变量
           // const temp = nums[j]
           // nums[j] = nums[j + 1]
-          // ums[j + 1] = nums[j]
+          // nums[j + 1] = nums[j]
         }
       }
     }
@@ -393,7 +393,7 @@ banner_img:
 
 ```js
 // 插入排序法
-  var sortSort = function (nums) {
+  var InsertionSort = function (nums) {
     for (let i = 1; i < nums.length; i++) {
       for (var j = i; j >= 1; j--) {
         if (nums[j] < nums[j - 1]) {
@@ -414,7 +414,7 @@ banner_img:
     // 控制要找到最小的数放入i位置
     for (var i = 0; i < nums.length - 1; i++) {
       var minIdx = i //把当前范围的第一个数当成最小数，但只记录其下标
-      for (var j = i; j < nums.length; j++) {
+      for (var j = i + 1; j < nums.length; j++) {
         if (nums[minIdx] > nums[j])
           minIdx = j
       }

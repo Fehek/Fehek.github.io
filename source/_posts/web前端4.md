@@ -159,7 +159,7 @@ js中浮点数参与位运算时，取其整数部分的低32bit参与运算。
 ## 数组
 代码|意义
 :-|:-
-[Arry](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array)|数组
+[Array](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array)|数组
 var a = []|创建空数组
 var a = [1,2,3+2,4]|创建有初始内容的数组
 var a = Array(5)|创建长不为0的空数组
@@ -188,7 +188,7 @@ str.toLowerCase()|调用字符串转为小写并返回
 str.charCodeAt()|字母转为ascii码
 String.fromCharCode(num)|ascii码转为字母
 [str.charAt(i)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/charAt)|返回字符串的第i个字符`(0 <= i <= length-1)`
-[a.split(" ")](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/split)|将一个字符串分割成子字符串数组
+[a.split(' ')](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/split)|将一个字符串分割成子字符串数组
 
 ## 数字
 代码|意义
