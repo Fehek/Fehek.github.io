@@ -37,7 +37,7 @@ console.dir 打印返回的元素对象，更好的查看里面的属性和方�
 `element.getElementsByTagName('标签名')`
 - [document.getElementsByClassName()](https://developer.mozilla.org/zh-CN/docs/Web/API/Document/getElementsByClassName)：根据类名返回元素对象集合
 - [document.querySelector()](https://developer.mozilla.org/zh-CN/docs/Web/API/Document/querySelector)：根据指定选择器返回第一个元素对象，里面的选择器需要加符号（.box #nav)
-- [document.querySelector()](https://developer.mozilla.org/zh-CN/docs/Web/API/Document/querySelectorAll)：根据指定选择器返回所有元素对象集合
+- [document.querySelectorAll()](https://developer.mozilla.org/zh-CN/docs/Web/API/Document/querySelectorAll)：根据指定选择器返回所有元素对象集合
 - doucment.body：获取body元素
 document.documentElement：获取html元素
 

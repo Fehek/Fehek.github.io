@@ -393,7 +393,7 @@ banner_img:
 
 ```js
 // 插入排序法
-  var InsertionSort = function (nums) {
+  var insertionSort = function (nums) {
     for (let i = 1; i < nums.length; i++) {
       for (var j = i; j >= 1; j--) {
         if (nums[j] < nums[j - 1]) {
