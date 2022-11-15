@@ -769,7 +769,7 @@ viewmodel: 视图模型(vue的实例)
 2. 编码
     1. 定义过滤器
     ```js
-    Vue.filter(filterName, function(value[,arg1,arg2,...]{
+    Vue.filter(filterName, function(value[,arg1,arg2,...]){
       // 进行一定的数据处理
       return newValue
     })
