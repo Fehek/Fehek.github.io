@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=auto>
 
 
 
@@ -9,40 +9,47 @@
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/image/icon.png">
   <link rel="icon" href="/image/icon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
   <meta name="author" content="Fehek">
   <meta name="keywords" content="">
+  
+    <meta name="description" content="基础 环境变量（windows系统中变量）当我们在命令行窗口打开一个文件，或调用一个程序时系统会首先在当前目录下寻找文件程序，如果找到了则直接打开如果没有找到则会依次到环境变量path的路径中寻找，直到找到为止如果没找到则报错所以我们可以将一些经常需要访问的程序和文件的路径添加到path中，这样我们就可以在任意位置来访问这些文件和程序了 进程和线程进程就是一个一个的工作计划。线程是计算机中最小的计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="web前端学习笔记11——NodeJS">
+<meta property="og:url" content="http://example.com/posts/c642559f.html">
+<meta property="og:site_name" content="my notes">
+<meta property="og:description" content="基础 环境变量（windows系统中变量）当我们在命令行窗口打开一个文件，或调用一个程序时系统会首先在当前目录下寻找文件程序，如果找到了则直接打开如果没有找到则会依次到环境变量path的路径中寻找，直到找到为止如果没找到则报错所以我们可以将一些经常需要访问的程序和文件的路径添加到path中，这样我们就可以在任意位置来访问这些文件和程序了 进程和线程进程就是一个一个的工作计划。线程是计算机中最小的计">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-02-24T13:06:00.000Z">
+<meta property="article:modified_time" content="2021-04-08T08:07:45.483Z">
+<meta property="article:author" content="Fehek">
+<meta property="article:tag" content="front-end">
+<meta property="article:tag" content="NodeJS">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
   
   <title>web前端学习笔记11——NodeJS - my notes</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
 
+
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+
   <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/routeros.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-  
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
 
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
 
 
 
@@ -51,7 +58,13 @@
 
 <link  rel="stylesheet" href="/css/main.css" />
 
-<!-- 自定义样式保持在最底部 -->
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
 
   
 <link rel="stylesheet" href="/css/custom.css">
@@ -60,21 +73,37 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.0">
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
 
 <body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>ZONE OUT</strong>&nbsp;</a>
+    <a class="navbar-brand" href="/">
+      <strong>ZONE OUT</strong>
+    </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -93,7 +122,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                <span>首页</span>
               </a>
             </li>
           
@@ -105,7 +134,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                <span>归档</span>
               </a>
             </li>
           
@@ -117,7 +146,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                <span>分类</span>
               </a>
             </li>
           
@@ -129,7 +158,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                <span>标签</span>
               </a>
             </li>
           
@@ -141,21 +170,24 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                <span>关于</span>
               </a>
             </li>
           
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
           </li>
+          
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
@@ -163,64 +195,75 @@
   </div>
 </nav>
 
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/image/post.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="NodeJS">
-              
-            </span>
-
-            
-              <div class="mt-3">
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-02-24 21:06" pubdate>
-        2021年2月24日 晚上
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      3.2k 字
-    </span>
   
 
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      39
-       分钟
-    </span>
-  
-
-  
-  
-</div>
-
-            
-          </div>
-
+<div id="banner" class="banner" parallax=true
+     style="background: url('/image/post.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
           
-            <div class="scroll-down-bar">
-              <i class="iconfont icon-arrowdown"></i>
-            </div>
+            <span id="subtitle" data-typed-text="NodeJS"></span>
           
         </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-02-24 21:06" pubdate>
+          2021年2月24日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          67 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
       </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
     </div>
+  </div>
+</div>
+
+</div>
+
   </header>
 
   <main>
@@ -229,33 +272,41 @@
 
 <div class="container-fluid nopadding-x">
   <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
     <div class="col-lg-8 nopadding-x-md">
       <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
+        <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
             <h1 style="display: none">NodeJS</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月8日 下午
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2021年4月8日 下午
+                  
                 
               </p>
             
-            <div class="markdown-body">
-              <h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><ul>
+            
+              <div class="markdown-body">
+                
+                <h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><ul>
 <li>环境变量（windows系统中变量）<br>当我们在命令行窗口打开一个文件，或调用一个程序时<br>系统会首先在当前目录下寻找文件程序，如果找到了则直接打开<br>如果没有找到则会依次到环境变量path的路径中寻找，直到找到为止<br>如果没找到则报错<br>所以我们可以将一些经常需要访问的程序和文件的路径添加到path中，这样我们就可以在任意位置来访问这些文件和程序了</li>
-<li>进程和线程<br>进程就是一个一个的工作计划。<br>线程是计算机中最小的计量单位，负责执行进程中的程序。</li>
+<li>进程和线程<br>进程就是一个一个的工作计划。<br>线程是计算机中最小的计量单位，负责执行进程中的程序。<br><strong>JS是单线程，但是在后台拥有一个I/O线程池。</strong></li>
 </ul>
-<p><strong>JS是单线程，但是在后台拥有一个I/O线程池。</strong></p>
 <h1 id="node-js简介"><a href="#node-js简介" class="headerlink" title="node.js简介"></a>node.js简介</h1><p>Node.js是一个能够在服务器端运行JavaScript的开放源代码、跨平台JavaScript运行环境。<br>Node采用Google开发的V8引擎运行js代码，使用<strong>事件驱动</strong>、<strong>非阻塞</strong>和<strong>异步I/O模型</strong>等技术来提高性能，可优化应用程序的传输量和规模。</p>
 <h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><p><a target="_blank" rel="noopener" href="http://nodejs.cn/api/modules.html">CommonJS模块</a><br>具体例子可见<a href="./383ae588.html">笔记8</a></p>
 <h2 id="包"><a href="#包" class="headerlink" title="包"></a>包</h2><ul>
 <li>CommonJS的包规范由包结构和包描述文件两个部分组成。</li>
 </ul>
 <p>包结构：用于组织包中的各种文件<br>包实际上就是一个压缩文件，解压以后还原为目录。符合规范的目录，应该包含如下文件：</p>
-<figure class="highlight md"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs md">– package.json  描述文件<br>– bin           可执行二进制文件<br>– lib           js代码<br>– doc           文档<br>– test          单元测试<br></code></pre></div></td></tr></tbody></table></figure>
+<figure class="highlight md"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs md">– package.json  描述文件<br>– bin           可执行二进制文件<br>– lib           js代码<br>– doc           文档<br>– test          单元测试<br></code></pre></td></tr></tbody></table></figure>
 <p>包描述文件：描述包的相关信息，以供外部读取分析<br>包描述文件用于表达非代码相关的信息，它是一个JSON格式的文件 – package.json，位于包的根目录下，是包的重要组成部分。</p>
 <h2 id="NPM"><a href="#NPM" class="headerlink" title="NPM"></a>NPM</h2><p>NPM(Node Package Manager)<br>对于Node而言，NPM帮助其完成了第三方模块的发布、安装和依赖等。借助NPM，Node与第三方模块之间形成了很好的一个生态系统。</p>
 <table>
@@ -307,8 +358,8 @@
 <li>在buffer中存储的都是二进制数据，但是在显示都是以16进制的形式显示。<br>buffer中每一个元素的范围是从 00 - ff / 0 - 255 / 00000000 - 11111111<br>buffer中的一个元素，占用内存一个字节(byte)</li>
 </ol>
 <ul>
-<li>使用Buffer保存字符串<figure class="highlight js"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-keyword">const</span> str = <span class="hljs-string">"Hello 前端"</span> <br><span class="hljs-keyword">const</span> buf = Buffer.from(str)<br><span class="hljs-comment">// 使用Buffer保存字符串</span><br><br><span class="hljs-built_in">console</span>.log(buf.length)<br><span class="hljs-comment">// 占用内存的大小</span><br><span class="hljs-comment">// 12(5+1+3*2)</span><br><br><span class="hljs-built_in">console</span>.log(str.length) <br><span class="hljs-comment">//字符串的长度</span><br><span class="hljs-comment">// 8</span><br><br><span class="hljs-built_in">console</span>.log(buf)<br><span class="hljs-comment">// Buffer(12) [72, 101, 108, 108, 111, 32, 229, 137, 141, 231, 171, 175]</span><br><br><span class="hljs-keyword">const</span> buf2 = Buffer.from(<span class="hljs-string">'我是文本'</span>)<br><span class="hljs-built_in">console</span>.log(buf2.toString()) <span class="hljs-comment">//我是文本</span><br><span class="hljs-comment">// buf.toString() 将缓冲区中的数据转换为字符串</span><br></code></pre></div></td></tr></tbody></table></figure></li>
-<li>创建指定大小的Buffer对象<figure class="highlight js"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-keyword">const</span> buf = Buffer.alloc(<span class="hljs-number">10</span>)<br><span class="hljs-comment">// 创建一个长度为 10、以零填充的 Buffer</span><br><br>buf[<span class="hljs-number">0</span>] = <span class="hljs-number">255</span><br><span class="hljs-comment">// 会转换成16进制 ff</span><br><br>buf[<span class="hljs-number">10</span>] = <span class="hljs-number">1</span> <span class="hljs-comment">//不会有改变</span><br><span class="hljs-comment">// Buffer的大小一旦确定，则不能修改</span><br><span class="hljs-comment">// Buffer实际上是对底层内存的直接操作</span><br><br>buf[<span class="hljs-number">1</span>] = <span class="hljs-number">256</span> <span class="hljs-comment">//0</span><br>buf[<span class="hljs-number">2</span>] = <span class="hljs-number">556</span> <span class="hljs-comment">//44</span><br><span class="hljs-comment">// 会舍弃8位之前的数字</span><br><span class="hljs-comment">// 556 = 0b1000101100，后8位为0b00101100 = 0x44</span><br><br>consol.log(buf[<span class="hljs-number">0</span>]) <span class="hljs-comment">//255</span><br><span class="hljs-comment">//只要数字在控制台或页面输出一定是10进制</span><br>consol.log(buf[<span class="hljs-number">0</span>].toString(<span class="hljs-number">2</span>)) <span class="hljs-comment">//11111111</span><br><span class="hljs-comment">//转换成别的进制</span><br><br><span class="hljs-keyword">const</span> buf2 = Buffer.allocUnsafe(<span class="hljs-number">10</span>)<br><span class="hljs-comment">// 新创建的 Buffer 的内容是未知的，可能包含敏感数据(不清空数据)</span><br></code></pre></div></td></tr></tbody></table></figure></li>
+<li>使用Buffer保存字符串<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> str = <span class="hljs-string">"Hello 前端"</span> <br><span class="hljs-keyword">const</span> buf = <span class="hljs-title class_">Buffer</span>.<span class="hljs-title function_">from</span>(str)<br><span class="hljs-comment">// 使用Buffer保存字符串</span><br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(buf.<span class="hljs-property">length</span>)<br><span class="hljs-comment">// 占用内存的大小</span><br><span class="hljs-comment">// 12(5+1+3*2)</span><br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(str.<span class="hljs-property">length</span>) <br><span class="hljs-comment">//字符串的长度</span><br><span class="hljs-comment">// 8</span><br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(buf)<br><span class="hljs-comment">// Buffer(12) [72, 101, 108, 108, 111, 32, 229, 137, 141, 231, 171, 175]</span><br><br><span class="hljs-keyword">const</span> buf2 = <span class="hljs-title class_">Buffer</span>.<span class="hljs-title function_">from</span>(<span class="hljs-string">'我是文本'</span>)<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(buf2.<span class="hljs-title function_">toString</span>()) <span class="hljs-comment">//我是文本</span><br><span class="hljs-comment">// buf.toString() 将缓冲区中的数据转换为字符串</span><br></code></pre></td></tr></tbody></table></figure></li>
+<li>创建指定大小的Buffer对象<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> buf = <span class="hljs-title class_">Buffer</span>.<span class="hljs-title function_">alloc</span>(<span class="hljs-number">10</span>)<br><span class="hljs-comment">// 创建一个长度为 10、以零填充的 Buffer</span><br><br>buf[<span class="hljs-number">0</span>] = <span class="hljs-number">255</span><br><span class="hljs-comment">// 会转换成16进制 ff</span><br><br>buf[<span class="hljs-number">10</span>] = <span class="hljs-number">1</span> <span class="hljs-comment">//不会有改变</span><br><span class="hljs-comment">// Buffer的大小一旦确定，则不能修改</span><br><span class="hljs-comment">// Buffer实际上是对底层内存的直接操作</span><br><br>buf[<span class="hljs-number">1</span>] = <span class="hljs-number">256</span> <span class="hljs-comment">//0</span><br>buf[<span class="hljs-number">2</span>] = <span class="hljs-number">556</span> <span class="hljs-comment">//44</span><br><span class="hljs-comment">// 会舍弃8位之前的数字</span><br><span class="hljs-comment">// 556 = 0b1000101100，后8位为0b00101100 = 0x44</span><br><br>consol.<span class="hljs-title function_">log</span>(buf[<span class="hljs-number">0</span>]) <span class="hljs-comment">//255</span><br><span class="hljs-comment">//只要数字在控制台或页面输出一定是10进制</span><br>consol.<span class="hljs-title function_">log</span>(buf[<span class="hljs-number">0</span>].<span class="hljs-title function_">toString</span>(<span class="hljs-number">2</span>)) <span class="hljs-comment">//11111111</span><br><span class="hljs-comment">//转换成别的进制</span><br><br><span class="hljs-keyword">const</span> buf2 = <span class="hljs-title class_">Buffer</span>.<span class="hljs-title function_">allocUnsafe</span>(<span class="hljs-number">10</span>)<br><span class="hljs-comment">// 新创建的 Buffer 的内容是未知的，可能包含敏感数据(不清空数据)</span><br></code></pre></td></tr></tbody></table></figure></li>
 </ul>
 <h1 id="fs（文件系统）"><a href="#fs（文件系统）" class="headerlink" title="fs（文件系统）"></a>fs（文件系统）</h1><p><a target="_blank" rel="noopener" href="http://nodejs.cn/api/fs.html">fs 文档</a><br>fs(File System)，文件系统。简单来说就是通过Node来操作系统中的文件。<br>服务器的本质就是将本地的文件发送给远程的客户端。</p>
 <ol>
@@ -316,99 +367,163 @@
 <li>fs模块中所有的操作都有两种形式可供选择，同步(Sync)和异步(callback)。<br>同步文件系统会阻塞程序的执行，也就是除非操作完毕，否则不会向下执行代码。<br>异步文件系统不会阻塞程序的执行，而是在操作完成时，通过回调函数将结果返回。</li>
 </ol>
 <h2 id="同步文件"><a href="#同步文件" class="headerlink" title="同步文件"></a>同步文件</h2><h3 id="写入"><a href="#写入" class="headerlink" title="写入"></a>写入</h3><ol>
-<li>打开文件<figure class="highlight md"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs md">fs.openSync(path[, flags, mode])<br><span class="hljs-bullet">-</span> path 要打开文件的路径<br><span class="hljs-bullet">-</span> flags 打开文件要做的操作的类型<br><span class="hljs-code">    r 只读的</span><br><span class="hljs-code">    w 可写的</span><br><span class="hljs-code">- mode 设置文件的操作权限，一般不传</span><br><span class="hljs-code">该方法会返回一个文件的描述符作为结果，可以通过该描述符来对文件进行各种操作</span><br></code></pre></div></td></tr></tbody></table></figure></li>
-<li>向文件中写入内容<figure class="highlight md"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs md">fs.writeSync(fd, string[, position[, encoding]])<br><span class="hljs-bullet">-</span> fd 文件的描述符，通过openSync()获取<br><span class="hljs-bullet">-</span> string 要写入的内容<br><span class="hljs-bullet">-</span> position 写入的起始位置<br><span class="hljs-bullet">-</span> encoding 写入的编码，默认utf-8<br></code></pre></div></td></tr></tbody></table></figure></li>
-<li>保存并关闭文件<figure class="highlight md"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs md">fs.closeSync(fd)<br><span class="hljs-bullet">-</span> fd 要关闭文件的描述符<br></code></pre></div></td></tr></tbody></table></figure></li>
+<li>打开文件<figure class="highlight md"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs md">fs.openSync(path[, flags, mode])<br><span class="hljs-bullet">-</span> path 要打开文件的路径<br><span class="hljs-bullet">-</span> flags 打开文件要做的操作的类型<br><span class="hljs-code">    r 只读的</span><br><span class="hljs-code">    w 可写的</span><br><span class="hljs-code">- mode 设置文件的操作权限，一般不传</span><br><span class="hljs-code">该方法会返回一个文件的描述符作为结果，可以通过该描述符来对文件进行各种操作</span><br></code></pre></td></tr></tbody></table></figure></li>
+<li>向文件中写入内容<figure class="highlight md"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs md">fs.writeSync(fd, string[, position[, encoding]])<br><span class="hljs-bullet">-</span> fd 文件的描述符，通过openSync()获取<br><span class="hljs-bullet">-</span> string 要写入的内容<br><span class="hljs-bullet">-</span> position 写入的起始位置<br><span class="hljs-bullet">-</span> encoding 写入的编码，默认utf-8<br></code></pre></td></tr></tbody></table></figure></li>
+<li>保存并关闭文件<figure class="highlight md"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs md">fs.closeSync(fd)<br><span class="hljs-bullet">-</span> fd 要关闭文件的描述符<br></code></pre></td></tr></tbody></table></figure></li>
 </ol>
-<figure class="highlight js"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>)<br><br><span class="hljs-comment">// 打开文件</span><br><span class="hljs-keyword">var</span> fd = fs.openSync(<span class="hljs-string">'hello.txt'</span>, <span class="hljs-string">'w'</span>)<br><span class="hljs-comment">// 向文件中写入内容</span><br>fs.writeSync(fd, <span class="hljs-string">'今天天气真好。'</span>, <span class="hljs-number">2</span>)<br><span class="hljs-comment">// 关闭文件</span><br>fs.closeSync(fd)<br></code></pre></div></td></tr></tbody></table></figure>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>)<br><br><span class="hljs-comment">// 打开文件</span><br><span class="hljs-keyword">var</span> fd = fs.<span class="hljs-title function_">openSync</span>(<span class="hljs-string">'hello.txt'</span>, <span class="hljs-string">'w'</span>)<br><span class="hljs-comment">// 向文件中写入内容</span><br>fs.<span class="hljs-title function_">writeSync</span>(fd, <span class="hljs-string">'今天天气真好。'</span>, <span class="hljs-number">2</span>)<br><span class="hljs-comment">// 关闭文件</span><br>fs.<span class="hljs-title function_">closeSync</span>(fd)<br></code></pre></td></tr></tbody></table></figure>
 <h3 id="读取"><a href="#读取" class="headerlink" title="读取"></a>读取</h3><p><code>fs.readSync(fd, buffer, [options])</code></p>
 <h2 id="异步文件"><a href="#异步文件" class="headerlink" title="异步文件"></a>异步文件</h2><h3 id="写入-1"><a href="#写入-1" class="headerlink" title="写入"></a>写入</h3><ol>
-<li>打开文件<figure class="highlight md"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs md">fs.open(path[, flags[, mode]], callback)<br>异步调用的方法，结果都是通过回调函数的参数返回的<br>回调函数两个参数<br>err 错误对象，如果没有错误则为null<br>fd 文件的描述符<br></code></pre></div></td></tr></tbody></table></figure></li>
-<li>异步写入一个文件<figure class="highlight md"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs md">fs.write(fd, string[, position[, encoding]], callback)<br></code></pre></div></td></tr></tbody></table></figure></li>
-<li>关闭文件<figure class="highlight md"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs md">fs.close(fd, callback)<br></code></pre></div></td></tr></tbody></table></figure></li>
+<li>打开文件<figure class="highlight md"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs md">fs.open(path[, flags[, mode]], callback)<br>异步调用的方法，结果都是通过回调函数的参数返回的<br>回调函数两个参数<br>err 错误对象，如果没有错误则为null<br>fd 文件的描述符<br></code></pre></td></tr></tbody></table></figure></li>
+<li>异步写入一个文件<figure class="highlight md"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs md">fs.write(fd, string[, position[, encoding]], callback)<br></code></pre></td></tr></tbody></table></figure></li>
+<li>关闭文件<figure class="highlight md"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs md">fs.close(fd, callback)<br></code></pre></td></tr></tbody></table></figure></li>
 </ol>
-<figure class="highlight js"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>)<br><br><span class="hljs-comment">// 打开文件</span><br>fs.open(<span class="hljs-string">'hello2.txt'</span>, <span class="hljs-string">'w'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, fd</span>) </span>{<br>  <span class="hljs-comment">// 判断是否出错</span><br>  <span class="hljs-keyword">if</span> (!err) {<br>    <span class="hljs-comment">// 如果没有出错，则对文件进行写入操作</span><br>    fs.write(fd, <span class="hljs-string">'这是异步写入的内容'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{<br>      <span class="hljs-keyword">if</span> (!err) {<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'写入成功'</span>)<br>      }<br>      <span class="hljs-comment">// 关闭文件</span><br>      fs.close(fd, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{<br>        <span class="hljs-keyword">if</span> (!err) {<br>          <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'文件已关闭'</span>)<br>        }<br>      })<br>    })<br>  } <span class="hljs-keyword">else</span> {<br>    <span class="hljs-built_in">console</span>.log(err)<br>  }<br>})<br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">'程序向下执行'</span>)<br></code></pre></div></td></tr></tbody></table></figure>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>)<br><br><span class="hljs-comment">// 打开文件</span><br>fs.<span class="hljs-title function_">open</span>(<span class="hljs-string">'hello2.txt'</span>, <span class="hljs-string">'w'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">err, fd</span>) {<br>  <span class="hljs-comment">// 判断是否出错</span><br>  <span class="hljs-keyword">if</span> (!err) {<br>    <span class="hljs-comment">// 如果没有出错，则对文件进行写入操作</span><br>    fs.<span class="hljs-title function_">write</span>(fd, <span class="hljs-string">'这是异步写入的内容'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) {<br>      <span class="hljs-keyword">if</span> (!err) {<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'写入成功'</span>)<br>      }<br>      <span class="hljs-comment">// 关闭文件</span><br>      fs.<span class="hljs-title function_">close</span>(fd, <span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) {<br>        <span class="hljs-keyword">if</span> (!err) {<br>          <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'文件已关闭'</span>)<br>        }<br>      })<br>    })<br>  } <span class="hljs-keyword">else</span> {<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(err)<br>  }<br>})<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'程序向下执行'</span>)<br></code></pre></td></tr></tbody></table></figure>
 <h3 id="读取-1"><a href="#读取-1" class="headerlink" title="读取"></a>读取</h3><p><code>fs.read(fd, [options,] callback)</code></p>
-<h2 id="简单文件"><a href="#简单文件" class="headerlink" title="简单文件"></a>简单文件</h2><h3 id="写入-2"><a href="#写入-2" class="headerlink" title="写入"></a>写入</h3><figure class="highlight md"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs md">fs.writeFile(file, data[, options], callback)<br>fs.writeFileSync(file, data[, options])<br><span class="hljs-bullet">  -</span> file 要操作的文件路径<br><span class="hljs-bullet">  -</span> data 要写入的数据，可以是String或BUffer<br><span class="hljs-bullet">  -</span> options 选项，可以对写入进行一些设置<br><span class="hljs-bullet">    -</span> encoding <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span></span> | <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">null</span>&gt;</span></span> 默认值: 'utf8'<br><span class="hljs-bullet">    -</span> mode <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">integer</span>&gt;</span></span> 默认值: 0o666<br><span class="hljs-bullet">    -</span> flag <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span></span> 默认值: 'w'<br><span class="hljs-code">      r 只读  w 可写  a 追加</span><br><span class="hljs-code">  - callback 当写入完成以后执行的函数</span><br></code></pre></div></td></tr></tbody></table></figure>
+<h2 id="简单文件"><a href="#简单文件" class="headerlink" title="简单文件"></a>简单文件</h2><h3 id="写入-2"><a href="#写入-2" class="headerlink" title="写入"></a>写入</h3><figure class="highlight md"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs md">fs.writeFile(file, data[, options], callback)<br>fs.writeFileSync(file, data[, options])<br><span class="hljs-bullet">  -</span> file 要操作的文件路径<br><span class="hljs-bullet">  -</span> data 要写入的数据，可以是String或BUffer<br><span class="hljs-bullet">  -</span> options 选项，可以对写入进行一些设置<br><span class="hljs-bullet">    -</span> encoding <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span></span> | <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">null</span>&gt;</span></span> 默认值: 'utf8'<br><span class="hljs-bullet">    -</span> mode <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">integer</span>&gt;</span></span> 默认值: 0o666<br><span class="hljs-bullet">    -</span> flag <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span></span> 默认值: 'w'<br><span class="hljs-code">      r 只读  w 可写  a 追加</span><br><span class="hljs-code">  - callback 当写入完成以后执行的函数</span><br></code></pre></td></tr></tbody></table></figure>
 <p><a target="_blank" rel="noopener" href="http://nodejs.cn/api/fs.html#fs_file_system_flags">flag 标志</a></p>
-<figure class="highlight js"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>)<br><br><span class="hljs-comment">// 路径或者改为 C:/Users/fe/Desktop/nodejs/hello3.txt</span><br>fs.writeFile(<span class="hljs-string">'C:\\Users\\fe\\Desktop\\nodejs\\hello3.txt'</span>, <span class="hljs-string">'这是通过writeFile写入的内容'</span>, { <span class="hljs-attr">flag</span>: <span class="hljs-string">"w"</span> }, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{<br>  <span class="hljs-keyword">if</span> (!err) {<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'写入成功'</span>)<br>  } <span class="hljs-keyword">else</span> {<br>    <span class="hljs-built_in">console</span>.log(err)<br>  }<br>})<br></code></pre></div></td></tr></tbody></table></figure>
-<h3 id="读取-2"><a href="#读取-2" class="headerlink" title="读取"></a>读取</h3><figure class="highlight md"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs md">fs.readFile(path[, options], callback)<br>fs.readFileSync(path[, options])<br><span class="hljs-bullet">  -</span> path 要读取的文件的路径<br><span class="hljs-bullet">  -</span> options  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">Object</span>&gt;</span></span> | <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span></span><br><span class="hljs-bullet">    -</span> encoding <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span></span> | <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">null</span>&gt;</span></span> 默认值: null<br><span class="hljs-bullet">    -</span> flag <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span></span> 默认值: 'r'<br><span class="hljs-bullet">  -</span> callback 回调函数，通过回调函数将读取到内容返回(err, data)<br><span class="hljs-code">    err 错误对象</span><br><span class="hljs-code">    data 读取到的数据，会返回一个Buffer</span><br></code></pre></div></td></tr></tbody></table></figure>
-<figure class="highlight js"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>)<br>fs.readFile(<span class="hljs-string">'a.jpg'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, data</span>) </span>{<br>  <span class="hljs-keyword">if</span> (!err) {<br>    <span class="hljs-comment">// 将data写入到文件中</span><br>    fs.writeFile(<span class="hljs-string">'hello.jpg'</span>, data, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{<br>      <span class="hljs-keyword">if</span> (!err) {<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'写入成功！'</span>)<br>      }<br>    })<br>  }<br>})<br><span class="hljs-comment">// 实现了复制操作</span><br></code></pre></div></td></tr></tbody></table></figure>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>)<br><br><span class="hljs-comment">// 路径或者改为 C:/Users/fe/Desktop/nodejs/hello3.txt</span><br>fs.<span class="hljs-title function_">writeFile</span>(<span class="hljs-string">'C:\\Users\\fe\\Desktop\\nodejs\\hello3.txt'</span>, <span class="hljs-string">'这是通过writeFile写入的内容'</span>, { <span class="hljs-attr">flag</span>: <span class="hljs-string">"w"</span> }, <span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) {<br>  <span class="hljs-keyword">if</span> (!err) {<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'写入成功'</span>)<br>  } <span class="hljs-keyword">else</span> {<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(err)<br>  }<br>})<br></code></pre></td></tr></tbody></table></figure>
+<h3 id="读取-2"><a href="#读取-2" class="headerlink" title="读取"></a>读取</h3><figure class="highlight md"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs md">fs.readFile(path[, options], callback)<br>fs.readFileSync(path[, options])<br><span class="hljs-bullet">  -</span> path 要读取的文件的路径<br><span class="hljs-bullet">  -</span> options  <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Object</span>&gt;</span></span> | <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span></span><br><span class="hljs-bullet">    -</span> encoding <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span></span> | <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">null</span>&gt;</span></span> 默认值: null<br><span class="hljs-bullet">    -</span> flag <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">string</span>&gt;</span></span> 默认值: 'r'<br><span class="hljs-bullet">  -</span> callback 回调函数，通过回调函数将读取到内容返回(err, data)<br><span class="hljs-code">    err 错误对象</span><br><span class="hljs-code">    data 读取到的数据，会返回一个Buffer</span><br></code></pre></td></tr></tbody></table></figure>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>)<br>fs.<span class="hljs-title function_">readFile</span>(<span class="hljs-string">'a.jpg'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">err, data</span>) {<br>  <span class="hljs-keyword">if</span> (!err) {<br>    <span class="hljs-comment">// 将data写入到文件中</span><br>    fs.<span class="hljs-title function_">writeFile</span>(<span class="hljs-string">'hello.jpg'</span>, data, <span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) {<br>      <span class="hljs-keyword">if</span> (!err) {<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'写入成功！'</span>)<br>      }<br>    })<br>  }<br>})<br><span class="hljs-comment">// 实现了复制操作</span><br></code></pre></td></tr></tbody></table></figure>
 
 <h2 id="流式文件"><a href="#流式文件" class="headerlink" title="流式文件"></a>流式文件</h2><h3 id="写入-3"><a href="#写入-3" class="headerlink" title="写入"></a>写入</h3><p>同步、异步、简单文件的写入都不适合大文件的写入，性能较差，容易导致内存溢出。</p>
-<figure class="highlight md"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs md">首先需要创建一个Writable对象<br>  fs.createWriteStream(path[, options])<br><span class="hljs-bullet">    -</span> path 文件路径<br><span class="hljs-bullet">    -</span> options {encoding:"",mode:"",flag:""}<br>打开了Writable文件流，就可以使用write()方法来写入它<br>写入完成后，再调用end()方法来关闭流<br></code></pre></div></td></tr></tbody></table></figure>
-<figure class="highlight js"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>)<br><br><span class="hljs-comment">// 创建一个可写流</span><br><span class="hljs-keyword">var</span> ws = fs.createWriteStream(<span class="hljs-string">'hello4.txt'</span>)<br><span class="hljs-comment">// 可以通过监听流的open和close事件来监听流的打开和关闭</span><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">on(事件字符串, 回调函数)</span><br><span class="hljs-comment">  - 可以为对象绑定一个事件</span><br><span class="hljs-comment">once(事件字符串, 回调函数)</span><br><span class="hljs-comment">  - 可以为对象绑定一个一次性的事件，该事件将会在触发一次以后自动失效</span><br><span class="hljs-comment">*/</span><br>ws.once(<span class="hljs-string">'open'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'流打开了'</span>)<br>})<br>ws.once(<span class="hljs-string">'close'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'流关闭了'</span>)<br>})<br><br><span class="hljs-comment">// 通过ws向文件中输出内容</span><br>ws.write(<span class="hljs-string">'通过可写流写入文件的内容'</span>)<br>ws.write(<span class="hljs-string">'今天天气真好'</span>)<br>ws.write(<span class="hljs-string">'HELLO'</span>)<br>ws.write(<span class="hljs-string">'WORLD'</span>)<br><br><span class="hljs-comment">// 关闭流</span><br>ws.close()<br><span class="hljs-comment">// ws.end()</span><br></code></pre></div></td></tr></tbody></table></figure>
+<figure class="highlight md"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs md">首先需要创建一个Writable对象<br>  fs.createWriteStream(path[, options])<br><span class="hljs-bullet">    -</span> path 文件路径<br><span class="hljs-bullet">    -</span> options {encoding:"",mode:"",flag:""}<br>打开了Writable文件流，就可以使用write()方法来写入它<br>写入完成后，再调用end()方法来关闭流<br></code></pre></td></tr></tbody></table></figure>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>)<br><br><span class="hljs-comment">// 创建一个可写流</span><br><span class="hljs-keyword">var</span> ws = fs.<span class="hljs-title function_">createWriteStream</span>(<span class="hljs-string">'hello4.txt'</span>)<br><span class="hljs-comment">// 可以通过监听流的open和close事件来监听流的打开和关闭</span><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">on(事件字符串, 回调函数)</span><br><span class="hljs-comment">  - 可以为对象绑定一个事件</span><br><span class="hljs-comment">once(事件字符串, 回调函数)</span><br><span class="hljs-comment">  - 可以为对象绑定一个一次性的事件，该事件将会在触发一次以后自动失效</span><br><span class="hljs-comment">*/</span><br>ws.<span class="hljs-title function_">once</span>(<span class="hljs-string">'open'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'流打开了'</span>)<br>})<br>ws.<span class="hljs-title function_">once</span>(<span class="hljs-string">'close'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'流关闭了'</span>)<br>})<br><br><span class="hljs-comment">// 通过ws向文件中输出内容</span><br>ws.<span class="hljs-title function_">write</span>(<span class="hljs-string">'通过可写流写入文件的内容'</span>)<br>ws.<span class="hljs-title function_">write</span>(<span class="hljs-string">'今天天气真好'</span>)<br>ws.<span class="hljs-title function_">write</span>(<span class="hljs-string">'HELLO'</span>)<br>ws.<span class="hljs-title function_">write</span>(<span class="hljs-string">'WORLD'</span>)<br><br><span class="hljs-comment">// 关闭流</span><br>ws.<span class="hljs-title function_">close</span>()<br><span class="hljs-comment">// ws.end()</span><br></code></pre></td></tr></tbody></table></figure>
 <h3 id="读取-3"><a href="#读取-3" class="headerlink" title="读取"></a>读取</h3><p>流式文件读取也适用于一些比较大的文件，可以分多次将文件读取到内容中</p>
-<figure class="highlight md"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs md">首先需要创建一个Readable流对象<br>  fs.createReadStream(path[, options])<br><span class="hljs-bullet">    -</span> path 文件路径<br><span class="hljs-bullet">    -</span> options {encoding:"",mode:"",flag:""}<br>打开Readable文件流以后，可以通过readable事件和read()请求，或通过data事件处理程序从它读出。<br></code></pre></div></td></tr></tbody></table></figure>
-<figure class="highlight js"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>)<br><br><span class="hljs-comment">// 创建一个可读流</span><br><span class="hljs-keyword">var</span> rs = fs.createReadStream(<span class="hljs-string">'ABC.mp3'</span>)<br><span class="hljs-comment">// 创建一个可写流</span><br><span class="hljs-keyword">var</span> ws = fs.createWriteStream(<span class="hljs-string">'123.mp3'</span>)<br><br><span class="hljs-comment">// 监听流的开启和关闭</span><br>rs.once(<span class="hljs-string">'open'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'可读流打开了'</span>)<br>})<br>rs.once(<span class="hljs-string">'close'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'可读流关闭了'</span>)<br>  <span class="hljs-comment">// 数据读取完毕，关闭可写流</span><br>  ws.end()<br>})<br>ws.once(<span class="hljs-string">'open'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'可写流打开了'</span>)<br>})<br>ws.once(<span class="hljs-string">'close'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'可写流关闭了'</span>)<br>})<br><br><span class="hljs-comment">// 如果要读取一个可读流中的数据，必须要为可读流绑定一个data事件，data事件绑定文笔，它会自动开始读取数据</span><br>rs.on(<span class="hljs-string">'data'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) </span>{<br>  <span class="hljs-comment">// console.log(data)</span><br>  <span class="hljs-comment">// 将读取到的数据写入到可写流中</span><br>  ws.write(data)<br>})<br><span class="hljs-comment">// 复制一个大文件</span><br></code></pre></div></td></tr></tbody></table></figure>
-<figure class="highlight js"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-comment">// 另一种写法</span><br><span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>)<br><br><span class="hljs-comment">// 创建一个可读流</span><br><span class="hljs-keyword">var</span> rs = fs.createReadStream(<span class="hljs-string">'ABC.mp3'</span>)<br><span class="hljs-comment">// 创建一个可写流</span><br><span class="hljs-keyword">var</span> ws = fs.createWriteStream(<span class="hljs-string">'456.mp3'</span>)<br><br><span class="hljs-comment">// 监听流的开启和关闭</span><br>rs.once(<span class="hljs-string">'open'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'可读流打开了'</span>)<br>})<br>rs.once(<span class="hljs-string">'close'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'可读流关闭了'</span>)<br>})<br>ws.once(<span class="hljs-string">'open'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'可写流打开了'</span>)<br>})<br>ws.once(<span class="hljs-string">'close'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'可写流关闭了'</span>)<br>})<br><br><span class="hljs-comment">// pipe()可以将可读流中的内容，直接俄输出到可写流中</span><br>rs.pipe(ws)<br></code></pre></div></td></tr></tbody></table></figure>
+<figure class="highlight md"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs md">首先需要创建一个Readable流对象<br>  fs.createReadStream(path[, options])<br><span class="hljs-bullet">    -</span> path 文件路径<br><span class="hljs-bullet">    -</span> options {encoding:"",mode:"",flag:""}<br>打开Readable文件流以后，可以通过readable事件和read()请求，或通过data事件处理程序从它读出。<br></code></pre></td></tr></tbody></table></figure>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>)<br><br><span class="hljs-comment">// 创建一个可读流</span><br><span class="hljs-keyword">var</span> rs = fs.<span class="hljs-title function_">createReadStream</span>(<span class="hljs-string">'ABC.mp3'</span>)<br><span class="hljs-comment">// 创建一个可写流</span><br><span class="hljs-keyword">var</span> ws = fs.<span class="hljs-title function_">createWriteStream</span>(<span class="hljs-string">'123.mp3'</span>)<br><br><span class="hljs-comment">// 监听流的开启和关闭</span><br>rs.<span class="hljs-title function_">once</span>(<span class="hljs-string">'open'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'可读流打开了'</span>)<br>})<br>rs.<span class="hljs-title function_">once</span>(<span class="hljs-string">'close'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'可读流关闭了'</span>)<br>  <span class="hljs-comment">// 数据读取完毕，关闭可写流</span><br>  ws.<span class="hljs-title function_">end</span>()<br>})<br>ws.<span class="hljs-title function_">once</span>(<span class="hljs-string">'open'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'可写流打开了'</span>)<br>})<br>ws.<span class="hljs-title function_">once</span>(<span class="hljs-string">'close'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'可写流关闭了'</span>)<br>})<br><br><span class="hljs-comment">// 如果要读取一个可读流中的数据，必须要为可读流绑定一个data事件，data事件绑定文笔，它会自动开始读取数据</span><br>rs.<span class="hljs-title function_">on</span>(<span class="hljs-string">'data'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">data</span>) {<br>  <span class="hljs-comment">// console.log(data)</span><br>  <span class="hljs-comment">// 将读取到的数据写入到可写流中</span><br>  ws.<span class="hljs-title function_">write</span>(data)<br>})<br><span class="hljs-comment">// 复制一个大文件</span><br></code></pre></td></tr></tbody></table></figure>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// 另一种写法</span><br><span class="hljs-keyword">var</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">'fs'</span>)<br><br><span class="hljs-comment">// 创建一个可读流</span><br><span class="hljs-keyword">var</span> rs = fs.<span class="hljs-title function_">createReadStream</span>(<span class="hljs-string">'ABC.mp3'</span>)<br><span class="hljs-comment">// 创建一个可写流</span><br><span class="hljs-keyword">var</span> ws = fs.<span class="hljs-title function_">createWriteStream</span>(<span class="hljs-string">'456.mp3'</span>)<br><br><span class="hljs-comment">// 监听流的开启和关闭</span><br>rs.<span class="hljs-title function_">once</span>(<span class="hljs-string">'open'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'可读流打开了'</span>)<br>})<br>rs.<span class="hljs-title function_">once</span>(<span class="hljs-string">'close'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'可读流关闭了'</span>)<br>})<br>ws.<span class="hljs-title function_">once</span>(<span class="hljs-string">'open'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'可写流打开了'</span>)<br>})<br>ws.<span class="hljs-title function_">once</span>(<span class="hljs-string">'close'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'可写流关闭了'</span>)<br>})<br><br><span class="hljs-comment">// pipe()可以将可读流中的内容，直接俄输出到可写流中</span><br>rs.<span class="hljs-title function_">pipe</span>(ws)<br></code></pre></td></tr></tbody></table></figure>
 
 <h2 id="其它方法"><a href="#其它方法" class="headerlink" title="其它方法"></a>其它方法</h2><ul>
 <li><p>检查一个文件是否存在<br><code>fs.existsSync(path)</code></p>
-<figure class="highlight js"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-keyword">var</span> isExists = fs.existsSync(<span class="hljs-string">'a.mp3'</span>)<br><span class="hljs-built_in">console</span>.log(isExists)<br><span class="hljs-comment">// 存在输出 true，不存在输出 false</span><br></code></pre></div></td></tr></tbody></table></figure></li>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> isExists = fs.<span class="hljs-title function_">existsSync</span>(<span class="hljs-string">'a.mp3'</span>)<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(isExists)<br><span class="hljs-comment">// 存在输出 true，不存在输出 false</span><br></code></pre></td></tr></tbody></table></figure>
+</li>
 <li><p>获取文件信息<br><a target="_blank" rel="noopener" href="http://nodejs.cn/api/fs.html#fs_class_fs_stats">fs.Stats类 文档</a></p>
-<figure class="highlight md"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs md">fs.stat(path[, options], callback)<br>fs.statSync(path[, options])<br>  会返回一个对象，这个对象中保存了当前对象状态的相关信息<br></code></pre></div></td></tr></tbody></table></figure>
-<figure class="highlight js"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js">fs.stat(<span class="hljs-string">'ABC.mp3'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, stat</span>) </span>{<br>  <span class="hljs-comment">/*</span><br><span class="hljs-comment">  isFile() 是否是一个文件</span><br><span class="hljs-comment">  isDirectory() 是否是一个文件夹</span><br><span class="hljs-comment">  */</span><br>  <span class="hljs-comment">// console.log(stat.size)</span><br>  <span class="hljs-built_in">console</span>.log(stat.isFile())<br>})<br></code></pre></div></td></tr></tbody></table></figure></li>
+<figure class="highlight md"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs md">fs.stat(path[, options], callback)<br>fs.statSync(path[, options])<br>  会返回一个对象，这个对象中保存了当前对象状态的相关信息<br></code></pre></td></tr></tbody></table></figure>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js">fs.<span class="hljs-title function_">stat</span>(<span class="hljs-string">'ABC.mp3'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">err, stat</span>) {<br>  <span class="hljs-comment">/*</span><br><span class="hljs-comment">  isFile() 是否是一个文件</span><br><span class="hljs-comment">  isDirectory() 是否是一个文件夹</span><br><span class="hljs-comment">  */</span><br>  <span class="hljs-comment">// console.log(stat.size)</span><br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(stat.<span class="hljs-title function_">isFile</span>())<br>})<br></code></pre></td></tr></tbody></table></figure>
+</li>
 <li><p>删除文件</p>
-<figure class="highlight md"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs md">fs.unlink(path, callback)<br>fs.unlinkSync(path)<br></code></pre></div></td></tr></tbody></table></figure>
-<figure class="highlight js"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js">fs.unlinkSync(<span class="hljs-string">'hello.txt'</span>)<br></code></pre></div></td></tr></tbody></table></figure></li>
+<figure class="highlight md"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs md">fs.unlink(path, callback)<br>fs.unlinkSync(path)<br></code></pre></td></tr></tbody></table></figure>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">fs.<span class="hljs-title function_">unlinkSync</span>(<span class="hljs-string">'hello.txt'</span>)<br></code></pre></td></tr></tbody></table></figure>
+</li>
 <li><p>列出文件</p>
-<figure class="highlight md"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs md">fs.readdir(path[, options], callback)<br>fs.readdirSync(path[, options])<br></code></pre></div></td></tr></tbody></table></figure>
-<figure class="highlight js"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js">fs.readdir(<span class="hljs-string">'.'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err, files</span>) </span>{<br>  <span class="hljs-keyword">if</span> (!err) {<br>    <span class="hljs-built_in">console</span>.log(files)<br>  }<br>})<br><span class="hljs-comment">// files是一个字符串数组，每一个元素就是一个文件夹或文件的名字</span><br></code></pre></div></td></tr></tbody></table></figure></li>
+<figure class="highlight md"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs md">fs.readdir(path[, options], callback)<br>fs.readdirSync(path[, options])<br></code></pre></td></tr></tbody></table></figure>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js">fs.<span class="hljs-title function_">readdir</span>(<span class="hljs-string">'.'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">err, files</span>) {<br>  <span class="hljs-keyword">if</span> (!err) {<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(files)<br>  }<br>})<br><span class="hljs-comment">// files是一个字符串数组，每一个元素就是一个文件夹或文件的名字</span><br></code></pre></td></tr></tbody></table></figure>
+</li>
 <li><p>截断文件</p>
-<figure class="highlight md"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs md">fs.truncate(path, len, callback)<br>fs.truncateSync(path, len)<br></code></pre></div></td></tr></tbody></table></figure>
-<figure class="highlight js"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js">fs.truncateSync(<span class="hljs-string">'hello2.txt'</span>, <span class="hljs-number">10</span>)<br>截断文件，将文件修改为指定大小<br></code></pre></div></td></tr></tbody></table></figure></li>
+<figure class="highlight md"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs md">fs.truncate(path, len, callback)<br>fs.truncateSync(path, len)<br></code></pre></td></tr></tbody></table></figure>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js">fs.<span class="hljs-title function_">truncateSync</span>(<span class="hljs-string">'hello2.txt'</span>, <span class="hljs-number">10</span>)<br>截断文件，将文件修改为指定大小<br></code></pre></td></tr></tbody></table></figure>
+</li>
 <li><p>建立目录</p>
-<figure class="highlight md"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs md">fs.mkdir(path[, mode], callback)<br>fs.mkdirSync(path[, mode])<br></code></pre></div></td></tr></tbody></table></figure>
-<figure class="highlight js"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js">fs.mkdirSync(<span class="hljs-string">'hello'</span>)<br></code></pre></div></td></tr></tbody></table></figure></li>
+<figure class="highlight md"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs md">fs.mkdir(path[, mode], callback)<br>fs.mkdirSync(path[, mode])<br></code></pre></td></tr></tbody></table></figure>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">fs.<span class="hljs-title function_">mkdirSync</span>(<span class="hljs-string">'hello'</span>)<br></code></pre></td></tr></tbody></table></figure>
+</li>
 <li><p>删除目录</p>
-<figure class="highlight md"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs md">fs.rmdir(path, callback)<br>fs.rmdirSync(path)<br></code></pre></div></td></tr></tbody></table></figure>
-<figure class="highlight js"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js">fs.rmdirSync(<span class="hljs-string">'hello'</span>)<br></code></pre></div></td></tr></tbody></table></figure></li>
+<figure class="highlight md"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs md">fs.rmdir(path, callback)<br>fs.rmdirSync(path)<br></code></pre></td></tr></tbody></table></figure>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">fs.<span class="hljs-title function_">rmdirSync</span>(<span class="hljs-string">'hello'</span>)<br></code></pre></td></tr></tbody></table></figure>
+</li>
 <li><p>重命名文件和目录</p>
-<figure class="highlight md"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs md">fs.rename(oldPath, newPath, callback)<br>fs.renameSync(oldPath, newPath)<br><span class="hljs-bullet">  -</span> oldPath 旧路径<br><span class="hljs-bullet">  -</span> newPath 新路径<br><span class="hljs-bullet">  -</span> callback 回调函数<br></code></pre></div></td></tr></tbody></table></figure>
-<figure class="highlight js"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js">fs.rename(<span class="hljs-string">'hello3.txt'</span>, <span class="hljs-string">'C:/Users/fe/Desktop/555.txt'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>{<br>  <span class="hljs-keyword">if</span> (!err) {<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'修改成功！'</span>)<br>  }<br>})<br><span class="hljs-comment">// 也可以实现剪切功能</span><br></code></pre></div></td></tr></tbody></table></figure></li>
+<figure class="highlight md"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs md">fs.rename(oldPath, newPath, callback)<br>fs.renameSync(oldPath, newPath)<br><span class="hljs-bullet">  -</span> oldPath 旧路径<br><span class="hljs-bullet">  -</span> newPath 新路径<br><span class="hljs-bullet">  -</span> callback 回调函数<br></code></pre></td></tr></tbody></table></figure>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js">fs.<span class="hljs-title function_">rename</span>(<span class="hljs-string">'hello3.txt'</span>, <span class="hljs-string">'C:/Users/fe/Desktop/555.txt'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) {<br>  <span class="hljs-keyword">if</span> (!err) {<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'修改成功！'</span>)<br>  }<br>})<br><span class="hljs-comment">// 也可以实现剪切功能</span><br></code></pre></td></tr></tbody></table></figure>
+</li>
 <li><p>监视文件更改写入</p>
-<figure class="highlight md"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs md">fs.watchFile(filename[, options], listener)<br><span class="hljs-bullet">  -</span> filename 要监视的文件的名字<br><span class="hljs-bullet">  -</span> options 配置选项<br><span class="hljs-bullet">    -</span> bigint <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">boolean</span>&gt;</span></span> 默认值: false<br><span class="hljs-bullet">    -</span> persistent <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">boolean</span>&gt;</span></span> 默认值: true<br><span class="hljs-bullet">    -</span> interval <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">integer</span>&gt;</span></span> 默认值: 5007 间隔时间<br><span class="hljs-bullet">  -</span> listener 回调函数，当文件发生变化时，回调函数会执行。有两个参数：<br><span class="hljs-code">    curr 当前文件的状态</span><br><span class="hljs-code">    prev 修改前文件的状态</span><br><span class="hljs-code">      这两个对象都是status对象</span><br><span class="hljs-code"></span><br></code></pre></div></td></tr></tbody></table></figure>
-<figure class="highlight js"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js">fs.watchFile(<span class="hljs-string">'hello4.txt'</span>, { <span class="hljs-attr">interval</span>: <span class="hljs-number">1000</span> }, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">curr, prev</span>) </span>{<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'修改前文件大小：'</span> + prev.size)<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'修改后文件大小：'</span> + curr.size)<br>})<br></code></pre></div></td></tr></tbody></table></figure></li>
+<figure class="highlight md"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs md">fs.watchFile(filename[, options], listener)<br><span class="hljs-bullet">  -</span> filename 要监视的文件的名字<br><span class="hljs-bullet">  -</span> options 配置选项<br><span class="hljs-bullet">    -</span> bigint <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">boolean</span>&gt;</span></span> 默认值: false<br><span class="hljs-bullet">    -</span> persistent <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">boolean</span>&gt;</span></span> 默认值: true<br><span class="hljs-bullet">    -</span> interval <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">integer</span>&gt;</span></span> 默认值: 5007 间隔时间<br><span class="hljs-bullet">  -</span> listener 回调函数，当文件发生变化时，回调函数会执行。有两个参数：<br><span class="hljs-code">    curr 当前文件的状态</span><br><span class="hljs-code">    prev 修改前文件的状态</span><br><span class="hljs-code">      这两个对象都是status对象</span><br><span class="hljs-code"></span><br></code></pre></td></tr></tbody></table></figure>
+<figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js">fs.<span class="hljs-title function_">watchFile</span>(<span class="hljs-string">'hello4.txt'</span>, { <span class="hljs-attr">interval</span>: <span class="hljs-number">1000</span> }, <span class="hljs-keyword">function</span> (<span class="hljs-params">curr, prev</span>) {<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'修改前文件大小：'</span> + prev.<span class="hljs-property">size</span>)<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'修改后文件大小：'</span> + curr.<span class="hljs-property">size</span>)<br>})<br></code></pre></td></tr></tbody></table></figure></li>
 </ul>
-<h1 id="EventEmitter"><a href="#EventEmitter" class="headerlink" title="EventEmitter"></a>EventEmitter</h1><figure class="highlight js"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs js"><span class="hljs-comment">// EventEmitter类 实现</span><br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Eventer</span> </span>{<br>  #eventListeners = {}<br><br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> { }<br><br>  <span class="hljs-function"><span class="hljs-title">on</span>(<span class="hljs-params">eventName, handler</span>)</span> {<br>    <span class="hljs-keyword">if</span> (!(eventName <span class="hljs-keyword">in</span> <span class="hljs-built_in">this</span>.#eventListeners)) {<br>      <span class="hljs-built_in">this</span>.#eventListeners[eventName] = []<br>    }<br><br>    <span class="hljs-built_in">this</span>.#eventListeners[eventName].push(handler)<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span><br>  }<br><br>  <span class="hljs-function"><span class="hljs-title">emit</span>(<span class="hljs-params">eventName, ...args</span>)</span> {<br>    <span class="hljs-keyword">var</span> handlers = <span class="hljs-built_in">this</span>.#eventListeners[eventName]<br>    <span class="hljs-keyword">if</span> (handlers &amp;&amp; handlers.length &gt; <span class="hljs-number">0</span>) {<br>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> handler <span class="hljs-keyword">of</span> handlers) {<br>        handler.call(<span class="hljs-built_in">this</span>, ...args)<br>      }<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>    } <span class="hljs-keyword">else</span> {<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>    }<br>  }<br>}<br></code></pre></div></td></tr></tbody></table></figure>
+<h1 id="EventEmitter"><a href="#EventEmitter" class="headerlink" title="EventEmitter"></a>EventEmitter</h1><figure class="highlight js"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// EventEmitter类 实现</span><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">Eventer</span> {<br>  #eventListeners = {}<br><br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) { }<br><br>  <span class="hljs-title function_">on</span>(<span class="hljs-params">eventName, handler</span>) {<br>    <span class="hljs-keyword">if</span> (!(eventName <span class="hljs-keyword">in</span> <span class="hljs-variable language_">this</span>.#eventListeners)) {<br>      <span class="hljs-variable language_">this</span>.#eventListeners[eventName] = []<br>    }<br><br>    <span class="hljs-variable language_">this</span>.#eventListeners[eventName].<span class="hljs-title function_">push</span>(handler)<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span><br>  }<br><br>  <span class="hljs-title function_">emit</span>(<span class="hljs-params">eventName, ...args</span>) {<br>    <span class="hljs-keyword">var</span> handlers = <span class="hljs-variable language_">this</span>.#eventListeners[eventName]<br>    <span class="hljs-keyword">if</span> (handlers &amp;&amp; handlers.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>) {<br>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> handler <span class="hljs-keyword">of</span> handlers) {<br>        handler.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>, ...args)<br>      }<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>    } <span class="hljs-keyword">else</span> {<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>    }<br>  }<br>}<br></code></pre></td></tr></tbody></table></figure>
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/web%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">web前端学习笔记</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/front-end/">front-end</a>
-                    
-                      <a class="hover-with-bg" href="/tags/NodeJS/">NodeJS</a>
-                    
-                  </div>
                 
               </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/web%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">web前端学习笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/front-end/">#front-end</a>
+      
+        <a href="/tags/NodeJS/">#NodeJS</a>
+      
+    </div>
+  
+</div>
+
+
               
-                <p class="note note-warning">
-                  
-                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
-                  
-                </p>
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>web前端学习笔记11——NodeJS</div>
+      <div>http://example.com/posts/c642559f.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Fehek</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年2月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
               
               
-                <div class="post-prevnext">
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/b1456509.html">
+                      <a href="/posts/b1456509.html" title="web前端学习笔记12——数据库">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">web前端学习笔记12——数据库</span>
                         <span class="visible-mobile">上一篇</span>
@@ -418,7 +533,7 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/4f3dd51e.html">
+                      <a href="/posts/4f3dd51e.html" title="web前端学习笔记10——Promise">
                         <span class="hidden-mobile">web前端学习笔记10——Promise</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -434,25 +549,59 @@
         </div>
       </div>
     </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
-      </div>
-    
+
+
+  </aside>
+
+
+    </div>
   </div>
 </div>
 
-<!-- Custom -->
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
 
 
     
 
     
-      <a id="scroll-top-button" href="#" role="button">
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
         <i class="iconfont icon-arrowup" aria-hidden="true"></i>
       </a>
     
@@ -471,32 +620,34 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
     </div>
   </div>
 </div>
+
     
 
     
   </main>
 
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <i class="iconfont icon-copyright"></i>2020-2022 By Fehek <br> POWER BY <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>HEXO</span></a> 
-  </div>
+  <footer>
+    <div class="footer-inner">
   
-
+    <div class="footer-content">
+       <i class="iconfont icon-copyright"></i>2020-2022 By Fehek <br> POWER BY <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>HEXO</span></a> 
+    </div>
   
-
   
-</footer>
+  
+  
+</div>
 
+  </footer>
 
-  <!-- SCRIPTS -->
+  <!-- Scripts -->
   
   <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
@@ -515,7 +666,23 @@
 <script  src="/js/events.js" ></script>
 <script  src="/js/plugins.js" ></script>
 
-<!-- Plugins -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
 
 
   
@@ -524,25 +691,99 @@
 
 
 
+
   
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
 
 
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script>
 
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+  <script>Fluid.plugins.codeWidget();</script>
 
 
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
 
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
 
 
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
 
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
 
-
+  <script>Fluid.plugins.imageCaption();</script>
 
   <script  src="/js/local-search.js" ></script>
 
@@ -550,35 +791,15 @@
 
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
 <script  src="/js/boot.js" ></script>
 
 
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
 </body>
 </html>

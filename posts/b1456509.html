@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=auto>
 
 
 
@@ -9,40 +9,47 @@
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/image/icon.png">
   <link rel="icon" href="/image/icon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
   <meta name="author" content="Fehek">
   <meta name="keywords" content="">
+  
+    <meta name="description" content="数据库关系型数据库 RDBMS可以理解为Excel里面都是表，只是用程序代码来操作表格里的数据  CS模型(client&#x2F;server)MiaraDBPostgreSQLOffice AccessSQLServerOceanDBOracle  MySQL 非CS模型SQLite 10亿行，4T  sqlite把数据存在一个文件里，通过sqlite提供的相关函数去读取  非关系型数据库 文档型数据库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="web前端学习笔记12——数据库">
+<meta property="og:url" content="http://example.com/posts/b1456509.html">
+<meta property="og:site_name" content="my notes">
+<meta property="og:description" content="数据库关系型数据库 RDBMS可以理解为Excel里面都是表，只是用程序代码来操作表格里的数据  CS模型(client&#x2F;server)MiaraDBPostgreSQLOffice AccessSQLServerOceanDBOracle  MySQL 非CS模型SQLite 10亿行，4T  sqlite把数据存在一个文件里，通过sqlite提供的相关函数去读取  非关系型数据库 文档型数据库">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-09T02:02:00.000Z">
+<meta property="article:modified_time" content="2021-04-08T08:07:45.483Z">
+<meta property="article:author" content="Fehek">
+<meta property="article:tag" content="front-end">
+<meta property="article:tag" content="Database">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
   
   <title>web前端学习笔记12——数据库 - my notes</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" />
 
 
+
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+
   <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/routeros.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-  
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
 
 
 
 <!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
 
 
 
@@ -51,7 +58,13 @@
 
 <link  rel="stylesheet" href="/css/main.css" />
 
-<!-- 自定义样式保持在最底部 -->
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
 
   
 <link rel="stylesheet" href="/css/custom.css">
@@ -60,21 +73,37 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.0">
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
 
 <body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>ZONE OUT</strong>&nbsp;</a>
+    <a class="navbar-brand" href="/">
+      <strong>ZONE OUT</strong>
+    </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -93,7 +122,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                <span>首页</span>
               </a>
             </li>
           
@@ -105,7 +134,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                <span>归档</span>
               </a>
             </li>
           
@@ -117,7 +146,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                <span>分类</span>
               </a>
             </li>
           
@@ -129,7 +158,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                <span>标签</span>
               </a>
             </li>
           
@@ -141,21 +170,24 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                <span>关于</span>
               </a>
             </li>
           
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
           </li>
+          
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
@@ -163,64 +195,75 @@
   </div>
 </nav>
 
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/image/post.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="数据库">
-              
-            </span>
-
-            
-              <div class="mt-3">
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-09 10:02" pubdate>
-        2021年3月9日 上午
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      653 字
-    </span>
   
 
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      8
-       分钟
-    </span>
-  
-
-  
-  
-</div>
-
-            
-          </div>
-
+<div id="banner" class="banner" parallax=true
+     style="background: url('/image/post.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
           
-            <div class="scroll-down-bar">
-              <i class="iconfont icon-arrowdown"></i>
-            </div>
+            <span id="subtitle" data-typed-text="数据库"></span>
           
         </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-03-09 10:02" pubdate>
+          2021年3月9日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          1.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          15 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
       </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
     </div>
+  </div>
+</div>
+
+</div>
+
   </header>
 
   <main>
@@ -229,22 +272,31 @@
 
 <div class="container-fluid nopadding-x">
   <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
     <div class="col-lg-8 nopadding-x-md">
       <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
+        <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
             <h1 style="display: none">数据库</h1>
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年4月8日 下午
+                  
+                    <!-- compatible with older versions-->
+                    本文最后更新于：2021年4月8日 下午
+                  
                 
               </p>
             
-            <div class="markdown-body">
-              <h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><h2 id="关系型数据库-RDBMS"><a href="#关系型数据库-RDBMS" class="headerlink" title="关系型数据库 RDBMS"></a>关系型数据库 RDBMS</h2><p>可以理解为Excel<br>里面都是表，只是用程序代码来操作表格里的数据</p>
+            
+              <div class="markdown-body">
+                
+                <h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><h2 id="关系型数据库-RDBMS"><a href="#关系型数据库-RDBMS" class="headerlink" title="关系型数据库 RDBMS"></a>关系型数据库 RDBMS</h2><p>可以理解为Excel<br>里面都是表，只是用程序代码来操作表格里的数据</p>
 <ul>
 <li>CS模型(client/server)<br>MiaraDB<br>PostgreSQL<br>Office Access<br>SQLServer<br>OceanDB<br>Oracle<br>  MySQL</li>
 <li>非CS模型<br>SQLite 10亿行，4T<br>  sqlite把数据存在一个文件里，通过sqlite提供的相关函数去读取</li>
@@ -255,7 +307,7 @@
 <li>日志型数据库</li>
 </ul>
 <h1 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h1><ol>
-<li>select 表头关键字（展示哪几列）<br>&nbsp;&nbsp;&nbsp;&nbsp;<code>aaa * 10 as bbb</code>，xxx是新建列的名称；若有空格，用’’包起来；关键字distinct，不重复</li>
+<li>select 表头关键字（展示哪几列）<br>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;<code>aaa * 10 as bbb</code>，xxx是新建列的名称；若有空格，用’’包起来；关键字distinct，不重复</li>
 <li>from 文件夹</li>
 <li>where 筛选条件</li>
 </ol>
@@ -264,8 +316,8 @@
 <li>and or not</li>
 <li>in<br><code>state = 'VA' or state = 'GA' or state = 'FL'</code>和<code>state in ('VA', 'FL', 'GA')</code>等价</li>
 <li>between<br><code>points &gt;= 1000 and points &lt;= 300</code>和<code>points between 1000 and 3000</code>等价</li>
-<li>like<br><code>last_name like '%y'</code> 筛选姓最后一个字母是y的人<br>% 任意字符数&nbsp;&nbsp;&nbsp;&nbsp;_ 单字符</li>
-<li>regexp 正则表达式<figure class="highlight md"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs md">^       开头<br>$       结尾<br>|       逻辑或<br>[abc]   abc其中一个或多个<br>[a-f]   a-f中一个或多个<br></code></pre></div></td></tr></tbody></table></figure>
+<li>like<br><code>last_name like '%y'</code> 筛选姓最后一个字母是y的人<br>% 任意字符数&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;_ 单字符</li>
+<li>regexp 正则表达式<figure class="highlight md"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs md">^       开头<br>$       结尾<br>|       逻辑或<br>[abc]   abc其中一个或多个<br>[a-f]   a-f中一个或多个<br></code></pre></td></tr></tbody></table></figure>
 详情见<a href="./468b9935.html#%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F">这里</a></li>
 <li>is null 为空的单元格</li>
 </ul>
@@ -276,57 +328,113 @@
 <li>limit<br><code>limit 10</code> 只展示前10项<br><code>limit 6，3</code> 略过前6项，展示3项</li>
 </ol>
 <h1 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h1><p>内连接join</p>
-<figure class="highlight sql"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql">from a<br>join b on a.id = b.id<br><span class="hljs-comment">-- 用相同id来合并a和b</span><br><span class="hljs-comment">-- join b using(id)</span><br>也可用using来连接，多个连接条件中间加,<br><br>from employees e<br>join employees m<br>  on e.reports_to = m.employee_id<br><span class="hljs-comment">-- 自连接 </span><br></code></pre></div></td></tr></tbody></table></figure>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">from</span> a<br><span class="hljs-keyword">join</span> b <span class="hljs-keyword">on</span> a.id <span class="hljs-operator">=</span> b.id<br><span class="hljs-comment">-- 用相同id来合并a和b</span><br><span class="hljs-comment">-- join b using(id)</span><br>也可用<span class="hljs-keyword">using</span>来连接，多个连接条件中间加,<br><br><span class="hljs-keyword">from</span> employees e<br><span class="hljs-keyword">join</span> employees m<br>  <span class="hljs-keyword">on</span> e.reports_to <span class="hljs-operator">=</span> m.employee_id<br><span class="hljs-comment">-- 自连接 </span><br></code></pre></td></tr></tbody></table></figure>
 <p>外连接left join/right join</p>
-<figure class="highlight sql"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql">from c<br>left join o on c.id = o.id<br><span class="hljs-comment">-- 所有左表的记录被返回，不管条件正确还是错误</span><br><span class="hljs-comment">-- right join则是右表都被返回</span><br></code></pre></div></td></tr></tbody></table></figure>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">from</span> c<br><span class="hljs-keyword">left</span> <span class="hljs-keyword">join</span> o <span class="hljs-keyword">on</span> c.id <span class="hljs-operator">=</span> o.id<br><span class="hljs-comment">-- 所有左表的记录被返回，不管条件正确还是错误</span><br><span class="hljs-comment">-- right join则是右表都被返回</span><br></code></pre></td></tr></tbody></table></figure>
 <p>natural join<br>cross join<br>union 合并多个查询的结果</p>
-<figure class="highlight sql"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql">select...<br>from...<br>where...<br>union<br>select...<br>from...<br>where...<br></code></pre></div></td></tr></tbody></table></figure>
+<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs sql">select...<br>from...<br>where...<br><span class="hljs-keyword">union</span><br>select...<br>from...<br>where...<br></code></pre></td></tr></tbody></table></figure>
 
-<h1 id="行"><a href="#行" class="headerlink" title="行"></a>行</h1><figure class="highlight sql"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-comment">-- 插入单行</span><br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> xxx(addr, n, who)<br><span class="hljs-keyword">values</span>(<span class="hljs-keyword">default</span>, <span class="hljs-number">1</span>, <span class="hljs-string">'xxx'</span>)<br><br><span class="hljs-comment">-- 插入多行</span><br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> xxx(<span class="hljs-keyword">name</span>)<br><span class="hljs-keyword">values</span>(<span class="hljs-string">'wwr'</span>),(<span class="hljs-string">'tn'</span>),(<span class="hljs-string">'io'</span>)<br><br><span class="hljs-comment">-- 复制一张表</span><br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> orders_archived <span class="hljs-keyword">as</span><br><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> orders<br><br><span class="hljs-comment">-- 更新行</span><br><span class="hljs-keyword">update</span> salary<br> <span class="hljs-keyword">set</span> gender = f<br><span class="hljs-keyword">where</span> <span class="hljs-keyword">id</span> &gt; <span class="hljs-number">10</span><br><br><span class="hljs-comment">-- 删除行</span><br><span class="hljs-keyword">delete</span> <span class="hljs-keyword">from</span> xxx<br>where...<br></code></pre></div></td></tr></tbody></table></figure>
+<h1 id="行"><a href="#行" class="headerlink" title="行"></a>行</h1><figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">-- 插入单行</span><br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> xxx(addr, n, who)<br><span class="hljs-keyword">values</span>(<span class="hljs-keyword">default</span>, <span class="hljs-number">1</span>, <span class="hljs-string">'xxx'</span>)<br><br><span class="hljs-comment">-- 插入多行</span><br><span class="hljs-keyword">insert</span> <span class="hljs-keyword">into</span> xxx(name)<br><span class="hljs-keyword">values</span>(<span class="hljs-string">'wwr'</span>),(<span class="hljs-string">'tn'</span>),(<span class="hljs-string">'io'</span>)<br><br><span class="hljs-comment">-- 复制一张表</span><br><span class="hljs-keyword">create</span> <span class="hljs-keyword">table</span> orders_archived <span class="hljs-keyword">as</span><br><span class="hljs-keyword">select</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">from</span> orders<br><br><span class="hljs-comment">-- 更新行</span><br><span class="hljs-keyword">update</span> salary<br> <span class="hljs-keyword">set</span> gender <span class="hljs-operator">=</span> f<br><span class="hljs-keyword">where</span> id <span class="hljs-operator">&gt;</span> <span class="hljs-number">10</span><br><br><span class="hljs-comment">-- 删除行</span><br><span class="hljs-keyword">delete</span> <span class="hljs-keyword">from</span> xxx<br>where...<br></code></pre></td></tr></tbody></table></figure>
 
 <h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><ul>
 <li>基本函数<br><code>max() min() avg() sum() count()</code> </li>
 <li><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/sql/sql_groupby.asp">group by</a> 分组</li>
 <li><a target="_blank" rel="noopener" href="https://www.w3school.com.cn/sql/sql_having.asp">having</a></li>
-<li>case<figure class="highlight sql"><table><tbody><tr><td class="gutter hljs"><div class="hljs code-wrapper"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></div></td><td class="code"><div class="hljs code-wrapper"><pre><code class="hljs sql"><span class="hljs-comment">-- 简单case函数</span><br>case gender<br>  when '1' then 'f'<br>  when '2' then 'm'<br>  else 'NaN' <span class="hljs-keyword">end</span><br><br><span class="hljs-comment">-- case搜索函数</span><br><span class="hljs-keyword">case</span> <span class="hljs-keyword">when</span> gender = <span class="hljs-string">'1'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'f'</span><br>     <span class="hljs-keyword">when</span> gender = <span class="hljs-string">'2'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'m'</span><br>     <span class="hljs-keyword">else</span> <span class="hljs-string">'NaN'</span> <span class="hljs-keyword">end</span><br><br><span class="hljs-comment">-- case函数只返回第一个符合条件的值，剩下的case部分将会被自动忽略</span><br><span class="hljs-comment">--下面这段sql，无法得到“第二类”这个结果</span><br><span class="hljs-keyword">case</span> <span class="hljs-keyword">when</span> col_1 <span class="hljs-keyword">in</span> (<span class="hljs-string">'a'</span>,<span class="hljs-string">'b'</span>) <span class="hljs-keyword">then</span> <span class="hljs-string">'第一类'</span><br>     <span class="hljs-keyword">when</span> col_1 <span class="hljs-keyword">in</span> (<span class="hljs-string">'a'</span>) <span class="hljs-keyword">then</span> <span class="hljs-string">'第二类'</span><br>     <span class="hljs-keyword">else</span> <span class="hljs-string">'其他'</span> <span class="hljs-keyword">end</span><br></code></pre></div></td></tr></tbody></table></figure></li>
+<li>case<figure class="highlight sql"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">-- 简单case函数</span><br><span class="hljs-keyword">case</span> gender<br>  <span class="hljs-keyword">when</span> <span class="hljs-string">'1'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'f'</span><br>  <span class="hljs-keyword">when</span> <span class="hljs-string">'2'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'m'</span><br>  <span class="hljs-keyword">else</span> <span class="hljs-string">'NaN'</span> <span class="hljs-keyword">end</span><br><br><span class="hljs-comment">-- case搜索函数</span><br><span class="hljs-keyword">case</span> <span class="hljs-keyword">when</span> gender <span class="hljs-operator">=</span> <span class="hljs-string">'1'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'f'</span><br>     <span class="hljs-keyword">when</span> gender <span class="hljs-operator">=</span> <span class="hljs-string">'2'</span> <span class="hljs-keyword">then</span> <span class="hljs-string">'m'</span><br>     <span class="hljs-keyword">else</span> <span class="hljs-string">'NaN'</span> <span class="hljs-keyword">end</span><br><br><span class="hljs-comment">-- case函数只返回第一个符合条件的值，剩下的case部分将会被自动忽略</span><br><span class="hljs-comment">--下面这段sql，无法得到“第二类”这个结果</span><br><span class="hljs-keyword">case</span> <span class="hljs-keyword">when</span> col_1 <span class="hljs-keyword">in</span> (<span class="hljs-string">'a'</span>,<span class="hljs-string">'b'</span>) <span class="hljs-keyword">then</span> <span class="hljs-string">'第一类'</span><br>     <span class="hljs-keyword">when</span> col_1 <span class="hljs-keyword">in</span> (<span class="hljs-string">'a'</span>) <span class="hljs-keyword">then</span> <span class="hljs-string">'第二类'</span><br>     <span class="hljs-keyword">else</span> <span class="hljs-string">'其他'</span> <span class="hljs-keyword">end</span><br></code></pre></td></tr></tbody></table></figure></li>
 </ul>
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/web%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">web前端学习笔记</a>
-                    
-                  </div>
-                
-                
-                  <div class="post-meta">
-                    <i class="iconfont icon-tags"></i>
-                    
-                      <a class="hover-with-bg" href="/tags/front-end/">front-end</a>
-                    
-                      <a class="hover-with-bg" href="/tags/Database/">Database</a>
-                    
-                  </div>
                 
               </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/web%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">web前端学习笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/front-end/">#front-end</a>
+      
+        <a href="/tags/Database/">#Database</a>
+      
+    </div>
+  
+</div>
+
+
               
-                <p class="note note-warning">
-                  
-                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
-                  
-                </p>
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>web前端学习笔记12——数据库</div>
+      <div>http://example.com/posts/b1456509.html</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Fehek</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年3月9日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
               
               
-                <div class="post-prevnext">
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/posts/284c34b3.html">
+                      <a href="/posts/284c34b3.html" title="web前端学习笔记13——Vue基础">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">web前端学习笔记13——Vue基础</span>
                         <span class="visible-mobile">上一篇</span>
@@ -336,7 +444,7 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/posts/c642559f.html">
+                      <a href="/posts/c642559f.html" title="web前端学习笔记11——NodeJS">
                         <span class="hidden-mobile">web前端学习笔记11——NodeJS</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
@@ -352,25 +460,59 @@
         </div>
       </div>
     </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
   <div class="toc-body" id="toc-body"></div>
 </div>
 
-      </div>
-    
+
+
+  </aside>
+
+
+    </div>
   </div>
 </div>
 
-<!-- Custom -->
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
 
 
     
 
     
-      <a id="scroll-top-button" href="#" role="button">
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
         <i class="iconfont icon-arrowup" aria-hidden="true"></i>
       </a>
     
@@ -389,32 +531,34 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
     </div>
   </div>
 </div>
+
     
 
     
   </main>
 
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <i class="iconfont icon-copyright"></i>2020-2022 By Fehek <br> POWER BY <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>HEXO</span></a> 
-  </div>
+  <footer>
+    <div class="footer-inner">
   
-
+    <div class="footer-content">
+       <i class="iconfont icon-copyright"></i>2020-2022 By Fehek <br> POWER BY <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>HEXO</span></a> 
+    </div>
   
-
   
-</footer>
+  
+  
+</div>
 
+  </footer>
 
-  <!-- SCRIPTS -->
+  <!-- Scripts -->
   
   <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
@@ -433,7 +577,23 @@
 <script  src="/js/events.js" ></script>
 <script  src="/js/plugins.js" ></script>
 
-<!-- Plugins -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
 
 
   
@@ -442,25 +602,99 @@
 
 
 
+
   
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
 
 
+  <script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js></script>
 
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.3/dist/tocbot.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+  <script>Fluid.plugins.codeWidget();</script>
 
 
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
 
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.1/anchor.min.js" ></script>
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
 
 
+  
+<script>
+  Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
 
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
 
-
+  <script>Fluid.plugins.imageCaption();</script>
 
   <script  src="/js/local-search.js" ></script>
 
@@ -468,35 +702,15 @@
 
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
 <script  src="/js/boot.js" ></script>
 
 
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
 </body>
 </html>

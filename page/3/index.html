@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+<html lang="zh-CN" data-default-color-scheme=auto>
 
 
 
@@ -9,14 +9,22 @@
   <meta charset="UTF-8">
   <link rel="apple-touch-icon" sizes="76x76" href="/image/icon.png">
   <link rel="icon" href="/image/icon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="description" content="">
   <meta name="author" content="Fehek">
   <meta name="keywords" content="">
+  
+    <meta property="og:type" content="website">
+<meta property="og:title" content="my notes">
+<meta property="og:url" content="http://example.com/page/3/index.html">
+<meta property="og:site_name" content="my notes">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Fehek">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
   
   <title>my notes</title>
 
@@ -24,9 +32,12 @@
 
 
 
-<!-- 主题依赖的图标库，不要自行修改 -->
 
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
 
 
 
@@ -35,7 +46,13 @@
 
 <link  rel="stylesheet" href="/css/main.css" />
 
-<!-- 自定义样式保持在最底部 -->
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
 
   
 <link rel="stylesheet" href="/css/custom.css">
@@ -44,21 +61,37 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.11","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}},"search_path":"/local-search.xml"};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":80,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.0">
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0">
 <style>.github-emoji { position: relative; display: inline-block; width: 1.2em; min-height: 1.2em; overflow: hidden; vertical-align: top; color: transparent; }  .github-emoji > span { position: relative; z-index: 10; }  .github-emoji img, .github-emoji .fancybox { margin: 0 !important; padding: 0 !important; border: none !important; outline: none !important; text-decoration: none !important; user-select: none !important; cursor: auto !important; }  .github-emoji img { height: 1.2em !important; width: 1.2em !important; position: absolute !important; left: 50% !important; top: 50% !important; transform: translate(-50%, -50%) !important; user-select: none !important; cursor: auto !important; } .github-emoji-fallback { color: inherit; } .github-emoji-fallback img { opacity: 0 !important; }</style>
 </head>
 
 
 <body>
-  <header style="height: 100vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>ZONE OUT</strong>&nbsp;</a>
+    <a class="navbar-brand" href="/">
+      <strong>ZONE OUT</strong>
+    </a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -77,7 +110,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/">
                 <i class="iconfont icon-home-fill"></i>
-                首页
+                <span>首页</span>
               </a>
             </li>
           
@@ -89,7 +122,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/">
                 <i class="iconfont icon-archive-fill"></i>
-                归档
+                <span>归档</span>
               </a>
             </li>
           
@@ -101,7 +134,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/">
                 <i class="iconfont icon-category-fill"></i>
-                分类
+                <span>分类</span>
               </a>
             </li>
           
@@ -113,7 +146,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/">
                 <i class="iconfont icon-tags-fill"></i>
-                标签
+                <span>标签</span>
               </a>
             </li>
           
@@ -125,21 +158,24 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/">
                 <i class="iconfont icon-user-fill"></i>
-                关于
+                <span>关于</span>
               </a>
             </li>
           
         
         
           <li class="nav-item" id="search-btn">
-            <a class="nav-link" target="_self" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
           </li>
+          
         
         
           <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" target="_self">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
@@ -147,34 +183,40 @@
   </div>
 </nav>
 
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/image/home.jpg') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="乱七八糟的杂物间">
-              
-            </span>
+  
 
-            
-          </div>
-
+<div id="banner" class="banner" parallax=true
+     style="background: url('/image/home.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
           
-            <div class="scroll-down-bar">
-              <i class="iconfont icon-arrowdown"></i>
-            </div>
+            <span id="subtitle" data-typed-text="乱七八糟的杂物间"></span>
           
         </div>
+
+        
       </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
     </div>
+  </div>
+</div>
+
+</div>
+
   </header>
 
   <main>
     
       <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          style=margin-top:0>
+        <div id="board"
+          style="margin-top: 0">
           
           <div class="container">
             <div class="row">
@@ -193,15 +235,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/posts/eef7064f.html" target="_blank">
-          
-          
-            
-          
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/eef7064f.html" target="_blank">
+        <div>
           fixed图片应用123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051&lt;!DOCTYPE html&gt;&lt;html lang="en"&gt;&lt;head&gt;  &lt;meta charset="UTF-8"&gt;  &lt;meta na
-        </a>
-      </p>
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -213,22 +252,36 @@
           </div>
         
         
-          <div class="post-meta mr-3">
+          <div class="post-meta mr-3 d-flex align-items-center">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/web%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">web前端学习笔记</a>
-            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/web%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">web前端学习笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
           </div>
         
         
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/front-end/">front-end</a>
+              <a href="/tags/front-end/">#front-end</a>
             
-              <a href="/tags/HTML/">HTML</a>
+              <a href="/tags/HTML/">#HTML</a>
             
-              <a href="/tags/CSS/">CSS</a>
+              <a href="/tags/CSS/">#CSS</a>
             
           </div>
         
@@ -247,33 +300,12 @@
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/posts/32c066a8.html" target="_blank">
-          
-          
-            
-          
-          用CSS画出图形
-矩形
-#rectangle {
-  width: 200px;
-  height: 100px;
-  background: teal;
-    }
-
-
-  
-
-
-
-12345#rectangle {  width: 100px;  height: 100px;  background: teal;} 
-三角形等腰三角形
-上三角
-#triangle-up {
-width: 0;
-
-        </a>
-      </p>
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/32c066a8.html" target="_blank">
+        <div>
+          用CSS画出图形 矩形 #rectangle {   width: 200px;   height: 100px;   background: teal;     }         12345#rectangle {  width: 100px;  height: 100px;  background: teal;}  三角形等腰三角形 上三角  #triangle-up {   width:
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -285,20 +317,34 @@ width: 0;
           </div>
         
         
-          <div class="post-meta mr-3">
+          <div class="post-meta mr-3 d-flex align-items-center">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/web%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">web前端学习笔记</a>
-            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/web%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">web前端学习笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
           </div>
         
         
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/front-end/">front-end</a>
+              <a href="/tags/front-end/">#front-end</a>
             
-              <a href="/tags/CSS/">CSS</a>
+              <a href="/tags/CSS/">#CSS</a>
             
           </div>
         
@@ -317,59 +363,12 @@ width: 0;
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/posts/eab54a24.html" target="_blank">
-          
-          
-            
-          
-          快捷键
-
-
-按键
-功能
-
-
-
-Ctrl + D
-选中下一个相同字符
-
-
-Ctrl + Shift + L
-选择所有出现的当前选择
-
-
-Ctrl + F2
-选择所有出现的当前单词
-
-
-Alt + 鼠标点击
-多行光标
-
-
-中键下拉
-多行光标
-
-
-按住 Ctrl
-对整个单词进行处理
-
-
-Alt + ↑/↓
-上/下移动行
-
-
-Ctrl + B
-侧边栏显示/隐藏
-
-
-Ctrl + L
-选择当前行
-
-
-Ctr
-        </a>
-      </p>
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/eab54a24.html" target="_blank">
+        <div>
+          快捷键   按键 功能    Ctrl + D 选中下一个相同字符   Ctrl + Shift + L 选择所有出现的当前选择   Ctrl + F2 选择所有出现的当前单词   Alt + 鼠标点击 多行光标   中键下拉 多行光标   按住 Ctrl 对整个单词进行处理   Alt + ↑/↓ 上/下移动行   Ctrl + B 侧边栏显示/隐藏   Ctrl + L 选择当前行   Ctr
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -381,22 +380,36 @@ Ctr
           </div>
         
         
-          <div class="post-meta mr-3">
+          <div class="post-meta mr-3 d-flex align-items-center">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E5%AE%9E%E7%94%A8/">实用</a>
-            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AE%9E%E7%94%A8/" class="category-chain-item">实用</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
           </div>
         
         
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/Hotkeys/">Hotkeys</a>
+              <a href="/tags/Hotkeys/">#Hotkeys</a>
             
-              <a href="/tags/VS-Code/">VS Code</a>
+              <a href="/tags/VS-Code/">#VS Code</a>
             
-              <a href="/tags/Emment/">Emment</a>
+              <a href="/tags/Emment/">#Emment</a>
             
           </div>
         
@@ -415,41 +428,12 @@ Ctr
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/posts/c34887c6.html" target="_blank">
-          
-          
-            
-          
-          设置Path系统变量控制面板 - 系统与安全 - 系统 - 高级系统设置 - 环境变量 - 系统变量Path - 编辑 - 添加需要的路径
-Git指令
-
-
-指令
-含义
-
-
-
-git init
-初始化一个仓库
-
-
-git log
-工作日志
-
-
-git status
-文件状态
-
-
-git diff
-工作区与暂存区的差异
-
-
-git diff –cached  […]
-比较暂存区与最新本地版本库（本地库
-        </a>
-      </p>
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/c34887c6.html" target="_blank">
+        <div>
+          设置Path系统变量控制面板 - 系统与安全 - 系统 - 高级系统设置 - 环境变量 - 系统变量Path - 编辑 - 添加需要的路径 Git指令   指令 含义    git init 初始化一个仓库   git log 工作日志   git status 文件状态   git diff 工作区与暂存区的差异   git diff –cached  […] 比较暂存区与最新本地版本库（本地库
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -461,22 +445,36 @@ git diff –cached  […]
           </div>
         
         
-          <div class="post-meta mr-3">
+          <div class="post-meta mr-3 d-flex align-items-center">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E5%AE%9E%E7%94%A8/">实用</a>
-            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AE%9E%E7%94%A8/" class="category-chain-item">实用</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
           </div>
         
         
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/PATH-Environment-Variable/">PATH Environment Variable</a>
+              <a href="/tags/PATH-Environment-Variable/">#PATH Environment Variable</a>
             
-              <a href="/tags/Git/">Git</a>
+              <a href="/tags/Git/">#Git</a>
             
-              <a href="/tags/SSH/">SSH</a>
+              <a href="/tags/SSH/">#SSH</a>
             
           </div>
         
@@ -495,62 +493,12 @@ git diff –cached  […]
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/posts/195a5003.html" target="_blank">
-          
-          
-            
-          
-          
-
-
-Dec
-Hex
-char
-功能
-
-
-
-10
-0A
-\n
-换行LF(Line Feed)
-
-
-13
-0D
-\r
-回车CR(Carriage Return)
-
-
-32
-20
-\b
-空格
-
-
-48
-30
-0
-0
-
-
-65
-41
-A
-A
-
-
-97
-61
-a
-a
-
-
-Windows采用CRLF(odoa)进行换行，UNIX/Linux采用LF(oa)换行，MAC OS采用CR(od)换行。
-
-        </a>
-      </p>
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/195a5003.html" target="_blank">
+        <div>
+          Dec Hex char 功能    10 0A \n 换行LF(Line Feed)   13 0D \r 回车CR(Carriage Return)   32 20 \b 空格   48 30 0 0   65 41 A A   97 61 a a   Windows采用CRLF(odoa)进行换行，UNIX/Linux采用LF(oa)换行，MAC OS采用CR(od)换行。
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -562,18 +510,32 @@ Windows采用CRLF(odoa)进行换行，UNIX/Linux采用LF(oa)换行，MAC OS采�
           </div>
         
         
-          <div class="post-meta mr-3">
+          <div class="post-meta mr-3 d-flex align-items-center">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E5%AE%9E%E7%94%A8/">实用</a>
-            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AE%9E%E7%94%A8/" class="category-chain-item">实用</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
           </div>
         
         
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/ASCII/">ASCII</a>
+              <a href="/tags/ASCII/">#ASCII</a>
             
           </div>
         
@@ -592,34 +554,12 @@ Windows采用CRLF(odoa)进行换行，UNIX/Linux采用LF(oa)换行，MAC OS采�
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/posts/e3b822c7.html" target="_blank">
-          
-          
-            
-          
-          JPG
-有损压缩，压缩率很高，一般能够压缩到原始数据量的十分之一
-质量越差，体积越小
-现实世界的照片
-
-PNG
-无损压缩
-适合存储大片完全相同颜色的图片，典型的就是软件的截图
-不适合用来保存照片
-支持透明色（Alpha通道）
-每个点实际上由4个字节组成
-Red Green Blue Alpha
-
-
-
-GIF
-动图
-从颜色表抽样出256种颜色
-无损压缩(原始图片颜色数量不足256色时)
-会有压缩过程
-        </a>
-      </p>
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/e3b822c7.html" target="_blank">
+        <div>
+          JPG 有损压缩，压缩率很高，一般能够压缩到原始数据量的十分之一 质量越差，体积越小 现实世界的照片  PNG 无损压缩 适合存储大片完全相同颜色的图片，典型的就是软件的截图 不适合用来保存照片 支持透明色（Alpha通道） 每个点实际上由4个字节组成 Red Green Blue Alpha    GIF 动图 从颜色表抽样出256种颜色 无损压缩(原始图片颜色数量不足256色时) 会有压缩过程
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -631,18 +571,32 @@ GIF
           </div>
         
         
-          <div class="post-meta mr-3">
+          <div class="post-meta mr-3 d-flex align-items-center">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E5%AE%9E%E7%94%A8/">实用</a>
-            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AE%9E%E7%94%A8/" class="category-chain-item">实用</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
           </div>
         
         
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/Image/">Image</a>
+              <a href="/tags/Image/">#Image</a>
             
           </div>
         
@@ -661,20 +615,12 @@ GIF
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/posts/afe83c00.html" target="_blank">
-          
-          
-            
-          
-          简介
-每一条JS语句后面必须加分号。
-所有JS代码必须写在 script 标签里。为了规范，script 标签写在 head 标签中。
-可以引用多个 script 标签，顺序执行。
-用 src 可以引入外部js文件。若当前 script 标签作用为引入外部文件，不能再写代码。
-注释12345// 单行注释   快捷键 Ctrl + / /*    多行注释    快捷键 Ctrl + Shift 
-        </a>
-      </p>
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/posts/afe83c00.html" target="_blank">
+        <div>
+          简介 每一条JS语句后面必须加分号。 所有JS代码必须写在 script 标签里。为了规范，script 标签写在 head 标签中。 可以引用多个 script 标签，顺序执行。 用 src 可以引入外部js文件。若当前 script 标签作用为引入外部文件，不能再写代码。 注释12345// 单行注释   快捷键 Ctrl + / /*    多行注释    快捷键 Ctrl + Shift
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -686,20 +632,34 @@ GIF
           </div>
         
         
-          <div class="post-meta mr-3">
+          <div class="post-meta mr-3 d-flex align-items-center">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/web%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">web前端学习笔记</a>
-            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/web%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="category-chain-item">web前端学习笔记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
           </div>
         
         
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/front-end/">front-end</a>
+              <a href="/tags/front-end/">#front-end</a>
             
-              <a href="/tags/JavaScript/">JavaScript</a>
+              <a href="/tags/JavaScript/">#JavaScript</a>
             
           </div>
         
@@ -724,17 +684,12 @@ GIF
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/posts/aee93aa1.html" target="_blank">
-          
-          
-            
-          
-          下载相关工具及包
-安装OpenCV相关工具
-1234sudo apt install build-essential cmake git pkg-config libgtk-3-dev libcanberra-gtk*sudo apt install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev l
-        </a>
-      </p>
+      
+      <a class="index-excerpt " href="/posts/aee93aa1.html" target="_blank">
+        <div>
+          下载相关工具及包 安装OpenCV相关工具 1234sudo apt install build-essential cmake git pkg-config libgtk-3-dev libcanberra-gtk*sudo apt install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev l
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -746,20 +701,34 @@ GIF
           </div>
         
         
-          <div class="post-meta mr-3">
+          <div class="post-meta mr-3 d-flex align-items-center">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>
-            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/" class="category-chain-item">树莓派</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
           </div>
         
         
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/Raspberry-Pi/">Raspberry Pi</a>
+              <a href="/tags/Raspberry-Pi/">#Raspberry Pi</a>
             
-              <a href="/tags/OpenCV/">OpenCV</a>
+              <a href="/tags/OpenCV/">#OpenCV</a>
             
           </div>
         
@@ -784,19 +753,12 @@ GIF
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/posts/5d108ff3.html" target="_blank">
-          
-          
-            
-          
-          设置共享文件
-
-设置 → 网络和Internet → 网络和共享中心 → 更改高级共享选项 → 来宾或公用 → 启用网络发现、启用文件和打印机共享 → 所有网络 → 启用共享 → 保存更改
-需要共享的文件或盘符 → 右键“属性” → 安全 → 编辑 → 添加 → 输入“everyone” → 确定 → 点击“Everyone” → 下方“Everyone的权限”根据需要修改
-属性里的“共享”选项卡
-        </a>
-      </p>
+      
+      <a class="index-excerpt " href="/posts/5d108ff3.html" target="_blank">
+        <div>
+          设置共享文件  设置 → 网络和Internet → 网络和共享中心 → 更改高级共享选项 → 来宾或公用 → 启用网络发现、启用文件和打印机共享 → 所有网络 → 启用共享 → 保存更改 需要共享的文件或盘符 → 右键“属性” → 安全 → 编辑 → 添加 → 输入“everyone” → 确定 → 点击“Everyone” → 下方“Everyone的权限”根据需要修改 属性里的“共享”选项卡
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -808,18 +770,32 @@ GIF
           </div>
         
         
-          <div class="post-meta mr-3">
+          <div class="post-meta mr-3 d-flex align-items-center">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E5%AE%9E%E7%94%A8/">实用</a>
-            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%AE%9E%E7%94%A8/" class="category-chain-item">实用</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
           </div>
         
         
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/Data-transmission/">Data transmission</a>
+              <a href="/tags/Data-transmission/">#Data transmission</a>
             
           </div>
         
@@ -844,24 +820,12 @@ GIF
         </a>
       </h1>
 
-      <p class="index-excerpt">
-        <a href="/posts/f50c86cf.html" target="_blank">
-          
-          
-            
-          
-          SFTP
-下载FileZilla
-主机填入 sftp://树莓派IP，用户名和密码填自己树莓派的设置
-直接将本地站点里的文件拖入右边远程站点
-
-Samba
-安装samba软件 
-1sudo apt-get install samba samba-common-bin -y
-配置 /etc/samba/smb.conf 文件
-123456789101112131415161718sudo nano 
-        </a>
-      </p>
+      
+      <a class="index-excerpt " href="/posts/f50c86cf.html" target="_blank">
+        <div>
+          SFTP 下载FileZilla 主机填入 sftp://树莓派IP，用户名和密码填自己树莓派的设置 直接将本地站点里的文件拖入右边远程站点  Samba 安装samba软件  1sudo apt-get install samba samba-common-bin -y  配置 /etc/samba/smb.conf 文件 123456789101112131415161718sudo nano
+        </div>
+      </a>
 
       <div class="index-btm post-metas">
         
@@ -873,22 +837,36 @@ Samba
           </div>
         
         
-          <div class="post-meta mr-3">
+          <div class="post-meta mr-3 d-flex align-items-center">
             <i class="iconfont icon-category"></i>
             
-              <a href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/">树莓派</a>
-            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/" class="category-chain-item">树莓派</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
           </div>
         
         
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/Data-transmission/">Data transmission</a>
+              <a href="/tags/Data-transmission/">#Data transmission</a>
             
-              <a href="/tags/Raspberry-Pi/">Raspberry Pi</a>
+              <a href="/tags/Raspberry-Pi/">#Raspberry Pi</a>
             
-              <a href="/tags/NAS/">NAS</a>
+              <a href="/tags/NAS/">#NAS</a>
             
           </div>
         
@@ -914,7 +892,7 @@ Samba
     
 
     
-      <a id="scroll-top-button" href="#" role="button">
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
         <i class="iconfont icon-arrowup" aria-hidden="true"></i>
       </a>
     
@@ -933,32 +911,34 @@ Samba
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
     </div>
   </div>
 </div>
+
     
 
     
   </main>
 
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <i class="iconfont icon-copyright"></i>2020-2022 By Fehek <br> POWER BY <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>HEXO</span></a> 
-  </div>
+  <footer>
+    <div class="footer-inner">
   
-
+    <div class="footer-content">
+       <i class="iconfont icon-copyright"></i>2020-2022 By Fehek <br> POWER BY <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>HEXO</span></a> 
+    </div>
   
-
   
-</footer>
+  
+  
+</div>
 
+  </footer>
 
-  <!-- SCRIPTS -->
+  <!-- Scripts -->
   
   <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
@@ -977,26 +957,29 @@ Samba
 <script  src="/js/events.js" ></script>
 <script  src="/js/plugins.js" ></script>
 
-<!-- Plugins -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
 
 
   
     <script  src="/js/img-lazyload.js" ></script>
   
 
-
-
-  
-
-
-
-
-
-
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js" ></script>
 
 
 
@@ -1006,35 +989,15 @@ Samba
 
 
 
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 主题的启动项 保持在最底部 -->
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
 <script  src="/js/boot.js" ></script>
 
 
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
 </body>
 </html>
